@@ -9,751 +9,588 @@
 <meta property="og:title" content="From Tools to Impact – The Living Lab">
 <meta property="og:description" content="Work with AI like a strategic partner: choose the right platform, change habits, show evidence.">
 <style>
-  :root{--navy:#002B49;--gold:#D4AF37;--gold2:#bfa02e;--bg:#f7f9fc}
-  html,body{font-family:'Inter',system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);scroll-behavior:smooth}
-  .header-bg{background:var(--navy)} .accent{color:var(--gold)}
-  .sparkle{background:
-    radial-gradient(1000px 400px at 10% -10%, rgba(212,175,55,.18), transparent 60%),
-    radial-gradient(800px 400px at 90% 10%, rgba(0,43,73,.20), transparent 55%),
-    linear-gradient(180deg,#031b2b 0%,#002B49 40%,#022b46 100%)}
-  .gold-btn{background:var(--gold);color:var(--navy);font-weight:800;transition:.15s} .gold-btn:hover{background:var(--gold2)}
-  .glow{box-shadow:0 10px 24px rgba(0,0,0,.08),0 0 0 1px rgba(0,43,73,.06)} .lift{transition:transform .15s,box-shadow .15s} .lift:hover{transform:translateY(-1px);box-shadow:0 12px 22px rgba(0,0,0,.12)}
-  .underline-anim{height:4px;width:90px;border-radius:9999px;background:linear-gradient(90deg,#D4AF37,#ffe9a3,#D4AF37);background-size:200% 100%;animation:shimmer 2.5s linear infinite}
-  @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
-  .tooltip{position:relative;cursor:help} .tip{display:none;position:absolute;z-index:30;left:0;top:110%;min-width:220px;background:#fff;border:1px solid #e5e7eb;border-radius:.5rem;padding:.5rem .75rem;box-shadow:0 10px 24px rgba(0,0,0,.12)}
-  .tooltip:hover .tip{display:block}
-  /* Sidebar */
-  .sidebar{position:sticky;top:0;max-height:100dvh}
-  .mobile-nav{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:50}
-  .mobile-panel{position:fixed;top:0;left:0;height:100dvh;width:86%;max-width:320px;background:#fff;padding:1rem;box-shadow:0 20px 40px rgba(0,0,0,.25)}
-  .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:60}
-  .modal.open{display:flex}
-  .modal-card{background:#fff;border-radius:.75rem;max-width:720px;width:92%;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+  :root{--navy:#002B49;--gold:#D4AF37;--gold2:#bfa02e;--bg:#f7f9fc}
+  html,body{font-family:'Inter',system-ui,Segoe UI,Roboto,sans-serif;background:var(--bg);scroll-behavior:smooth}
+  .header-bg{background:var(--navy)} .accent{color:var(--gold)}
+  .sparkle{background:
+    radial-gradient(1000px 400px at 10% -10%, rgba(212,175,55,.18), transparent 60%),
+    radial-gradient(800px 400px at 90% 10%, rgba(0,43,73,.20), transparent 55%),
+    linear-gradient(180deg,#031b2b 0%,#002B49 40%,#022b46 100%)}
+  .gold-btn{background:var(--gold);color:var(--navy);font-weight:800;transition:.15s} .gold-btn:hover{background:var(--gold2)}
+  .glow{box-shadow:0 10px 24px rgba(0,0,0,.08),0 0 0 1px rgba(0,43,73,.06)} .lift{transition:transform .15s,box-shadow .15s} .lift:hover{transform:translateY(-1px);box-shadow:0 12px 22px rgba(0,0,0,.12)}
+  .underline-anim{height:4px;width:90px;border-radius:9999px;background:linear-gradient(90deg,#D4AF37,#ffe9a3,#D4AF37);background-size:200% 100%;animation:shimmer 2.5s linear infinite}
+  @keyframes shimmer{0%{background-position:0% 50%}100%{background-position:200% 50%}}
+  /* Sidebar + overlays */
+  .sidebar{position:sticky;top:0;max-height:100dvh}
+  .mobile-nav{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;z-index:50}
+  .mobile-panel{position:fixed;top:0;left:0;height:100dvh;width:86%;max-width:320px;background:#fff;padding:1rem;box-shadow:0 20px 40px rgba(0,0,0,.25)}
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:60}
+  .modal.open{display:flex}
+  .modal-card{background:#fff;border-radius:.75rem;max-width:740px;width:92%;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+  /* Help chip */
+  .chip{display:inline-flex;align-items:center;justify-content:center;height:24px;width:24px;border-radius:999px;font-size:12px;font-weight:800;background:#fff;border:1px solid #e5e7eb;color:#111;cursor:pointer}
+  .chip-tip{display:none;position:absolute;z-index:30;left:-100px;top:110%;min-width:220px;background:#fff;border:1px solid #e5e7eb;border-radius:.5rem;padding:.5rem .75rem;box-shadow:0 10px 24px rgba(0,0,0,.12)}
+  .chip-wrap{position:relative;display:inline-block}
+  .chip-wrap.show .chip-tip{display:block}
 </style>
 </head>
 <body class="text-gray-800">
 
-<!-- Top bar (mobile) -->
 <div class="md:hidden header-bg sparkle text-white">
-  <div class="flex items-center justify-between px-4 py-3">
-    <a href="#home" class="font-extrabold text-lg">The Living Lab</a>
-    <button class="border-2 border-white rounded px-3 py-1" onclick="openMobile()">Menu</button>
-  </div>
+  <div class="flex items-center justify-between px-4 py-3">
+    <a href="#home" class="font-extrabold text-lg">The Living Lab</a>
+    <button class="border-2 border-white rounded px-3 py-1" onclick="openMobile()">Menu</button>
+  </div>
 </div>
 
-<!-- layout -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-[260px_minmax(0,1fr)] gap-6 py-6">
 
-  <!-- Sidebar (desktop) -->
-  <aside class="hidden md:block sidebar">
-    <div class="bg-white rounded-xl p-4 glow">
-      <div class="text-xl font-extrabold text-[--navy] mb-1">The Living Lab</div>
-      <p class="text-xs text-gray-600 mb-3">From Tools to Impact</p>
-      <nav class="space-y-1 text-sm">
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#about">What is this?</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#guided">Guided Mode</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#framework">Impact Ladder</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#planner">Planner</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#data-prep">Data Prep Coach</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#platform-finder">AI Platform Finder</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#risen">RISEN Studio</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#story">3-Sentence Story</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#ten-day">10-Day Plan</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#process-plug">Process Plug-In</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#connect">Join</a>
-      </nav>
-    </div>
-  </aside>
+    <aside class="hidden md:block sidebar">
+    <div class="bg-white rounded-xl p-4 glow">
+      <div class="text-xl font-extrabold text-[--navy] mb-1">The Living Lab</div>
+      <p class="text-xs text-gray-600 mb-3">From Tools to Impact</p>
+      <nav class="space-y-1 text-sm">
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#about">What is this?</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#guided">Guided Mode</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#framework">Impact Ladder</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#planner">Planner</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#data-prep">Data Prep Coach</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#platform-finder">AI Platform Finder</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#risen">RISEN Studio</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#story">3-Sentence Story</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#ten-day">10-Day Plan</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#process-plug">Process Plug-In</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#sell">Sell It</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#connect">Join</a>
+      </nav>
+    </div>
+  </aside>
 
-  <!-- Mobile drawer -->
-  <div id="mobileNav" class="mobile-nav" onclick="closeMobile()">
-    <div class="mobile-panel" onclick="event.stopPropagation()">
-      <div class="flex items-center justify-between">
-        <div class="font-extrabold text-[--navy] text-lg">The Living Lab</div>
-        <button onclick="closeMobile()">✕</button>
-      </div>
-      <nav class="mt-3 space-y-1 text-sm">
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#about" onclick="closeMobile()">What is this?</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#guided" onclick="closeMobile()">Guided Mode</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#framework" onclick="closeMobile()">Impact Ladder</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#planner" onclick="closeMobile()">Planner</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#data-prep" onclick="closeMobile()">Data Prep Coach</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#platform-finder" onclick="closeMobile()">AI Platform Finder</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#risen" onclick="closeMobile()">RISEN Studio</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#story" onclick="closeMobile()">3-Sentence Story</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#ten-day" onclick="closeMobile()">10-Day Plan</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#process-plug" onclick="closeMobile()">Process Plug-In</a>
-        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#connect" onclick="closeMobile()">Join</a>
-      </nav>
-    </div>
-  </div>
+    <div id="mobileNav" class="mobile-nav" onclick="closeMobile()">
+    <div class="mobile-panel" onclick="event.stopPropagation()">
+      <div class="flex items-center justify-between">
+        <div class="font-extrabold text-[--navy] text-lg">The Living Lab</div>
+        <button onclick="closeMobile()">✕</button>
+      </div>
+      <nav class="mt-3 space-y-1 text-sm">
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#about" onclick="closeMobile()">What is this?</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#guided" onclick="closeMobile()">Guided Mode</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#framework" onclick="closeMobile()">Impact Ladder</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#planner" onclick="closeMobile()">Planner</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#data-prep" onclick="closeMobile()">Data Prep Coach</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#platform-finder" onclick="closeMobile()">Platform Finder</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#risen" onclick="closeMobile()">RISEN</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#story" onclick="closeMobile()">Story</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#ten-day" onclick="closeMobile()">10-Day</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#process-plug" onclick="closeMobile()">Process Plug-In</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#sell" onclick="closeMobile()">Sell It</a>
+        <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#connect" onclick="closeMobile()">Join</a>
+      </nav>
+    </div>
+  </div>
 
-  <!-- Main -->
-  <main>
+    <main>
 
-    <!-- HERO / ABOUT -->
-    <section id="home" class="header-bg sparkle text-white rounded-xl p-6 glow">
-      <h1 class="text-4xl font-extrabold mb-2 accent">From Tools to Impact</h1>
-      <p class="text-lg opacity-95">Technology doesn’t change classrooms—people do. This site turns AI into a thinking partner, not a crutch.</p>
-    </section>
+        <section id="home" class="header-bg sparkle text-white rounded-xl p-6 glow">
+      <h1 class="text-4xl font-extrabold mb-2 accent">From Tools to Impact</h1>
+      <p class="text-lg opacity-95">Turn AI into a thinking partner, not a crutch. Pick the right tool, change the habit, show the evidence.</p>
+    </section>
 
-    <section id="about" class="mt-6 bg-white rounded-xl p-6 glow">
-      <div class="underline-anim mb-3"></div>
-      <h2 class="text-2xl font-extrabold mb-2">What is this place? How do I use it?</h2>
-      <p class="text-gray-700 mb-3">This is a living, do-it-now toolkit. Every section has a clear purpose, plain steps, and an export. You’ll frame a smart prompt (RISEN), plan a habit, prep data correctly, choose the right platform on purpose, tell the story, and sprint for 10 days.</p>
-      <ol class="list-decimal ml-5 text-sm space-y-1">
-        <li><strong>Start Guided Mode</strong> (pick your role). It fills good defaults and jumps you section→section.</li>
-        <li><strong>Planner</strong> turns a tool into a weekly habit with owner, cadence, and outcome.</li>
-        <li><strong>Data Prep Coach</strong> translates “squishy idea” → AI-ready spec + CSV + checklist.</li>
-        <li><strong>AI Platform Finder</strong> selects categories + gives search strings and a rubric (examples included).</li>
-        <li><strong>Story</strong> makes a board-ready 3-liner; <strong>10-Day Plan</strong> seeds execution.</li>
-      </ol>
-      <p class="text-xs text-gray-500 mt-2">Badges you’ll see: <span class="font-semibold">[Drop-in AI]</span> output is designed to paste directly into a model; <span class="font-semibold">[Human workflow]</span> is for teams/systems.</p>
-    </section>
+    <section id="about" class="mt-6 bg-white rounded-xl p-6 glow">
+      <div class="underline-anim mb-3"></div>
+      <h2 class="text-2xl font-extrabold mb-2">What is this place? How do I use it?</h2>
+      <p class="text-gray-800 mb-3">A do-it-now site for teachers, leaders, and central office. Every section tells you why it matters, what to type, and gives you something to **copy, download, or email**.</p>
+      <ol class="list-decimal ml-5 text-sm space-y-1">
+        <li>**Guided Mode** (choose your role). It clicks you through: prompt → plan → data → platform → story → sprint.</li>
+        <li>**Planner** locks the weekly habit (owner, cadence, outcome, standards/policy).</li>
+        <li>**Data Prep Coach** turns a squishy idea into AI-ready spec + CSV + checklist.</li>
+        <li>**Platform Finder** helps you pick the right category and search strings (w/ examples).</li>
+        <li>**Story** makes the 3-liner; **10-Day** seeds realistic steps (templates included).</li>
+      </ol>
+      <p class="text-xs text-gray-500 mt-2">Badges: <span class="font-semibold">[Drop-in AI]</span> = paste directly into a model; <span class="font-semibold">[Human workflow]</span> = use with your team.</p>
+    </section>
 
-    <!-- GUIDED -->
-    <section id="guided" class="mt-6 bg-white rounded-xl p-6 glow">
-      <div class="flex items-center gap-2 mb-2">
-        <span class="text-xs px-2 py-1 rounded bg-yellow-100 border">7 minutes</span>
-        <h2 class="text-2xl font-extrabold">Guided Mode</h2>
-      </div>
-      <p class="text-gray-700 mb-3">Work like Elizabeth: prompt → planner → data spec → platform → story → sprint.</p>
-      <div class="flex flex-wrap gap-2 mb-4">
-        <button class="gold-btn lift px-4 py-2 rounded" onclick="startGuided('teacher')">Teacher</button>
-        <button class="gold-btn lift px-4 py-2 rounded" onclick="startGuided('leader')">Leader</button>
-        <button class="gold-btn lift px-4 py-2 rounded" onclick="startGuided('central')">Central Office</button>
-        <button class="gold-btn lift px-4 py-2 rounded" onclick="startGuided('coach')">SPED / EB / Coach</button>
-      </div>
-      <div id="guided-panel" class="hidden">
-        <div class="bg-amber-50 border-l-4 border-amber-400 p-3 rounded mb-3">
-          <p id="guided-why" class="text-sm"></p>
-        </div>
-        <div class="bg-gray-50 border rounded p-4">
-          <p class="text-sm mb-2"><strong>Step <span id="guided-step-num">1</span>:</strong> <span id="guided-step-title"></span></p>
-          <div id="guided-step-body" class="text-sm text-gray-800"></div>
-          <div class="mt-3 flex gap-2">
-            <button class="px-3 py-2 rounded border" onclick="prevGuided()">Back</button>
-            <button class="gold-btn px-3 py-2 rounded" onclick="nextGuided()">Next</button>
-          </div>
-        </div>
-      </div>
-    </section>
+        <section id="guided" class="mt-6 bg-white rounded-xl p-6 glow">
+      <div class="flex items-center gap-2 mb-2">
+        <span class="text-xs px-2 py-1 rounded bg-yellow-100 border">7 minutes</span>
+        <h2 class="text-2xl font-extrabold">Guided Mode</h2>
+      </div>
+      <p class="text-gray-700 mb-3">Click your role. The site pre-fills good examples and walks you through the flow.</p>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <button class="gold-btn lift px-4 py-2 rounded" onclick="startGuided('teacher')">Teacher</button>
+        <button class="gold-btn lift px-4 py-2 rounded" onclick="startGuided('leader')">Leader</button>
+        <button class="gold-btn lift px-4 py-2 rounded" onclick="startGuided('central')">Central Office</button>
+        <button class="gold-btn lift px-4 py-2 rounded" onclick="startGuided('coach')">SPED / EB / Coach</button>
+      </div>
+      <div id="guided-panel" class="hidden">
+        <div class="bg-amber-50 border-l-4 border-amber-400 p-3 rounded mb-3">
+          <p id="guided-why" class="text-sm"></p>
+        </div>
+        <div class="bg-gray-50 border rounded p-4">
+          <p class="text-sm mb-2"><strong>Step <span id="guided-step-num">1</span>:</strong> <span id="guided-step-title"></span></p>
+          <div id="guided-step-body" class="text-sm text-gray-800"></div>
+          <div class="mt-3 flex gap-2">
+            <button class="px-3 py-2 rounded border" onclick="prevGuided()">Back</button>
+            <button class="gold-btn px-3 py-2 rounded" onclick="nextGuided()">Next</button>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <!-- IMPACT LADDER -->
-    <section id="framework" class="mt-6 bg-white rounded-xl p-6 glow">
-      <h2 class="text-2xl font-extrabold mb-1">Core Framework: The Impact Ladder</h2>
-      <div class="text-sm text-gray-700 mb-3">Move intentionally from a <strong>tool</strong> to <strong>habit</strong> to <strong>outcome</strong> to <strong>evidence</strong>.</div>
-      <div class="grid grid-cols-5 text-center text-xs font-bold text-gray-600 mb-4">
-        <div class="p-2 border-b-4 border-[--navy]">1. Tool</div>
-        <div class="p-2 border-b-4 border-[--navy]">2. Use</div>
-        <div class="p-2 border-b-4 border-[--navy]">3. Behavior</div>
-        <div class="p-2 border-b-4 border-[--navy]">4. Outcome</div>
-        <div class="p-2 border-b-4 border-[--navy]">5. Evidence</div>
-      </div>
-      <div class="flex gap-2 border-b pb-2">
-        <button id="tab-stu" class="px-3 py-2 border-b-2 border-[--gold] font-bold">Student</button>
-        <button id="tab-lea" class="px-3 py-2 text-gray-500">Leader</button>
-      </div>
-      <div id="ladder-stu" class="mt-3">
-        <div class="grid md:grid-cols-5 gap-3 text-center text-sm">
-          <div class="p-3 bg-red-50 rounded">Flip / ChatGPT</div>
-          <div class="p-3 bg-orange-50 rounded">Storyboard → present</div>
-          <div class="p-3 bg-yellow-50 rounded">Peer feedback stems</div>
-          <div class="p-3 bg-green-50 rounded">Confidence ↑</div>
-          <div class="p-3 bg-blue-50 rounded">Rubric growth</div>
-        </div>
-        <a href="#planner" class="underline text-[--navy] text-sm block mt-2">Turn into a plan →</a>
-      </div>
-      <div id="ladder-lea" class="hidden mt-3">
-        <div class="grid md:grid-cols-5 gap-3 text-center text-sm">
-          <div class="p-3 bg-red-50 rounded">Dashboard shapes routine</div>
-          <div class="p-3 bg-orange-50 rounded">Weekly data huddle</div>
-          <div class="p-3 bg-yellow-50 rounded">Collaborative solve</div>
-          <div class="p-3 bg-green-50 rounded">Tier-1 alignment</div>
-          <div class="p-3 bg-blue-50 rounded">STAAR ↑ Audit risk ↓</div>
-        </div>
-        <a href="#planner" class="underline text-[--navy] text-sm block mt-2">Make the 10-day sprint →</a>
-      </div>
-    </section>
+        <section id="framework" class="mt-6 bg-white rounded-xl p-6 glow">
+      <h2 class="text-2xl font-extrabold mb-1">Core Framework: The Impact Ladder</h2>
+      <div class="text-sm text-gray-700 mb-3">Move from **tool** → **use** → **behavior** → **outcome** → **evidence**.</div>
+      <div class="grid grid-cols-5 text-center text-xs font-bold text-gray-600 mb-4">
+        <div class="p-2 border-b-4 border-[--navy]">1. Tool</div>
+        <div class="p-2 border-b-4 border-[--navy]">2. Use</div>
+        <div class="p-2 border-b-4 border-[--navy]">3. Behavior</div>
+        <div class="p-2 border-b-4 border-[--navy]">4. Outcome</div>
+        <div class="p-2 border-b-4 border-[--navy]">5. Evidence</div>
+      </div>
+      <div class="flex gap-2 border-b pb-2">
+        <button id="tab-stu" class="px-3 py-2 border-b-2 border-[--gold] font-bold" onclick="switchTab('student')">Student</button>
+        <button id="tab-lea" class="px-3 py-2 text-gray-500" onclick="switchTab('leader')">Leader</button>
+      </div>
+      <div id="ladder-stu" class="mt-3">
+        <div class="grid md:grid-cols-5 gap-3 text-center text-sm">
+          <div class="p-3 bg-red-50 rounded">Flip / LLM</div>
+          <div class="p-3 bg-orange-50 rounded">Storyboard → present</div>
+          <div class="p-3 bg-yellow-50 rounded">Peer feedback stems</div>
+          <div class="p-3 bg-green-50 rounded">Confidence ↑</div>
+          <div class="p-3 bg-blue-50 rounded">Rubric growth</div>
+        </div>
+        <a href="#planner" class="underline text-[--navy] text-sm block mt-2">Turn into a plan →</a>
+      </div>
+      <div id="ladder-lea" class="hidden mt-3">
+        <div class="grid md:grid-cols-5 gap-3 text-center text-sm">
+          <div class="p-3 bg-red-50 rounded">Dashboard shapes routine</div>
+          <div class="p-3 bg-orange-50 rounded">Weekly data huddle</div>
+          <div class="p-3 bg-yellow-50 rounded">Collaborative solve</div>
+          <div class="p-3 bg-green-50 rounded">Tier-1 alignment</div>
+          <div class="p-3 bg-blue-50 rounded">STAAR ↑ Audit risk ↓</div>
+        </div>
+        <a href="#planner" class="underline text-[--navy] text-sm block mt-2">Make the 10-day sprint →</a>
+      </div>
+    </section>
 
-    <!-- PLANNER -->
-    <section id="planner" class="mt-6 bg-white rounded-xl p-6 glow">
-      <div class="flex items-start justify-between">
-        <div>
-          <h2 class="text-2xl font-extrabold">Tool-to-Impact Planner <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-green-100 border">[Human workflow]</span></h2>
-          <p class="text-sm text-gray-700">Define the habit, owner, cadence, and measurable outcome.</p>
-        </div>
-      </div>
-      <div class="grid md:grid-cols-2 gap-3 mt-3">
-        <input id="toolName" class="p-3 border rounded" placeholder="Tool (e.g., Flip, ChatGPT, PowerSchool)">
-        <input id="targetBehavior" class="p-3 border rounded" placeholder="Desired behavior (e.g., peer feedback every Wed)">
-        <input id="measurableOutcome" class="p-3 border rounded" placeholder="Outcome (e.g., +5% attendance; rubric growth)">
-        <input id="owner" class="p-3 border rounded" placeholder="Owner + cadence (e.g., 6th ELA team • weekly)">
-      </div>
-      <div class="mt-3 flex gap-2">
-        <button class="gold-btn px-4 py-2 rounded lift" onclick="generatePlanner()">Generate Plan</button>
-        <button class="px-4 py-2 rounded border lift" onclick="downloadPlan()">Download CSV</button>
-        <button class="px-4 py-2 rounded border lift" onclick="copyPlan()">Copy</button>
-      </div>
-      <div id="planner-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
-    </section>
+        <section id="planner" class="mt-6 bg-white rounded-xl p-6 glow">
+      <div class="flex items-start justify-between">
+        <div>
+          <h2 class="text-2xl font-extrabold">Tool-to-Impact Planner <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-green-100 border">[Human workflow]</span></h2>
+          <p class="text-sm text-gray-700">Define the **habit, owner, cadence, outcome**, and the standard/policy you’re aligned to.</p>
+        </div>
+      </div>
 
-    <!-- DATA PREP COACH -->
-    <section id="data-prep" class="mt-6 bg-white rounded-xl p-6 glow">
-      <h2 class="text-2xl font-extrabold">Data Prep Coach <span class="text-xs ml-2 px-2 py-1 rounded bg-indigo-100 border">[Drop-in AI]</span></h2>
-      <p class="text-sm text-gray-700 mb-2">Turn a messy idea into a clean, AI-ready spec + CSV + checklist.</p>
+      <div class="grid md:grid-cols-2 gap-3 mt-3">
+        <div class="flex items-center gap-2">
+          <input id="toolName" class="p-3 border rounded w-full" placeholder="Tool (e.g., Flip, LLM, PowerSchool)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Name the main tool you’ll use weekly.</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="targetBehavior" class="p-3 border rounded w-full" placeholder="Desired behavior (e.g., peer feedback every Wed)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Describe the repeatable habit, not just “use the tool.”</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="measurableOutcome" class="p-3 border rounded w-full" placeholder="Outcome (e.g., +5% attendance; rubric growth)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Pick one measurable change you can track in 2–6 weeks.</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="owner" class="p-3 border rounded w-full" placeholder="Owner + cadence (e.g., 6th ELA team • weekly)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Who does it, and how often. Cadence beats inspiration.</span></span>
+        </div>
+        <div class="md:col-span-2 flex items-center gap-2">
+          <input id="standardsPolicy" class="p-3 border rounded w-full" placeholder="Standards / Policy / Constraint (e.g., TEKS 6.4B; EDGAR; Local policy)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Paste the exact standard/policy wording you’re addressing.</span></span>
+        </div>
+      </div>
 
-      <div class="text-xs text-gray-600 mb-3 space-x-2">
-        <span class="tooltip">What’s a <strong>field</strong>?<span class="tip">A column in your data table (e.g., <em>student_id</em>, <em>date</em>, <em>status</em>).</span></span>
-        <span class="tooltip">What’s a <strong>join key</strong>?<span class="tip">A unique ID that lets you connect tables (e.g., <em>student_id</em>, <em>campus_id</em>).</span></span>
-        <span class="tooltip">What’s <strong>grain</strong>?<span class="tip">The level of each row (e.g., <em>student/day</em>, <em>campus/week</em>).</span></span>
-      </div>
+      <div class="mt-3 flex gap-2">
+        <button class="gold-btn px-4 py-2 rounded lift" onclick="generatePlanner()">Generate Plan</button>
+        <button class="px-4 py-2 rounded border lift" onclick="downloadPlan()">Download CSV</button>
+        <button class="px-4 py-2 rounded border lift" onclick="copyPlan()">Copy</button>
+      </div>
+      <div id="planner-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+    </section>
 
-      <div class="grid md:grid-cols-2 gap-3">
-        <input id="dp_goal" class="p-3 border rounded" placeholder="Goal/Decision (e.g., reduce no-shows by 3%)">
-        <input id="dp_outcome" class="p-3 border rounded" placeholder="Primary metric (e.g., daily attendance)">
-        <input id="dp_unit" class="p-3 border rounded" placeholder="Grain (student/day, campus/week, teacher/period)">
-        <input id="dp_window" class="p-3 border rounded" placeholder="Time window (e.g., last 6 weeks)">
-        <input id="dp_sources" class="p-3 border rounded" placeholder="Sources (SIS, LMS, HRIS, Surveys)">
-        <input id="dp_ids" class="p-3 border rounded" placeholder="Join keys/IDs (e.g., student_id, campus_id)">
-        <input id="dp_fields" class="p-3 border rounded" placeholder="Fields (comma-separated: student_id,date,status)">
-        <input id="dp_filters" class="p-3 border rounded" placeholder="Filters (e.g., drop withdrawn; exclude alt ed)">
-        <input id="dp_privacy" class="p-3 border rounded" placeholder="Privacy (FERPA/PII/consent; anonymize IDs)">
-        <input id="dp_quality" class="p-3 border rounded" placeholder="Quality checks (missing rules, outlier caps)">
-      </div>
+        <section id="data-prep" class="mt-6 bg-white rounded-xl p-6 glow">
+      <h2 class="text-2xl font-extrabold">Data Prep Coach <span class="text-xs ml-2 px-2 py-1 rounded bg-indigo-100 border">[Drop-in AI]</span></h2>
+      <p class="text-sm text-gray-700 mb-2">Turn a messy idea into an **AI-ready spec + CSV + checklist**. Plain-English help chips explain terms.</p>
 
-      <div class="mt-3 flex flex-wrap gap-2">
-        <button class="gold-btn px-4 py-2 rounded lift" onclick="makeDataSpec()">Generate Spec</button>
-        <button class="px-4 py-2 rounded border lift" onclick="downloadCSVTemplate()">Download CSV Template</button>
-        <button class="px-4 py-2 rounded border lift" onclick="downloadPrepChecklist()">Download Checklist</button>
-        <button class="px-4 py-2 rounded border lift" onclick="copyDataPrompt()">Copy RISEN Data Prompt</button>
-      </div>
+      <div class="grid md:grid-cols-2 gap-3">
+        <div class="flex items-center gap-2">
+          <input id="dp_goal" class="p-3 border rounded w-full" placeholder="Goal/Decision (e.g., reduce no-shows by 3%)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">One sentence: what decision or change will this data drive?</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="dp_outcome" class="p-3 border rounded w-full" placeholder="Primary metric (e.g., daily attendance)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Name the metric you’ll judge progress by.</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="dp_unit" class="p-3 border rounded w-full" placeholder="Grain (student/day, campus/week, teacher/period)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">**Grain** = one row’s level (student/day is common).</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="dp_window" class="p-3 border rounded w-full" placeholder="Time window (e.g., last 6 weeks)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">How far back you’ll analyze; keep it reasonable.</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="dp_sources" class="p-3 border rounded w-full" placeholder="Sources (SIS, LMS, HRIS, Surveys)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Where the data lives (tools/systems/files).</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="dp_ids" class="p-3 border rounded w-full" placeholder="Join keys/IDs (e.g., student_id, campus_id)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">**Join key** = unique ID used to connect tables.</span></span>
+        </div>
+        <div class="flex items-center gap-2 md:col-span-2">
+          <input id="dp_fields" class="p-3 border rounded w-full" placeholder="Fields (comma-separated: student_id,date,status)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">**Fields** = column names you’ll need, in order.</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="dp_filters" class="p-3 border rounded w-full" placeholder="Filters (e.g., drop withdrawn; exclude alt ed)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Who/what to exclude to avoid noise or bias.</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="dp_privacy" class="p-3 border rounded w-full" placeholder="Privacy (FERPA/PII/consent; anonymize IDs)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Don’t upload PII. Use anonymized IDs when possible.</span></span>
+        </div>
+        <div class="flex items-center gap-2 md:col-span-2">
+          <input id="dp_quality" class="p-3 border rounded w-full" placeholder="Quality checks (missing rules, outlier caps)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Define how you’ll spot and fix messy data.</span></span>
+        </div>
+      </div>
 
-      <div class="mt-4 text-xs text-gray-600">
-        <p><strong>Example (attendance):</strong> fields → <code>student_id,date,present,period,reason_code</code> | grain → <code>student/day</code> | join keys → <code>student_id</code></p>
-      </div>
+      <div class="mt-3 flex flex-wrap gap-2">
+        <button class="gold-btn px-4 py-2 rounded lift" onclick="makeDataSpec()">Generate Spec</button>
+        <button class="px-4 py-2 rounded border lift" onclick="downloadCSVTemplate()">Download CSV Template</button>
+        <button class="px-4 py-2 rounded border lift" onclick="downloadPrepChecklist()">Download Checklist</button>
+        <button class="px-4 py-2 rounded border lift" onclick="copyDataPrompt()">Copy RISEN Data Prompt</button>
+      </div>
 
-      <div id="dp_output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
-    </section>
+      <div class="mt-4 text-xs text-gray-700">
+        <p><strong>Example (attendance):</strong> fields → <code>student_id,date,present,period,reason_code</code> | grain → <code>student/day</code> | join keys → <code>student_id</code></p>
+      </div>
 
-    <!-- AI PLATFORM FINDER -->
-    <section id="platform-finder" class="mt-6 bg-white rounded-xl p-6 glow">
-      <h2 class="text-2xl font-extrabold">AI Platform Finder <span class="text-xs ml-2 px-2 py-1 rounded bg-indigo-100 border">[Drop-in AI + Human]</span></h2>
-      <p class="text-sm text-gray-700 mb-2">Pick by need, not hype. Get categories, starter examples, search strings, and a rubric.</p>
+      <div id="dp_output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+    </section>
 
-      <div class="grid md:grid-cols-3 gap-3">
-        <div>
-          <label class="text-xs font-semibold">Goal</label>
-          <select id="pf_goal" class="w-full p-3 border rounded">
-            <option value="create">Create (draft/lesson/handout)</option>
-            <option value="transform">Transform (rewrite/summarize/translate)</option>
-            <option value="analyze">Analyze (data/text/images)</option>
-            <option value="communicate">Communicate (family/board/staff)</option>
-            <option value="automate">Automate (workflows/forms/scheduling)</option>
-          </select>
-        </div>
-        <div>
-          <label class="text-xs font-semibold">Inputs (Cmd/Ctrl to multi-select)</label>
-          <select id="pf_inputs" class="w-full p-3 border rounded" multiple>
-            <option>Text</option><option>Spreadsheet</option><option>PDF</option><option>Images</option><option>Audio/Video</option>
-          </select>
-        </div>
-        <div>
-          <label class="text-xs font-semibold">Outputs</label>
-          <select id="pf_outputs" class="w-full p-3 border rounded" multiple>
-            <option>Document</option><option>Slides</option><option>Email/Message</option><option>Dashboard</option><option>Spreadsheet</option><option>Workflow</option>
-          </select>
-        </div>
-        <div class="md:col-span-3 grid md:grid-cols-3 gap-3">
-          <div>
-            <label class="text-xs font-semibold">Constraints</label>
-            <div class="text-sm space-y-1 mt-1">
-              <label class="block"><input type="checkbox" id="pf_privacy"> Student data/FERPA sensitive</label>
-              <label class="block"><input type="checkbox" id="pf_blocked"> District blocks installs</label>
-              <label class="block"><input type="checkbox" id="pf_no_cost"> No new cost / free only</label>
-              <label class="block"><input type="checkbox" id="pf_low_skill"> Low technical skill</label>
-              <label class="block"><input type="checkbox" id="pf_offline"> Needs offline/exportable</label>
-            </div>
-          </div>
-          <div>
-            <label class="text-xs font-semibold">Collaboration</label>
-            <select id="pf_collab" class="w-full p-3 border rounded mt-1">
-              <option value="solo">Solo</option>
-              <option value="team">Team editing</option>
-              <option value="stakeholders">Stakeholder review/approval</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-xs font-semibold">Time & Risk</label>
-            <select id="pf_time" class="w-full p-3 border rounded mt-1">
-              <option value="minutes">Minutes</option><option value="hour">About an hour</option><option value="day">Day+</option>
-            </select>
-            <select id="pf_risk" class="w-full p-3 border rounded mt-2">
-              <option value="low">Low (drafts)</option><option value="medium">Medium (internal)</option><option value="high">High (public/audit)</option>
-            </select>
-          </div>
-        </div>
-      </div>
+        <section id="platform-finder" class="mt-6 bg-white rounded-xl p-6 glow">
+      <h2 class="text-2xl font-extrabold">AI Platform Finder <span class="text-xs ml-2 px-2 py-1 rounded bg-indigo-100 border">[Drop-in AI + Human]</span></h2>
+      <p class="text-sm text-gray-700 mb-2">Choose by need, not hype. Pick categories, get example tools, copy search strings, use the rubric.</p>
 
-      <div class="mt-3 flex flex-wrap gap-2">
-        <button class="gold-btn px-4 py-2 rounded lift" onclick="recommendPlatforms()">Generate Recommendations</button>
-        <button class="px-4 py-2 rounded border lift" onclick="copyPlatformSearch()">Copy Search Strings</button>
-        <button class="px-4 py-2 rounded border lift" onclick="downloadPlatformRubric()">Download Evaluation Rubric</button>
-      </div>
+      <div class="grid md:grid-cols-3 gap-3">
+        <div>
+          <label class="text-xs font-semibold">Goal</label>
+          <select id="pf_goal" class="w-full p-3 border rounded">
+            <option value="create">Create (draft/lesson/handout)</option>
+            <option value="transform">Transform (rewrite/summarize/translate)</option>
+            <option value="analyze">Analyze (data/text/images)</option>
+            <option value="communicate">Communicate (family/board/staff)</option>
+            <option value="automate">Automate (workflows/forms/scheduling)</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-xs font-semibold">Inputs (Cmd/Ctrl to multi-select)</label>
+          <select id="pf_inputs" class="w-full p-3 border rounded" multiple>
+            <option>Text</option><option>Spreadsheet</option><option>PDF</option><option>Images</option><option>Audio/Video</option>
+          </select>
+        </div>
+        <div>
+          <label class="text-xs font-semibold">Outputs</label>
+          <select id="pf_outputs" class="w-full p-3 border rounded" multiple>
+            <option>Document</option><option>Slides</option><option>Email/Message</option><option>Dashboard</option><option>Spreadsheet</option><option>Workflow</option>
+          </select>
+        </div>
+        <div class="md:col-span-3 grid md:grid-cols-3 gap-3">
+          <div>
+            <label class="text-xs font-semibold">Constraints</label>
+            <div class="text-sm space-y-1 mt-1">
+              <label class="block"><input type="checkbox" id="pf_privacy"> Student data/FERPA sensitive</label>
+              <label class="block"><input type="checkbox" id="pf_blocked"> District blocks installs</label>
+              <label class="block"><input type="checkbox" id="pf_no_cost"> No new cost / free only</label>
+              <label class="block"><input type="checkbox" id="pf_low_skill"> Low technical skill</label>
+              <label class="block"><input type="checkbox" id="pf_offline"> Needs offline/exportable</label>
+            </div>
+          </div>
+          <div>
+            <label class="text-xs font-semibold">Collaboration</label>
+            <select id="pf_collab" class="w-full p-3 border rounded mt-1">
+              <option value="solo">Solo</option>
+              <option value="team">Team editing</option>
+              <option value="stakeholders">Stakeholder review/approval</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-xs font-semibold">Time & Risk</label>
+            <select id="pf_time" class="w-full p-3 border rounded mt-1">
+              <option value="minutes">Minutes</option><option value="hour">About an hour</option><option value="day">Day+</option>
+            </select>
+            <select id="pf_risk" class="w-full p-3 border rounded mt-2">
+              <option value="low">Low (drafts)</option><option value="medium">Medium (internal)</option><option value="high">High (public/audit)</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
-      <!-- Examples block -->
-      <div class="mt-5 p-4 bg-gray-50 border rounded text-sm">
-        <p class="font-semibold mb-2">Starter platforms to explore (then search for similar tools):</p>
-        <div class="grid md:grid-cols-2 gap-3">
-          <div>
-            <p class="font-semibold">General LLMs</p>
-            <ul class="list-disc list-inside">
-              <li>ChatGPT (Freemium)</li>
-              <li>Claude (Freemium)</li>
-              <li>Gemini (Freemium)</li>
-            </ul>
-          </div>
-          <div>
-            <p class="font-semibold">Slides / Docs from prompts</p>
-            <ul class="list-disc list-inside">
-              <li>Gamma (Freemium)</li>
-              <li>Canva Docs/Presentations (Freemium)</li>
-              <li>Microsoft Copilot for PowerPoint (Paid)</li>
-            </ul>
-          </div>
-          <div>
-            <p class="font-semibold">Data analysis (CSV/Sheets)</p>
-            <ul class="list-disc list-inside">
-              <li>Google Sheets (Free)</li>
-              <li>Excel + Analyze (Paid)</li>
-              <li>Power BI / Tableau Public (Freemium/Free)</li>
-            </ul>
-          </div>
-          <div>
-            <p class="font-semibold">Document Q&A / Readers</p>
-            <ul class="list-disc list-inside">
-              <li>LLM “upload file” readers (Freemium)</li>
-              <li>Specialized PDF Q&A apps (Freemium)</li>
-            </ul>
-          </div>
-          <div>
-            <p class="font-semibold">Comms / Video</p>
-            <ul class="list-disc list-inside">
-              <li>Loom / Screencastify (Freemium)</li>
-              <li>Edpuzzle (Freemium)</li>
-              <li>Flip (Free)</li>
-            </ul>
-          </div>
-          <div>
-            <p class="font-semibold">Automation / Forms</p>
-            <ul class="list-disc list-inside">
-              <li>Google Forms (Free) / Typeform (Freemium)</li>
-              <li>Zapier / Make (Paid/Freemium)</li>
-              <li>Power Automate (Paid)</li>
-            </ul>
-          </div>
-        </div>
-        <p class="mt-3 text-xs text-gray-600">Try searching: <code>“{your goal} {your inputs} to {your outputs} education ferpa template”</code></p>
-      </div>
+      <div class="mt-3 flex flex-wrap gap-2">
+        <button class="gold-btn px-4 py-2 rounded lift" onclick="recommendPlatforms()">Generate Recommendations</button>
+        <button class="px-4 py-2 rounded border lift" onclick="copyPlatformSearch()">Copy Search Strings</button>
+        <button class="px-4 py-2 rounded border lift" onclick="downloadPlatformRubric()">Download Evaluation Rubric</button>
+      </div>
 
-      <div id="pf_output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
-    </section>
+            <div class="mt-5 p-4 bg-gray-50 border rounded text-sm">
+        <p class="font-semibold mb-2">Starter platforms to explore (then search for similar tools):</p>
+        <div class="grid md:grid-cols-2 gap-3">
+          <div>
+            <p class="font-semibold">General LLMs</p>
+            <ul class="list-disc list-inside"><li>ChatGPT (Freemium)</li><li>Claude (Freemium)</li><li>Gemini (Freemium)</li></ul>
+          </div>
+          <div>
+            <p class="font-semibold">Slides / Docs from prompts</p>
+            <ul class="list-disc list-inside"><li>Gamma (Freemium)</li><li>Canva (Freemium)</li><li>Microsoft Copilot for PowerPoint (Paid)</li></ul>
+          </div>
+          <div>
+            <p class="font-semibold">Data analysis (CSV/Sheets)</p>
+            <ul class="list-disc list-inside"><li>Google Sheets (Free)</li><li>Excel + Analyze (Paid)</li><li>Power BI / Tableau Public (Freemium/Free)</li></ul>
+          </div>
+          <div>
+            <p class="font-semibold">Document Q&A / Readers</p>
+            <ul class="list-disc list-inside"><li>LLM “upload file” readers (Freemium)</li><li>Specialized PDF Q&A apps (Freemium)</li></ul>
+          </div>
+          <div>
+            <p class="font-semibold">Comms / Video</p>
+            <ul class="list-disc list-inside"><li>Loom / Screencastify (Freemium)</li><li>Edpuzzle (Freemium)</li><li>Flip (Free)</li></ul>
+          </div>
+          <div>
+            <p class="font-semibold">Automation / Forms</p>
+            <ul class="list-disc list-inside"><li>Google Forms (Free) / Typeform (Freemium)</li><li>Zapier / Make (Paid/Freemium)</li><li>Power Automate (Paid)</li></ul>
+          </div>
+        </div>
+        <p class="mt-3 text-xs text-gray-600">Search like: <code>“{your goal} {your inputs} to {your outputs} education ferpa template”</code></p>
+      </div>
 
-    <!-- RISEN -->
-    <section id="risen" class="mt-6 bg-white rounded-xl p-6 glow">
-      <h2 class="text-2xl font-extrabold">RISEN Prompt Studio <span class="text-xs ml-2 px-2 py-1 rounded bg-indigo-100 border">[Drop-in AI]</span></h2>
-      <p class="text-sm text-gray-700 mb-2">Train AI to act like a critical thinking partner: <strong>Relevance, Intent, Specificity, Execution, Navigation</strong>.</p>
-      <div class="grid gap-3">
-        <input id="r-relevance" class="p-3 border rounded" placeholder="R: Link to goal/policy (e.g., PD Plan Goal 3)">
-        <input id="i-intent" class="p-3 border rounded" placeholder="I: Task (e.g., Draft 3 parent email options)">
-        <input id="s-specificity" class="p-3 border rounded" placeholder="S: Data/context (e.g., Quiz 2 failed, Quiz 3 passed)">
-        <input id="e-execution" class="p-3 border rounded" placeholder="E: Format & tone (e.g., kind and firm; bullets)">
-        <input id="n-navigation" class="p-3 border rounded" placeholder="N: Next step / audit (e.g., flag jargon; save as bullets)">
-      </div>
-      <div class="mt-3 flex gap-2">
-        <button class="gold-btn px-4 py-2 rounded lift" onclick="constructPrompt()">Construct</button>
-        <button class="px-4 py-2 rounded border lift" onclick="downloadRisen()">Download .txt</button>
-        <button class="px-4 py-2 rounded border lift" onclick="copyRisen()">Copy</button>
-      </div>
-      <div id="risen-output" class="hidden mt-3">
-        <textarea id="full-prompt-output" rows="6" class="w-full p-3 border rounded bg-white"></textarea>
-      </div>
-    </section>
+      <div id="pf_output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+    </section>
 
-    <!-- STORY -->
-    <section id="story" class="mt-6 bg-white rounded-xl p-6 glow">
-      <h2 class="text-2xl font-extrabold">3-Sentence Story <span class="text-xs ml-2 px-2 py-1 rounded bg-green-100 border">[Human + Drop-in AI]</span></h2>
-      <p class="text-sm text-gray-700 mb-2">Turn metrics into alignment. Use this in board notes, newsletters, or PD recaps.</p>
-      <form onsubmit="generateStory(event)" class="space-y-3">
-        <textarea id="metrics" rows="3" class="w-full p-3 border rounded" placeholder="Key metrics (e.g., STAAR +8, attendance +3%, PEIMS errors −30%)" required></textarea>
-        <input id="context" class="w-full p-3 border rounded" placeholder="Behavior that drove change (e.g., 2-line nudges + advisory grid)" required>
-        <div class="flex gap-2">
-          <button class="gold-btn px-4 py-2 rounded lift" type="submit">Generate</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadStory()">Download .txt</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyStory()">Copy</button>
-        </div>
-      </form>
-      <div id="story-output" class="hidden mt-3 p-4 bg-gray-50 border rounded text-sm">
-        <p id="story-what-changed"></p><p id="story-why-matters"></p><p id="story-next"></p>
-      </div>
-    </section>
+        <section id="risen" class="mt-6 bg-white rounded-xl p-6 glow">
+      <h2 class="text-2xl font-extrabold">RISEN Prompt Studio <span class="text-xs ml-2 px-2 py-1 rounded bg-indigo-100 border">[Drop-in AI]</span></h2>
+      <p class="text-sm text-gray-700 mb-2">Train AI to act like a critical-thinking partner: **Relevance, Intent, Specificity, Execution, Navigation**.</p>
+      <div class="grid gap-3">
+        <div class="flex items-center gap-2">
+          <input id="r-relevance" class="p-3 border rounded w-full" placeholder="R: Link to goal/policy (e.g., TEKS 6.4B • PD Plan Goal 3 • EDGAR)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Name the standard/policy and the goal you’re serving.</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="i-intent" class="p-3 border rounded w-full" placeholder="I: Task (e.g., Draft 3 parent email options)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">What do you want back, exactly? Count it.</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="s-specificity" class="p-3 border rounded w-full" placeholder="S: Data/context (e.g., Quiz 2 failed, Quiz 3 passed)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Give real context. Paste short data snippets.</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="e-execution" class="p-3 border rounded w-full" placeholder="E: Format & tone (e.g., kind + firm; bullets; 120 words)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Tell it how to write and how long.</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="n-navigation" class="p-3 border rounded w-full" placeholder="N: Next step / audit (e.g., flag jargon; output CSV header)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Ask it to check itself and prep the next action.</span></span>
+        </div>
+      </div>
+      <div class="mt-3 flex gap-2">
+        <button class="gold-btn px-4 py-2 rounded lift" onclick="constructPrompt()">Construct</button>
+        <button class="px-4 py-2 rounded border lift" onclick="downloadRisen()">Download .txt</button>
+        <button class="px-4 py-2 rounded border lift" onclick="copyRisen()">Copy</button>
+      </div>
+      <div id="risen-output" class="hidden mt-3">
+        <textarea id="full-prompt-output" rows="6" class="w-full p-3 border rounded bg-white"></textarea>
+      </div>
 
-    <!-- 10-DAY PLAN -->
+            <div class="mt-5 grid md:grid-cols-2 gap-3 text-sm">
+        <div class="p-4 bg-gray-50 border rounded">
+          <p class="font-semibold mb-2">Student Critical Thinking (less AI-dependent) — paste into your LLM</p>
+          <pre id="prompt-student" class="whitespace-pre-wrap text-xs">You are my thinking coach. Do NOT answer with a final essay.
+Ask me 5 questions that force me to decide, compare, or justify—one at a time.
+Use this standard/policy: “[PASTE STANDARD/POLICY]”.
+Topic: [PASTE TOPIC]. After each answer, push me one step deeper.
+When I’m done, give a 3-bullet “what I proved” summary and 2 next-step checks.</pre>
+          <div class="mt-2 flex gap-2">
+            <button class="px-3 py-1 rounded border lift" onclick="copyById('prompt-student')">Copy</button>
+          </div>
+        </div>
+        <div class="p-4 bg-gray-50 border rounded">
+          <p class="font-semibold mb-2">Principal Process Builder — paste into your LLM</p>
+          <pre id="prompt-principal" class="whitespace-pre-wrap text-xs">Build a 5-step process for this goal: [GOAL].
+Inputs: [DATA/TOOLS]. Standards/Policy: [PASTE].
+Return: roles (RACI), weekly cadence, 10-day starter plan, evidence to collect, and a one-slide briefing.
+Flag legal/privacy risks and suggest guardrails.</pre>
+          <div class="mt-2 flex gap-2">
+            <button class="px-3 py-1 rounded border lift" onclick="copyById('prompt-principal')">Copy</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+        <section id="story" class="mt-6 bg-white rounded-xl p-6 glow">
+      <h2 class="text-2xl font-extrabold">3-Sentence Story <span class="text-xs ml-2 px-2 py-1 rounded bg-green-100 border">[Human + Drop-in AI]</span></h2>
+      <p class="text-sm text-gray-700 mb-2">Turn metrics into alignment. Use in board notes, newsletters, PD recaps.</p>
+      <form onsubmit="generateStory(event)" class="space-y-3">
+        <div class="flex items-center gap-2">
+          <textarea id="metrics" rows="3" class="w-full p-3 border rounded" placeholder="Key metrics (e.g., STAAR +8, attendance +3%, PEIMS errors −30%)" required></textarea>
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this);return false;">?</button><span class="chip-tip">Write numbers exactly as they appear in your report.</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="context" class="w-full p-3 border rounded" placeholder="Behavior that drove change (e.g., 2-line nudges + advisory grid)" required>
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this);return false;">?</button><span class="chip-tip">Name the routine that caused the gain.</span></span>
+        </div>
+        <div class="flex gap-2">
+          <button class="gold-btn px-4 py-2 rounded lift" type="submit">Generate</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadStory()">Download .txt</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyStory()">Copy</button>
+        </div>
+        <div id="story-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+      </form>
+    </section>
+    
     <section id="ten-day" class="mt-6 bg-white rounded-xl p-6 glow">
-      <h2 class="text-2xl font-extrabold">10-Day Impact Plan <span class="text-xs ml-2 px-2 py-1 rounded bg-green-100 border">[Human workflow]</span></h2>
-      <p class="text-sm text-gray-700 mb-2">Short sprints that change behavior—and produce evidence.</p>
-      <div class="grid md:grid-cols-5 gap-2 mb-2">
-        <input id="plan-who" class="p-3 border rounded" placeholder="Default Who">
-        <input id="plan-what" class="p-3 border rounded" placeholder="Default What">
-        <input id="plan-when" class="p-3 border rounded" placeholder="Default When">
-        <input id="plan-evidence" class="p-3 border rounded" placeholder="Default Evidence">
-        <input id="plan-celebrate" class="p-3 border rounded" placeholder="Default Celebrate">
-      </div>
-      <div class="flex flex-wrap gap-2 mb-2">
-        <button class="gold-btn px-4 py-2 rounded lift" onclick="autofillTen()">Auto-seed 1–10</button>
-        <button class="px-4 py-2 rounded border lift" onclick="addPlanRow()">Add Row</button>
-        <button class="px-4 py-2 rounded border lift" onclick="copyPlan10()">Copy CSV</button>
-        <button class="px-4 py-2 rounded border lift" onclick="downloadPlan10()">Download CSV</button>
-        <button class="px-4 py-2 rounded border lift text-red-600" onclick="clearPlan10()">Clear</button>
-      </div>
-      <div class="overflow-x-auto">
-        <table id="plan-table" class="min-w-full text-sm">
-          <thead><tr class="bg-gray-100">
-            <th class="p-2 text-left">Day</th><th class="p-2 text-left">Who</th><th class="p-2 text-left">What</th>
-            <th class="p-2 text-left">When</th><th class="p-2 text-left">Evidence</th><th class="p-2 text-left">Celebrate</th><th class="p-2">Remove</th>
-          </tr></thead><tbody></tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- PROCESS -->
+      <h2 class="text-2xl font-extrabold">10-Day Sprint <span class="text-xs ml-2 px-2 py-1 rounded bg-yellow-100 border">[Human workflow]</span></h2>
+      <p class="text-sm text-gray-700 mb-3">Turn your **Planner** entry into a short, focused sprint with clear daily evidence.</p>
+      <form onsubmit="generateTenDay(event)" class="space-y-3">
+        <div class="flex items-center gap-2">
+          <input id="td_goal" class="w-full p-3 border rounded" placeholder="Specific goal (e.g., Rubric +1 level for 60% of students)" required>
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this);return false;">?</button><span class="chip-tip">Copy your 'Measurable Outcome' from the Planner.</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="td_tool" class="w-full p-3 border rounded" placeholder="Tool & Habit (e.g., Flip for weekly peer feedback)" required>
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this);return false;">?</button><span class="chip-tip">Copy your 'Tool' and 'Desired Behavior' from the Planner.</span></span>
+        </div>
+        <div class="flex gap-2">
+          <button class="gold-btn px-4 py-2 rounded lift" type="submit">Generate 10-Day Plan</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadTenDay()">Download .txt</button>
+        </div>
+        <div id="tenday-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+      </form>
+    </section>
+    
     <section id="process-plug" class="mt-6 bg-white rounded-xl p-6 glow">
-      <h2 class="text-2xl font-extrabold">Process Plug-In (your framework)</h2>
-      <p class="text-sm text-gray-700 mb-2">Snap PARFA/PAFRA (or any process) onto this workflow so teams stop winging it.</p>
-      <div class="grid md:grid-cols-3 gap-2">
-        <input id="proc_name" class="p-3 border rounded" placeholder="Process name (e.g., PARFA)">
-        <input id="proc_s1" class="p-3 border rounded" placeholder="Step 1 label">
-        <input id="proc_s2" class="p-3 border rounded" placeholder="Step 2 label">
-        <input id="proc_s3" class="p-3 border rounded" placeholder="Step 3 label">
-        <input id="proc_s4" class="p-3 border rounded" placeholder="Step 4 label">
-        <input id="proc_s5" class="p-3 border rounded" placeholder="Step 5 label">
-      </div>
-      <p class="text-xs text-gray-500 mt-2">Suggested map: RISEN → Planner → Data Prep → Platform Finder → Story → 10-Day.</p>
-      <div class="mt-2 flex gap-2">
-        <button class="gold-btn px-4 py-2 rounded lift" onclick="previewProcess()">Preview</button>
-        <button class="px-4 py-2 rounded border lift" onclick="downloadProcess()">Download Checklist</button>
-      </div>
-      <div id="proc_out" class="hidden mt-3 p-4 bg-gray-50 border rounded text-sm"></div>
-    </section>
+      <h2 class="text-2xl font-extrabold">Process Plug-In <span class="text-xs ml-2 px-2 py-1 rounded bg-green-100 border">[Human workflow]</span></h2>
+      <p class="text-sm text-gray-700 mb-3">Add AI-ready steps into your existing, required processes (e.g., IEP, 504, PD, hiring).</p>
+      <div class="grid md:grid-cols-2 gap-3">
+        <div class="flex items-center gap-2">
+          <input id="pp_process" class="w-full p-3 border rounded" placeholder="Name of process (e.g., PD planning, 504 meeting, Hiring)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Which official process are you refining?</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="pp_tool" class="w-full p-3 border rounded" placeholder="AI Tool (e.g., LLM, data analysis platform)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Which specific tool is being introduced?</span></span>
+        </div>
+        <div class="flex items-center gap-2 md:col-span-2">
+          <input id="pp_step" class="w-full p-3 border rounded" placeholder="Existing step to enhance (e.g., Drafting parent communications; Summarizing data)">
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this)">?</button><span class="chip-tip">Name the step you want to make 3x faster with AI.</span></span>
+        </div>
+      </div>
+      <div class="mt-3 flex gap-2">
+        <button class="gold-btn px-4 py-2 rounded lift" onclick="generateProcessPlug()">Generate Plug-In Text</button>
+        <button class="px-4 py-2 rounded border lift" onclick="copyProcessPlug()">Copy</button>
+      </div>
+      <div id="process-plug-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+    </section>
+    
+    <section id="sell" class="mt-6 bg-white rounded-xl p-6 glow">
+      <h2 class="text-2xl font-extrabold">Sell It: Executive Summary <span class="text-xs ml-2 px-2 py-1 rounded bg-green-100 border">[Drop-in AI]</span></h2>
+      <p class="text-sm text-gray-700 mb-3">Turn your **Impact Ladder** plan into a 3-part pitch for your principal, board, or community.</p>
+      <form onsubmit="generateSellIt(event)" class="space-y-3">
+        <div class="flex items-center gap-2">
+          <input id="si_audience" class="w-full p-3 border rounded" placeholder="Audience (e.g., Board of Trustees, Leadership Team, Parents)" required>
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this);return false;">?</button><span class="chip-tip">Who are you writing for?</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <input id="si_outcome" class="w-full p-3 border rounded" placeholder="Measurable Outcome (e.g., Rubric +1 for 60% of students)" required>
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this);return false;">?</button><span class="chip-tip">Copy your 'Measurable Outcome' from the Planner.</span></span>
+        </div>
+        <div class="flex items-center gap-2">
+          <textarea id="si_context" rows="3" class="w-full p-3 border rounded" placeholder="The need (e.g., Last year's data showed a 15% gap in writing justification; current tools are too slow)" required></textarea>
+          <span class="chip-wrap"><button class="chip" onclick="toggleChip(this);return false;">?</button><span class="chip-tip">Why is this change necessary now?</span></span>
+        </div>
+        <div class="flex gap-2">
+          <button class="gold-btn px-4 py-2 rounded lift" type="submit">Generate Summary</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="copySellIt()">Copy</button>
+        </div>
+        <div id="sell-it-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+      </form>
+    </section>
+    
+    <section id="connect" class="mt-6 bg-white rounded-xl p-6 glow mb-6">
+      <h2 class="text-2xl font-extrabold">Connect & Join</h2>
+      <p class="text-sm text-gray-700 mb-3">Join the community to share impact stories, get feedback on your RISEN prompts, and collaborate on new tools.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href="#" class="gold-btn px-4 py-2 rounded lift">Sign up for the Newsletter</a>
+        <a href="#" class="px-4 py-2 rounded border lift">Join the Discord/Slack/Group</a>
+      </div>
+    </section>
 
-    <!-- JOIN -->
-    <section id="connect" class="mt-6 header-bg sparkle text-white rounded-xl p-6 glow text-center">
-      <h2 class="text-2xl font-extrabold accent mb-1">Join the Movement</h2>
-      <p class="text-sm opacity-90 mb-3">Stay in the loop, bring PD to your team, or follow the work.</p>
-      <div class="flex flex-col sm:flex-row gap-2 justify-center">
-        <button class="gold-btn px-6 py-2 rounded lift" onclick="subscribeEmail()">Impact Dispatch Newsletter</button>
-        <button class="px-6 py-2 rounded border-2 border-white lift" onclick="requestPD()">Request PD</button>
-        <a class="px-6 py-2 rounded border-2 border-white lift text-center" href="https://twitter.com/msedbostic" target="_blank">Follow @msedbostic</a>
-        <a class="px-6 py-2 rounded border-2 border-white lift text-center" href="https://instagram.com/cultureaintjustcupcakes" target="_blank">@cultureaintjustcupcakes</a>
-      </div>
-    </section>
-
-    <!-- DATA STORIES (modal-enabled) -->
-    <section id="data-motion" class="mt-6">
-      <div class="grid md:grid-cols-3 gap-3">
-        <div class="p-4 bg-white rounded-xl glow border-l-4 border-green-600">
-          <p class="text-xs font-bold text-gray-500">Impact Story</p>
-          <h4 class="text-xl font-extrabold text-green-700 my-1">Attendance ↑ 3%</h4>
-          <p class="text-sm text-gray-700">Habit: 2-line parent nudges + advisory grid.</p>
-          <button class="gold-btn px-3 py-1 rounded mt-2" onclick="openMockup('attendance')">View mockup</button>
-        </div>
-        <div class="p-4 bg-white rounded-xl glow border-l-4 border-red-600">
-          <p class="text-xs font-bold text-gray-500">Impact Story</p>
-          <h4 class="text-xl font-extrabold text-red-700 my-1">PEIMS Errors ↓ 30%</h4>
-          <p class="text-sm text-gray-700">Habit: Weekly AI audit checks in workflow.</p>
-          <button class="gold-btn px-3 py-1 rounded mt-2" onclick="openMockup('peims')">View mockup</button>
-        </div>
-        <div class="p-4 bg-white rounded-xl glow border-l-4 border-yellow-600">
-          <p class="text-xs font-bold text-gray-500">Impact Story</p>
-          <h4 class="text-xl font-extrabold text-yellow-700 my-1">Hiring Time ↓ 50%</h4>
-          <p class="text-sm text-gray-700">Habit: Automation → leaders focus on fit.</p>
-          <button class="gold-btn px-3 py-1 rounded mt-2" onclick="openMockup('hiring')">View mockup</button>
-        </div>
-      </div>
-    </section>
-
-    <footer class="mt-6 text-center text-xs text-gray-500">© 2025 The Bostic Framework.</footer>
-
-  </main>
-</div>
-
-<!-- Mockup modal -->
-<div id="mockupModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="mockupTitle">
-  <div class="modal-card p-5">
-    <div class="flex items-start justify-between border-b pb-3">
-      <h3 id="mockupTitle" class="text-xl font-extrabold">Impact Story</h3>
-      <button class="text-gray-500 hover:text-black" onclick="closeMockup()">✕</button>
-    </div>
-    <div id="mockupBody" class="py-4 text-sm text-gray-800 leading-relaxed"></div>
-    <div class="pt-3 border-t flex justify-end">
-      <button class="gold-btn px-4 py-2 rounded" onclick="copyMockup()">Copy</button>
-    </div>
-  </div>
+  </main>
 </div>
 
 <script>
-  // Mobile drawer
-  function openMobile(){ document.getElementById('mobileNav').style.display='block' }
-  function closeMobile(){ document.getElementById('mobileNav').style.display='none' }
+    // Utility to toggle visibility (openMobile/closeMobile is assumed to be defined)
+    function openMobile() {
+        document.getElementById('mobileNav').style.display = 'block';
+    }
+    function closeMobile() {
+        document.getElementById('mobileNav').style.display = 'none';
+    }
 
-  // Tabs
-  document.getElementById('tab-stu').onclick = ()=>{document.getElementById('ladder-stu').classList.remove('hidden');document.getElementById('ladder-lea').classList.add('hidden');document.getElementById('tab-stu').classList.add('border-[--gold]');document.getElementById('tab-lea').classList.remove('border-[--gold]')}
-  document.getElementById('tab-lea').onclick = ()=>{document.getElementById('ladder-lea').classList.remove('hidden');document.getElementById('ladder-stu').classList.add('hidden');document.getElementById('tab-lea').classList.add('border-[--gold]');document.getElementById('tab-stu').classList.remove('border-[--gold]')}
+    // Utility to toggle the help chip popover
+    function toggleChip(button) {
+        const wrap = button.parentNode;
+        wrap.classList.toggle('show');
+        // Close other chips if needed (optional: for a single-open chip experience)
+        document.querySelectorAll('.chip-wrap.show').forEach(c => {
+            if (c !== wrap) {
+                c.classList.remove('show');
+            }
+        });
+    }
+    
+    // Impact Ladder Tab Switching Logic
+    function switchTab(tabName) {
+        const stuTab = document.getElementById('tab-stu');
+        const leaTab = document.getElementById('tab-lea');
+        const stuContent = document.getElementById('ladder-stu');
+        const leaContent = document.getElementById('ladder-lea');
+        
+        if (tabName === 'student') {
+            stuTab.classList.add('border-[--gold]', 'font-bold');
+            stuTab.classList.remove('text-gray-500', 'border-b-2');
+            leaTab.classList.remove('border-[--gold]', 'font-bold');
+            leaTab.classList.add('text-gray-500');
+            
+            stuContent.classList.remove('hidden');
+            leaContent.classList.add('hidden');
+        } else if (tabName === 'leader') {
+            leaTab.classList.add('border-[--gold]', 'font-bold');
+            leaTab.classList.remove('text-gray-500');
+            stuTab.classList.remove('border-[--gold]', 'font-bold');
+            stuTab.classList.add('text-gray-500');
 
-  // Helpers
-  function text(id){return (document.getElementById(id)?.textContent||'').trim()}
-  function val(id){return (document.getElementById(id)?.value||'').trim()}
-  function dl(content,name,type){const b=new Blob([content],{type});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u)}
-  function strip(html){const d=document.createElement('div');d.innerHTML=html;return d.textContent||d.innerText||''}
+            leaContent.classList.remove('hidden');
+            stuContent.classList.add('hidden');
+        }
+    }
+    // Set initial tab state
+    window.onload = () => {
+        switchTab('student');
+    }
 
-  // Planner
-  function generatePlanner(){
-    const out=`Tool: ${val('toolName')}
-Behavior: ${val('targetBehavior')}
-Outcome: ${val('measurableOutcome')}
-Owner/Cadence: ${val('owner')}`;
-    const box=document.getElementById('planner-output');box.classList.remove('hidden');box.innerHTML=`<pre class="whitespace-pre-wrap">${out}</pre>`
-  }
-  function copyPlan(){navigator.clipboard.writeText(strip(document.getElementById('planner-output').innerHTML));alert('Plan copied')}
-  function downloadPlan(){const csv=`Tool,Behavior,Outcome,Owner/Cadence\n"${val('toolName')}","${val('targetBehavior')}","${val('measurableOutcome')}","${val('owner')}"`;dl(csv,'tool-to-impact-plan.csv','text/csv')}
+    // NOTE: All other JS functions (startGuided, generatePlanner, makeDataSpec, etc.) must be defined here or in an external script.
 
-  // Story
-  function generateStory(e){e.preventDefault();const what=`<strong>What changed:</strong> ${val('metrics')}.`;const why=`Why it matters: ${val('context')}.`;const next=`What happens next: Scale the habit and monitor evidence monthly.`;const box=document.getElementById('story-output');box.classList.remove('hidden');document.getElementById('story-what-changed').innerHTML=what;document.getElementById('story-why-matters').textContent=why;document.getElementById('story-next').textContent=next}
-  function copyStory(){const t=strip(document.getElementById('story-what-changed').innerHTML)+'\n'+document.getElementById('story-why-matters').textContent+'\n'+document.getElementById('story-next').textContent;navigator.clipboard.writeText(t);alert('Story copied')}
-  function downloadStory(){const t=strip(document.getElementById('story-what-changed').innerHTML)+'\n'+document.getElementById('story-why-matters').textContent+'\n'+document.getElementById('story-next').textContent;dl(t,'board-ready-story.txt','text/plain')}
-
-  // RISEN
-  function constructPrompt(){
-    const parts=[
-      ['R (Relevance)',val('r-relevance')],
-      ['I (Intent)',val('i-intent')],
-      ['S (Specificity)',val('s-specificity')],
-      ['E (Execution)',val('e-execution')],
-      ['N (Navigation)',val('n-navigation')]
-    ].filter(([,x])=>x).map(([k,x])=>`${k}: ${x}`)
-    const full=parts.join('\n\n');document.getElementById('full-prompt-output').value=full;document.getElementById('risen-output').classList.remove('hidden')
-  }
-  function copyRisen(){navigator.clipboard.writeText(document.getElementById('full-prompt-output').value);alert('Prompt copied')}
-  function downloadRisen(){dl(document.getElementById('full-prompt-output').value,'RISEN-prompt.txt','text/plain')}
-
-  // Data Prep Coach
-  function makeDataSpec(){
-    const spec=[
-      `PURPOSE: ${val('dp_goal')}`,
-      `PRIMARY METRIC: ${val('dp_outcome')}`,
-      `GRAIN: ${val('dp_unit')}`,
-      `TIME WINDOW: ${val('dp_window')}`,
-      `SOURCES: ${val('dp_sources')}`,
-      `JOIN KEYS: ${val('dp_ids')}`,
-      `FIELDS: ${val('dp_fields')}`,
-      `FILTERS: ${val('dp_filters')}`,
-      `PRIVACY: ${val('dp_privacy')}`,
-      `QUALITY CHECKS: ${val('dp_quality')}`
-    ].join('\n')
-    const box=document.getElementById('dp_output');box.classList.remove('hidden');box.innerHTML=`<pre class="whitespace-pre-wrap">${spec}</pre>`;localStorage.setItem('dp_spec',spec)
-  }
-  function downloadCSVTemplate(){
-    const cols=(val('dp_fields')||'student_id,date,metric').split(',').map(s=>s.trim()).filter(Boolean);dl(cols.join(',')+'\n','data-template.csv','text/csv')
-  }
-  function downloadPrepChecklist(){
-    dl(`Data Prep Checklist
-[ ] Purpose in one sentence
-[ ] Outcome metric calculable
-[ ] Grain chosen (e.g., student/day)
-[ ] Time window set
-[ ] Sources listed
-[ ] Join keys unique
-[ ] Fields enumerated (types known)
-[ ] Filters documented
-[ ] Privacy (FERPA/PII) noted
-[ ] Quality checks written
-[ ] Sample rows reviewed
-[ ] Version/date stamped
-`,'data-prep-checklist.txt','text/plain')}
-  function copyDataPrompt(){
-    const spec=localStorage.getItem('dp_spec')||''
-    const risen=`R (Relevance): Use this spec to prepare/analyze data for ${val('dp_goal')} aligned to ${val('dp_outcome')}.
-I (Intent): Create a clean column spec, data dictionary, and step-by-step transform plan.
-S (Specificity):
-${spec}
-E (Execution): Return as numbered steps + CSV header + sample rows; flag risks.
-N (Navigation): Highlight privacy concerns; list assumptions; propose 3 validation checks.`
-    navigator.clipboard.writeText(risen);alert('RISEN data prompt copied')
-  }
-
-  // Platform Finder
-  function getMultiSel(id){return Array.from(document.getElementById(id).selectedOptions).map(o=>o.value)}
-  function recommendPlatforms(){
-    const goal=document.getElementById('pf_goal').value
-    const inputs=getMultiSel('pf_inputs')
-    const outputs=getMultiSel('pf_outputs')
-    const cons={privacy:pf_privacy.checked,blocked:pf_blocked.checked,cost:pf_no_cost.checked,low:pf_low_skill.checked,off:pf_offline.checked}
-    const collab=document.getElementById('pf_collab').value
-    const time=document.getElementById('pf_time').value
-    const risk=document.getElementById('pf_risk').value
-
-    const cats=[]
-    if(goal==='create'||goal==='transform') cats.push('General LLM (text generation)')
-    if(goal==='create'&&outputs.includes('Slides')) cats.push('Slide generator / doc-to-slides')
-    if(goal==='analyze'&&inputs.includes('Spreadsheet')) cats.push('Data analysis assistant (CSV/Sheets)')
-    if(goal==='analyze'&&inputs.includes('PDF')) cats.push('Document Q&A / reader')
-    if(goal==='communicate') cats.push('Comms assistant (email/messages)')
-    if(goal==='automate'||outputs.includes('Workflow')) cats.push('Workflow automation / forms / approvals')
-    if(inputs.includes('Images')||inputs.includes('Audio/Video')) cats.push('Multimodal (image/audio/video)')
-
-    const notes=[]
-    if(cons.privacy) notes.push('Prefer district-approved/on-device; anonymize IDs.')
-    if(cons.blocked) notes.push('Favor web-only; export CSV/PDF.')
-    if(cons.cost) notes.push('Start free tiers; check rate limits.')
-    if(cons.low) notes.push('Use no-code templates/wizards.')
-    if(cons.off) notes.push('Require export (CSV/PDF/PNG) + local backups.')
-    if(risk==='high') notes.push('Need audit trail/versioning; keep data dictionary.')
-    if(collab!=='solo') notes.push('Require comments/permissions.')
-    if(time==='minutes') notes.push('One-screen flows; minimal learning curve.')
-
-    const searches=[
-      `${goal} ${inputs.join(' ')} to ${outputs.join(' ')} education`,
-      `${goal} ${outputs.join(' ')} FERPA ${risk} "no install"`,
-      `${goal} ${outputs.join(' ')} templates rubric checklist`
-    ].map(s=>s.replace(/\s+/g,' ').trim()).filter(Boolean)
-
-    const box=document.getElementById('pf_output');box.classList.remove('hidden')
-    box.innerHTML=`<div><p class="mb-1"><strong>Platform categories:</strong> ${cats.join(' • ')||'—'}</p>
-<p class="mb-1"><strong>Selection notes:</strong> ${notes.join(' | ')||'—'}</p>
-<p class="mb-1"><strong>Search these in your engine:</strong></p>
-<ul class="list-disc list-inside">${searches.map(s=>`<li><code>${s}</code></li>`).join('')}</ul></div>`
-    localStorage.setItem('pf_search',JSON.stringify(searches))
-  }
-  function copyPlatformSearch(){const arr=JSON.parse(localStorage.getItem('pf_search')||'[]');if(!arr.length){alert('Generate recommendations first.');return}navigator.clipboard.writeText(arr.join('\n'));alert('Search strings copied')}
-  function downloadPlatformRubric(){dl(`AI Platform Evaluation Rubric (score 1–5)
-Goal fit: ______
-Input compatibility (text/CSV/PDF/media): ______
-Output formats (doc/slides/email/dashboard/workflow): ______
-Privacy/FERPA posture (docs, DPA, anonymization): ______
-Audit trail/versioning/export: ______
-Collaboration (comments/permissions): ______
-Ease of use (no-code/templates/wizard): ______
-Time-to-first-win (≤15 min): ______
-Cost/limits (free tier, caps): ______
-Support/docs/training: ______
-Total: ____ / 50
-Decision + next step: __________________________`,'platform-eval-rubric.txt','text/plain')}
-
-  // 10-Day
-  function planRows(){return Array.from(document.querySelectorAll('#plan-table tbody tr')).map(tr=>Array.from(tr.children).slice(0,6).map((td,i)=>i?td.querySelector('input')?.value||'':td.textContent.trim()))}
-  function addPlanRow(day){const tb=document.querySelector('#plan-table tbody');const tr=document.createElement('tr');const d=day||`Day ${tb.children.length+1}`;const row=[d,val('plan-who'),val('plan-what'),val('plan-when'),val('plan-evidence'),val('plan-celebrate')];tr.innerHTML=row.map((v,i)=>`<td class="p-2 ${i===0?'font-semibold':''}">${i===0?v:`<input class="w-full p-2 border rounded" value="${(v||'').replace(/"/g,'&quot;')}">`}</td>`).join('')+`<td class="p-2"><button class="text-red-600 underline" onclick="this.closest('tr').remove()">Remove</button></td>`;tb.appendChild(tr)}
-  function autofillTen(){document.querySelector('#plan-table tbody').innerHTML='';for(let i=1;i<=10;i++) addPlanRow(`Day ${i}`)}
-  function csv10(){const hdr=['Day','Who','What','When','Evidence','Celebrate'];const rows=[hdr,...planRows()];return rows.map(r=>r.map(x=>`"${(x||'').replace(/"/g,'""')}"`).join(',')).join('\n')}
-  function downloadPlan10(){dl(csv10(),'ten-day-impact-plan.csv','text/csv')}
-  function copyPlan10(){navigator.clipboard.writeText(csv10());alert('10-Day Plan copied')}
-  function clearPlan10(){document.querySelector('#plan-table tbody').innerHTML=''}
-
-  // Process plug-in
-  function previewProcess(){const name=val('proc_name')||'Your Process';const steps=[val('proc_s1'),val('proc_s2'),val('proc_s3'),val('proc_s4'),val('proc_s5')].filter(Boolean);const map=['RISEN','Planner','Data Prep','Platform Finder','Story','10-Day'];const out=`${name}\n`+steps.map((s,i)=>`• ${s} → ${map[i]||'(map to any section)'}`).join('\n');const box=document.getElementById('proc_out');box.classList.remove('hidden');box.innerHTML=`<pre class="whitespace-pre-wrap">${out}</pre>`;localStorage.setItem('proc_map',out)}
-  function downloadProcess(){dl(localStorage.getItem('proc_map')||'Process mapping not set.','process-mapping-checklist.txt','text/plain')}
-
-  // Mockups
-  const mockups={
-    attendance:{title:'Attendance ↑ 3% — Evidence Narrative',body:`<strong>What changed:</strong> Daily attendance rose 3% in four weeks (Gr. 6–8).<br><strong>Why it matters:</strong> Two-line parent nudges + advisory accountability grid; AI drafted messages and tracked follow-ups.<br><strong>Evidence:</strong> SIS report trend; call log export; grid screenshots; 10-Day completion 90%.<br><strong>Next:</strong> Expand to Grade 9; automate nudge schedule; monitor chronic absent.`},
-    peims:{title:'PEIMS Errors ↓ 30% — Evidence Narrative',body:`<strong>What changed:</strong> Submission errors dropped 30% across two cycles.<br><strong>Why it matters:</strong> Weekly AI audit checks (EDGAR/CB context) embedded pre-submission.<br><strong>Evidence:</strong> Error log trend; flagged fields before/after; checklist completion rate.<br><strong>Next:</strong> Add guardrails; quarterly micro-PD.`},
-    hiring:{title:'Hiring Time ↓ 50% — Evidence Narrative',body:`<strong>What changed:</strong> Median days-to-hire cut 40→20.<br><strong>Why it matters:</strong> AI templated JDs, screen questions, and offers; leaders focused on human fit.<br><strong>Evidence:</strong> HRIS timestamps; pipeline snapshots; 30-day survey.<br><strong>Next:</strong> Add onboarding nudges; link to 90-day retention.`}
-  }
-  function openMockup(k){const m=document.getElementById('mockupModal');document.getElementById('mockupTitle').textContent=mockups[k].title;document.getElementById('mockupBody').innerHTML=mockups[k].body;m.classList.add('open')}
-  function closeMockup(){document.getElementById('mockupModal').classList.remove('open')}
-  function copyMockup(){const t=document.getElementById('mockupTitle').textContent+'\n'+strip(document.getElementById('mockupBody').innerHTML);navigator.clipboard.writeText(t);alert('Narrative copied')}
-
-  // Guided Mode (role flows)
-  let guided={role:null,step:0,steps:[]}
-  const flows={
-    teacher:{why:'Turn a classroom tool into a 10-day habit with evidence.',steps:[
-      {title:'Frame RISEN',body:'Goal, intent, data, tone, next step. We’ll prefill an example you can edit.',do(){document.getElementById('r-relevance').value='Improve speaking & listening rubric by 1 level in 6th ELA';document.getElementById('i-intent').value='Draft 3 peer-feedback stems and a 10-minute routine';document.getElementById('s-specificity').value='Students storyboard in Flip; last unit comments were vague';document.getElementById('e-execution').value='Student-friendly; 3 numbered steps';document.getElementById('n-navigation').value='Flag jargon; printable checklist';constructPrompt();location.hash='#risen'}},
-      {title:'Plan the habit',body:'Define behavior, outcome, owner, cadence.',do(){document.getElementById('toolName').value='Flip (w/ LLM)';document.getElementById('targetBehavior').value='Peer feedback using stems every Wed';document.getElementById('measurableOutcome').value='Rubric growth + self-ratings';document.getElementById('owner').value='6th ELA team • weekly';generatePlanner();location.hash='#planner'}},
-      {title:'Prep data spec',body:'Create a minimal spec for evidence.',do(){document.getElementById('dp_goal').value='Show growth on speaking & listening rubric';document.getElementById('dp_outcome').value='Rubric level increase';document.getElementById('dp_unit').value='student/unit';document.getElementById('dp_fields').value='student_id,unit_id,pre_level,post_level';document.getElementById('dp_ids').value='student_id';makeDataSpec();location.hash='#data-prep'}},
-      {title:'Choose platform',body:'Use Finder to pick a category + get searches.',do(){recommendPlatforms();location.hash='#platform-finder'}},
-      {title:'Tell the story',body:'Three sentences for alignment.',do(){document.getElementById('metrics').value='Speaking/Listening rubric improved 1 level for 62%; 18% improved 2 levels';document.getElementById('context').value='Daily 10-minute peer feedback using AI stems + self-ratings';generateStory(new Event('submit'));location.hash='#story'}},
-      {title:'Seed the sprint',body:'Auto-seed 10 days; export.',do(){autofillTen();location.hash='#ten-day'}}
-    ]},
-    leader:{why:'Turn a dashboard into weekly huddles + board-ready narrative.',steps:[
-      {title:'RISEN (leader)',body:'CPM goal, subgroup, cadence, audit capture.',do(){document.getElementById('r-relevance').value='Goal: Attendance +3% this quarter (CPM)';document.getElementById('i-intent').value='Create a 15-min weekly data huddle agenda';document.getElementById('s-specificity').value='Grade 6 dipped 1.2% WoW; chronic list 14';document.getElementById('e-execution').value='Bulleted; one owner; time-boxed';document.getElementById('n-navigation').value='Evidence: SIS export + call log; review date';constructPrompt();location.hash='#risen'}},
-      {title:'Plan the routine',body:'Codify habit + owner + cadence.',do(){document.getElementById('toolName').value='Attendance Huddle + AI nudge';document.getElementById('targetBehavior').value='15-min weekly huddle + parent nudges';document.getElementById('measurableOutcome').value='+3% daily attendance by Week 6';document.getElementById('owner').value='AP + Advisory leads • weekly';generatePlanner();location.hash='#planner'}},
-      {title:'Right platform',body:'Finder → guardrails.',do(){recommendPlatforms();location.hash='#platform-finder'}},
-      {title:'Data spec',body:'DP Coach → spec.',do(){document.getElementById('dp_goal').value='Reduce daily absences';document.getElementById('dp_outcome').value='Daily attendance %';document.getElementById('dp_unit').value='campus/day';document.getElementById('dp_fields').value='campus_id,date,attend_rate,absent_count';document.getElementById('dp_ids').value='campus_id';makeDataSpec();location.hash='#data-prep'}},
-      {title:'Story',body:'Executive narrative.',do(){document.getElementById('metrics').value='Daily attendance up 2.1% in 3 weeks (Grade 6)';document.getElementById('context').value='Advisory check-ins + AI parent nudges + counselor follow-ups';generateStory(new Event('submit'));location.hash='#story'}},
-      {title:'10-Day',body:'Seed rollout.',do(){autofillTen();location.hash='#ten-day'}}
-    ]},
-    central:{why:'Embed AI as infrastructure for compliance/finance (audit-friendly).',steps:[
-      {title:'RISEN (compliance)',body:'EDGAR/CB context, error patterns, cadence.',do(){document.getElementById('r-relevance').value='EDGAR + CB policy alignment; reduce PEIMS errors 30%';document.getElementById('i-intent').value='Outline a weekly 10-minute AI audit check';document.getElementById('s-specificity').value='Recurring errors in campus uploads';document.getElementById('e-execution').value='Numbered SOP with roles; checklist';document.getElementById('n-navigation').value='Flag ambiguous language; final checklist';constructPrompt();location.hash='#risen'}},
-      {title:'Planner',body:'Owner + cadence for the SOP.',do(){document.getElementById('toolName').value='AI Audit Check';document.getElementById('targetBehavior').value='10-minute weekly pre-submission check';document.getElementById('measurableOutcome').value='PEIMS errors ↓ 30%';document.getElementById('owner').value='Data team • weekly';generatePlanner();location.hash='#planner'}},
-      {title:'Platform choice',body:'Finder → guardrails.',do(){recommendPlatforms();location.hash='#platform-finder'}},
-      {title:'Data spec',body:'DP Coach → spec.',do(){document.getElementById('dp_goal').value='Cut validation errors';document.getElementById('dp_outcome').value='Errors per file';document.getElementById('dp_unit').value='file/submission';document.getElementById('dp_fields').value='file_id,submitter,field,old_value,new_value,error_code';document.getElementById('dp_ids').value='file_id';makeDataSpec();location.hash='#data-prep'}},
-      {title:'Story',body:'Board/auditor narrative.',do(){document.getElementById('metrics').value='Submission errors down 18% in first 2 cycles';document.getElementById('context').value='Weekly AI audit + checklist with owner sign-off';generateStory(new Event('submit'));location.hash='#story'}},
-      {title:'10-Day',body:'Seed training.',do(){autofillTen();location.hash='#ten-day'}}
-    ]},
-    coach:{why:'Scaffold SPED/EB coaching that produces timely evidence.',steps:[
-      {title:'RISEN (coaching)',body:'Caseload data, compliance dates, family access.',do(){document.getElementById('r-relevance').value='On-time IEPs + parent understanding';document.getElementById('i-intent').value='Draft bilingual recap structure + meeting tracker';document.getElementById('s-specificity').value='8 IEPs due; 3 bilingual families';document.getElementById('e-execution').value='Plain-language bullets';document.getElementById('n-navigation').value='Checklist + timestamp log';constructPrompt();location.hash='#risen'}},
-      {title:'Planner',body:'Recurring coaching habit + evidence.',do(){document.getElementById('toolName').value='IEP Recap + Tracker';document.getElementById('targetBehavior').value='Post-meeting bilingual recap + log';document.getElementById('measurableOutcome').value='100% on-time IEPs; parent confirmation';document.getElementById('owner').value='Case manager • 48h after meeting';generatePlanner();location.hash='#planner'}},
-      {title:'Platform pick',body:'Finder → category + searches.',do(){recommendPlatforms();location.hash='#platform-finder'}},
-      {title:'Data spec',body:'DP Coach → spec.',do(){document.getElementById('dp_goal').value='Track recap timeliness';document.getElementById('dp_outcome').value='% recaps within 48h';document.getElementById('dp_unit').value='student/meeting';document.getElementById('dp_fields').value='student_id,meeting_id,date,recap_sent,language,parent_confirmed';document.getElementById('dp_ids').value='student_id,meeting_id';makeDataSpec();location.hash='#data-prep'}},
-      {title:'Story',body:'Caseload progress.',do(){document.getElementById('metrics').value='All 8 IEPs on time; 6/8 parent confirmations in 48h';document.getElementById('context').value='Bilingual recaps + tracker generated by AI, edited by case manager';generateStory(new Event('submit'));location.hash='#story'}},
-      {title:'10-Day',body:'Rollout.',do(){autofillTen();location.hash='#ten-day'}}
-    ]}
-  }
-  function startGuided(role){guided.role=role;guided.step=0;guided.steps=flows[role].steps;document.getElementById('guided-why').textContent=flows[role].why;document.getElementById('guided-panel').classList.remove('hidden');renderGuided()}
-  function renderGuided(){const s=guided.steps[guided.step];document.getElementById('guided-step-num').textContent=guided.step+1;document.getElementById('guided-step-title').textContent=s.title;document.getElementById('guided-step-body').innerHTML=`<p>${s.body}</p><div class="mt-2"><button class="px-3 py-2 rounded border lift" onclick="flows['${guided.role}'].steps[${guided.step}].do()">Do it for me</button></div>`}
-  function nextGuided(){if(guided.step<guided.steps.length-1){guided.step++;renderGuided()}}
-  function prevGuided(){if(guided.step>0){guided.step--;renderGuided()}}
-
-  // Email actions
-  function collectContext(){
-    const plan=text('planner-output')
-    const what=strip(document.getElementById('story-what-changed')?.innerHTML||'')
-    const why=document.getElementById('story-why-matters')?.textContent||''
-    const next=document.getElementById('story-next')?.textContent||''
-    const rows=Array.from(document.querySelectorAll('#plan-table tbody tr')).map(tr=>Array.from(tr.children).slice(0,6).map((td,i)=>i?td.querySelector('input')?.value||'':td.textContent.trim()))
-    const sprint=rows.length?('10-Day Plan\n'+rows.map(r=>`${r[0]} — Who: ${r[1]} | What: ${r[2]} | When: ${r[3]} | Evidence: ${r[4]} | Celebrate: ${r[5]}`).join('\n')):''
-    return `${plan}\n\n${what}\n${why}\n${next}\n\n${sprint}`.trim()
-  }
-  function requestPD(){
-    const subject=encodeURIComponent('PD Request: From Tools to Impact')
-    const body=encodeURIComponent(`Hi Elizabeth,
-
-We'd like to schedule professional development using your From Tools to Impact framework.
-
-District/Org: __________
-Preferred dates: __________
-Audience (teachers/leaders/both): __________
-Focus area (behavior, evidence, story, platform, data): __________
-
-Context from our draft work:
-${collectContext()}
-
-Thanks!`)
-    location.href=`mailto:edbostic83@gmail.com?subject=${subject}&body=${body}`
-  }
-  function subscribeEmail(){
-    const subject=encodeURIComponent('Subscribe: Impact Dispatch')
-    const body=encodeURIComponent(`Hi Elizabeth,
-
-Please add me to Impact Dispatch.
-
-Name: __________
-Role: (Teacher / Leader / EdTech / SPED / EB / Other)
-District/Org: __________
-Optional: First topic you want: __________
-
-Thank you!`)
-    location.href=`mailto:edbostic83@gmail.com?subject=${subject}&body=${body}`
-  }
+    // A simple placeholder for copyById used in the prompts
+    function copyById(id) {
+      const el = document.getElementById(id);
+      const text = el.innerText || el.textContent;
+      navigator.clipboard.writeText(text);
+      alert('Copied to clipboard!');
+    }
 </script>
 </body>
 </html>
