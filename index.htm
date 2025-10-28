@@ -230,11 +230,7 @@
           </div>
         </div>
 
-        <div class="mt-3 flex gap-2">
-          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generatePlanner()">Generate Plan</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadPlan()">Download CSV</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyPlan()">Copy</button>
-        </div>
+        $1<button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('planner-output','Tool-to-Impact Planner')">Email</button></div>
         <div id="planner-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
       </section>
 
@@ -286,12 +282,7 @@
           </div>
         </div>
 
-        <div class="mt-3 flex flex-wrap gap-2">
-          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="makeDataSpec()">Generate Spec</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadCSVTemplate()">Download CSV Template</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadPrepChecklist()">Download Checklist</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyDataPrompt()">Copy RISEN Data Prompt</button>
-        </div>
+        $1<button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('dp_output','Data Prep Spec')">Email</button></div>
 
         <div class="mt-4 text-xs text-gray-700">
           <p><strong>Example (attendance):</strong> fields → <code>student_id,date,present,period,reason_code</code> | grain → <code>student/day</code> | join keys → <code>student_id</code></p>
@@ -359,11 +350,7 @@
           </div>
         </div>
 
-        <div class="mt-3 flex flex-wrap gap-2">
-          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="recommendPlatforms()">Generate Recommendations</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyPlatformSearch()">Copy Search Strings</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadPlatformRubric()">Download Evaluation Rubric</button>
-        </div>
+        $1<button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('pf_output','Platform Recommendations')">Email</button></div>
 
         <div class="mt-5 p-4 bg-gray-50 border rounded text-sm">
           <p class="font-semibold mb-2">Starter platforms to explore (then search for similar tools):</p>
@@ -425,11 +412,7 @@
             <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: navigation" onclick="toggleChip(this)">?</button><span class="chip-tip">Ask it to check itself and prep the next action.</span></span>
           </div>
         </div>
-        <div class="mt-3 flex gap-2">
-          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="constructPrompt()">Construct</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadRisen()">Download .txt</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyRisen()">Copy</button>
-        </div>
+        $1<button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('full-prompt-output','RISEN Prompt')">Email</button></div>
         <div id="risen-output" class="hidden mt-3">
           <textarea id="full-prompt-output" rows="6" class="w-full p-3 border rounded bg-white"></textarea>
         </div>
@@ -472,11 +455,7 @@ Flag legal/privacy risks and suggest guardrails.</pre>
             <input id="context" class="w-full p-3 border rounded" placeholder="Behavior that drove change (e.g., 2-line nudges + advisory grid)" required />
             <span class="chip-wrap"><button class="chip" type="button" onclick="toggleChip(this);return false;">?</button><span class="chip-tip">Name the routine that caused the gain.</span></span>
           </div>
-          <div class="flex gap-2">
-            <button class="gold-btn px-4 py-2 rounded lift" type="submit">Generate</button>
-            <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadStory()">Download .txt</button>
-            <button class="px-4 py-2 rounded border lift" type="button" onclick="copyStory()">Copy</button>
-          </div>
+          $1<button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('story-output','3‑Sentence Story')">Email</button></div>
           <div id="story-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
         </form>
       </section>
@@ -494,10 +473,7 @@ Flag legal/privacy risks and suggest guardrails.</pre>
             <input id="td_tool" class="w-full p-3 border rounded" placeholder="Tool & Habit (e.g., Flip for weekly peer feedback)" required />
             <span class="chip-wrap"><button class="chip" type="button" onclick="toggleChip(this);return false;">?</button><span class="chip-tip">Copy your 'Tool' and 'Desired Behavior' from the Planner.</span></span>
           </div>
-          <div class="flex gap-2">
-            <button class="gold-btn px-4 py-2 rounded lift" type="submit">Generate 10-Day Plan</button>
-            <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadTenDay()">Download .txt</button>
-          </div>
+          $1<button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('tenday-output','10‑Day Plan')">Email</button></div>
           <div id="tenday-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
         </form>
       </section>
@@ -544,10 +520,7 @@ Flag legal/privacy risks and suggest guardrails.</pre>
             <textarea id="si_context" rows="3" class="w-full p-3 border rounded" placeholder="The need (e.g., Last year's data showed a 15% gap in writing justification; current tools are too slow)" required></textarea>
             <span class="chip-wrap"><button class="chip" type="button" onclick="toggleChip(this);return false;">?</button><span class="chip-tip">Why is this change necessary now?</span></span>
           </div>
-          <div class="flex gap-2">
-            <button class="gold-btn px-4 py-2 rounded lift" type="submit">Generate Summary</button>
-            <button class="px-4 py-2 rounded border lift" type="button" onclick="copySellIt()">Copy</button>
-          </div>
+          $1<button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('sell-it-output','Executive Summary')">Email</button></div>
           <div id="sell-it-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
         </form>
       </section>
@@ -666,6 +639,29 @@ Flag legal/privacy risks and suggest guardrails.</pre>
 
     function generateProcessPlug(){ const o = document.getElementById('process-plug-output'); o.classList.remove('hidden'); o.textContent = 'Process plug-in text.' }
     function copyProcessPlug(){ navigator.clipboard.writeText('Process plug text placeholder'); alert('Copied!') }
-  </script>
+      
+    // === Shared helpers for Copy / Download / Email ===
+    function getTextFrom(el){ if(!el) return ''; if(el.tagName==='TEXTAREA'||el.tagName==='INPUT'){return el.value||'';} return (el.innerText||el.textContent||'').trim(); }
+    function downloadText(filename,text){ const blob=new Blob([text],{type:'text/plain;charset=utf-8'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url); }
+    function emailElementText(id,subject='From Tools to Impact Output'){ const el=document.getElementById(id); const body=encodeURIComponent(getTextFrom(el)); const sub=encodeURIComponent(subject); window.location.href=`mailto:?subject=${sub}&body=${body}`; }
+
+    // Wire minimal defaults so the action buttons are usable today
+    function downloadStory(){ const t=getTextFrom(document.getElementById('story-output')); downloadText('story.txt', t||''); }
+    function copyStory(){ const t=getTextFrom(document.getElementById('story-output')); navigator.clipboard.writeText(t||''); alert('Copied!'); }
+    function downloadTenDay(){ const t=getTextFrom(document.getElementById('tenday-output')); downloadText('ten_day_plan.txt', t||''); }
+    function downloadRisen(){ const t=getTextFrom(document.getElementById('full-prompt-output')); downloadText('risen_prompt.txt', t||''); }
+    function copyRisen(){ const t=document.getElementById('full-prompt-output').value||''; navigator.clipboard.writeText(t); alert('Copied!'); }
+    function downloadPlan(){ const t=getTextFrom(document.getElementById('planner-output')); downloadText('planner.csv', t||'tool,behavior,outcome,owner,standard'); }
+    function copyPlan(){ const t=getTextFrom(document.getElementById('planner-output')); navigator.clipboard.writeText(t||''); alert('Copied!'); }
+    function downloadPlatformRubric(){ downloadText('platform_rubric.txt','Criteria: Privacy, Cost, Fit, Time, Risk, Evidence'); }
+    function copyPlatformSearch(){ navigator.clipboard.writeText('search strings placeholder'); alert('Copied!'); }
+    function downloadCSVTemplate(){ downloadText('data_template.csv','student_id,date,present,period,reason_code'); }
+    function downloadPrepChecklist(){ downloadText('data_prep_checklist.txt','- Remove PII
+- Define grain
+- Join keys set
+- Filters noted
+- Quality checks'); }
+
+</script>
 </body>
 </html>
