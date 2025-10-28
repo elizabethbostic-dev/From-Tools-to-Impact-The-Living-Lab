@@ -230,7 +230,13 @@
           </div>
         </div>
 
-        $1<button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('planner-output','Tool-to-Impact Planner')">Email</button></div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generatePlanner()">Generate</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="openEvidenceModal('planner')">Evidence Menu</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadPlan()">Download</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyPlan()">Copy</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('planner-output','Tool-to-Impact Planner')">Email</button>
+        </div>
         <div id="planner-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
       </section>
 
@@ -282,7 +288,13 @@
           </div>
         </div>
 
-        $1<button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('dp_output','Data Prep Spec')">Email</button></div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="makeDataSpec()">Make Spec</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadCSVTemplate()">CSV Template</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadPrepChecklist()">Checklist</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyDataPrompt()">Copy AI Prompt</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('dp_output','Data Prep Spec')">Email</button>
+        </div>
 
         <div class="mt-4 text-xs text-gray-700">
           <p><strong>Example (attendance):</strong> fields → <code>student_id,date,present,period,reason_code</code> | grain → <code>student/day</code> | join keys → <code>student_id</code></p>
@@ -412,7 +424,12 @@
             <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: navigation" onclick="toggleChip(this)">?</button><span class="chip-tip">Ask it to check itself and prep the next action.</span></span>
           </div>
         </div>
-        $1<button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('full-prompt-output','RISEN Prompt')">Email</button></div>
+        <div class="mt-3 flex flex-wrap gap-2">
+          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="constructPrompt()">Build Prompt</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadRisen()">Download</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyRisen()">Copy</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('full-prompt-output','RISEN Prompt')">Email</button>
+        </div>
         <div id="risen-output" class="hidden mt-3">
           <textarea id="full-prompt-output" rows="6" class="w-full p-3 border rounded bg-white"></textarea>
         </div>
@@ -455,7 +472,12 @@ Flag legal/privacy risks and suggest guardrails.</pre>
             <input id="context" class="w-full p-3 border rounded" placeholder="Behavior that drove change (e.g., 2-line nudges + advisory grid)" required />
             <span class="chip-wrap"><button class="chip" type="button" onclick="toggleChip(this);return false;">?</button><span class="chip-tip">Name the routine that caused the gain.</span></span>
           </div>
-          $1<button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('story-output','3‑Sentence Story')">Email</button></div>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generateStory(new Event('submit'))">Generate</button>
+            <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadStory()">Download</button>
+            <button class="px-4 py-2 rounded border lift" type="button" onclick="copyStory()">Copy</button>
+            <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('story-output','3‑Sentence Story')">Email</button>
+          </div>
           <div id="story-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
         </form>
       </section>
@@ -473,7 +495,11 @@ Flag legal/privacy risks and suggest guardrails.</pre>
             <input id="td_tool" class="w-full p-3 border rounded" placeholder="Tool & Habit (e.g., Flip for weekly peer feedback)" required />
             <span class="chip-wrap"><button class="chip" type="button" onclick="toggleChip(this);return false;">?</button><span class="chip-tip">Copy your 'Tool' and 'Desired Behavior' from the Planner.</span></span>
           </div>
-          $1<button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('tenday-output','10‑Day Plan')">Email</button></div>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generateTenDay(new Event('submit'))">Generate</button>
+            <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadTenDay()">Download</button>
+            <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('tenday-output','10‑Day Plan')">Email</button>
+          </div>
           <div id="tenday-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
         </form>
       </section>
@@ -520,7 +546,11 @@ Flag legal/privacy risks and suggest guardrails.</pre>
             <textarea id="si_context" rows="3" class="w-full p-3 border rounded" placeholder="The need (e.g., Last year's data showed a 15% gap in writing justification; current tools are too slow)" required></textarea>
             <span class="chip-wrap"><button class="chip" type="button" onclick="toggleChip(this);return false;">?</button><span class="chip-tip">Why is this change necessary now?</span></span>
           </div>
-          $1<button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('sell-it-output','Executive Summary')">Email</button></div>
+          <div class="mt-3 flex flex-wrap gap-2">
+            <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generateSellIt(new Event('submit'))">Generate</button>
+            <button class="px-4 py-2 rounded border lift" type="button" onclick="copyById('sell-it-output')">Copy</button>
+            <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('sell-it-output','Executive Summary')">Email</button>
+          </div>
           <div id="sell-it-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
         </form>
       </section>
@@ -528,11 +558,15 @@ Flag legal/privacy risks and suggest guardrails.</pre>
       <!-- Connect -->
       <section id="connect" class="mt-6 bg-white rounded-xl p-6 glow mb-6">
         <h2 class="text-2xl font-extrabold">Connect & Join</h2>
-        <p class="text-sm text-gray-700 mb-3">Join the community to share impact stories, get feedback on your RISEN prompts, and collaborate on new tools.</p>
+        <p class="text-sm text-gray-700 mb-3">Stay in the loop, follow along, or request PD support.</p>
         <div class="flex flex-wrap gap-3">
-          <a href="#" class="gold-btn px-4 py-2 rounded lift">Sign up for the Newsletter</a>
-          <a href="#" class="px-4 py-2 rounded border lift">Join the Discord/Slack/Group</a>
+          <a href="mailto:elizabeth.bostic@desotoisd.org?subject=Subscribe%20%E2%80%93%20From%20Tools%20to%20Impact" class="gold-btn px-4 py-2 rounded lift">Sign up for the Newsletter</a>
+          <a href="https://instagram.com/Msedbostic" target="_blank" rel="noopener" class="px-4 py-2 rounded border lift">Instagram</a>
+          <a href="https://twitter.com/Msedbostic" target="_blank" rel="noopener" class="px-4 py-2 rounded border lift">Twitter/X</a>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="emailPDRequest()">Email PD Request</button>
+          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadText('PD_Request_Template.txt', PD_TEMPLATE)">Download PD Template</button>
         </div>
+        <p class="text-xs text-gray-500 mt-3">No Discord/Slack needed. The buttons above open your email or social in a new tab.</p>
       </section>
     </main>
   </div>
@@ -608,36 +642,180 @@ Flag legal/privacy risks and suggest guardrails.</pre>
       alert('Copied to clipboard!');
     }
 
-    // --- Placeholder stubs for app actions (wire these to your logic) ---
-    function startGuided(role) { document.getElementById('guided-panel').classList.remove('hidden'); document.getElementById('guided-why').textContent = `You chose: ${role}. This walk‑through will prefill examples.`; }
-    function prevGuided(){}
-    function nextGuided(){}
+    // --- Action logic (beginner-friendly outputs) ---
+    function readVal(id){ const el=document.getElementById(id); return el ? (el.value||'').trim() : ''; }
 
-    function generatePlanner(){ const out = document.getElementById('planner-output'); out.classList.remove('hidden'); out.textContent = 'Planner generated. Plug your generation logic here.' }
-    function downloadPlan(){}
-    function copyPlan(){ navigator.clipboard.writeText('Planner CSV placeholder'); alert('Copied!') }
+    // Guided presets (simple)
+    function startGuided(role){
+      const panel=document.getElementById('guided-panel');
+      const why=document.getElementById('guided-why');
+      const steps={
+        teacher:[
+          ['Goal','Improve written justification quality (TEKS 6.4B).'],
+          ['Planner','Tool: Flip • Behavior: weekly peer feedback • Outcome: +1 rubric level for 60% • Owner: 6th ELA team • Standard: TEKS 6.4B'],
+          ['Evidence','Rubric deltas, sample before/after, participation rate.']
+        ],
+        leader:[
+          ['Goal','Reduce PEIMS errors 30% in 6 weeks.'],
+          ['Planner','Tool: Dashboard • Behavior: 15‑min weekly huddle • Outcome: −30% errors • Owner: Attendance team • Policy: Local Data Quality SOP'],
+          ['Evidence','Error counts, fix turnaround, audit notes.']
+        ],
+        central:[
+          ['Goal','Parent comms response +20% districtwide.'],
+          ['Planner','Tool: Mail merge/SMS • Behavior: biweekly bilingual sends • Outcome: +20% response • Owner: Comms • Policy: FERPA'],
+          ['Evidence','Open/response rate, bounce rate, translation checks.']
+        ],
+        coach:[
+          ['Goal','IEP/LPAC communication clarity + translation fidelity.'],
+          ['Planner','Tool: LLM plain‑language draft → staff verify → bilingual send • Outcome: parent understanding ≥85% • Policy: IEP/LPAC'],
+          ['Evidence','Accommodation log, translation checklist, signed receipt.']
+        ]
+      }[role]||[];
+      panel.classList.remove('hidden');
+      why.textContent='Loaded example steps. Click Next to move through Goal → Planner → Evidence.';
+      window.__guided={i:0,steps};
+      renderGuided();
+    }
+    function renderGuided(){ const g=window.__guided; if(!g) return; const step=g.steps[g.i]||['—','—'];
+      document.getElementById('guided-step-num').textContent = (g.i+1);
+      document.getElementById('guided-step-title').textContent = step[0];
+      document.getElementById('guided-step-body').innerHTML = `<div class="text-sm">${step[1]}</div>`; }
+    function prevGuided(){ const g=window.__guided; if(!g) return; g.i=Math.max(0,g.i-1); renderGuided(); }
+    function nextGuided(){ const g=window.__guided; if(!g) return; g.i=Math.min(g.steps.length-1,g.i+1); renderGuided(); }
 
-    function makeDataSpec(){ const o = document.getElementById('dp_output'); o.classList.remove('hidden'); o.textContent = 'Data spec goes here.' }
-    function downloadCSVTemplate(){}
-    function downloadPrepChecklist(){}
-    function copyDataPrompt(){ navigator.clipboard.writeText('RISEN data prompt placeholder'); alert('Copied!') }
+    // Planner
+    function generatePlanner(){
+      const tool=readVal('toolName'), beh=readVal('targetBehavior'), out=readVal('measurableOutcome'), own=readVal('owner'), std=readVal('standardsPolicy');
+      const text = `Tool-to-Impact Plan
+Tool: ${tool}
+Desired behavior: ${beh}
+Measurable outcome: ${out}
+Owner & cadence: ${own}
+Standards/Policy: ${std}
 
-    function recommendPlatforms(){ const o = document.getElementById('pf_output'); o.classList.remove('hidden'); o.textContent = 'Platform recommendations go here.' }
-    function copyPlatformSearch(){ navigator.clipboard.writeText('search strings placeholder'); alert('Copied!') }
-    function downloadPlatformRubric(){}
+CSV:
+"tool","behavior","outcome","owner","standard"
+"${tool}","${beh}","${out}","${own}","${std}"`;
+      const o=document.getElementById('planner-output'); o.classList.remove('hidden'); o.textContent=text;
+    }
 
-    function constructPrompt(){ document.getElementById('risen-output').classList.remove('hidden'); document.getElementById('full-prompt-output').value = 'RISEN prompt will be constructed here.' }
-    function downloadRisen(){}
-    function copyRisen(){ const t = document.getElementById('full-prompt-output').value; navigator.clipboard.writeText(t); alert('Copied!') }
+    // Data Prep
+    function makeDataSpec(){
+      const spec = {
+        goal: readVal('dp_goal'), outcome: readVal('dp_outcome'), grain: readVal('dp_unit'), window: readVal('dp_window'),
+        sources: readVal('dp_sources'), join_keys: readVal('dp_ids'), fields: readVal('dp_fields'), filters: readVal('dp_filters'),
+        privacy: readVal('dp_privacy'), quality: readVal('dp_quality')
+      };
+      const text = `AI‑Ready Data Spec
+Goal/Decision: ${spec.goal}
+Primary Metric: ${spec.outcome}
+Grain: ${spec.grain}
+Time Window: ${spec.window}
+Sources: ${spec.sources}
+Join keys: ${spec.join_keys}
+Fields: ${spec.fields}
+Filters: ${spec.filters}
+Privacy: ${spec.privacy}
+Quality checks: ${spec.quality}
 
-    function generateStory(e){ e.preventDefault(); const o = document.getElementById('story-output'); o.classList.remove('hidden'); o.textContent = '3-sentence story output.' }
-    function downloadStory(){}
-    function copyStory(){}
+CSV header suggestion:
+${spec.fields||'student_id,date,present,period,reason_code'}`;
+      const o=document.getElementById('dp_output'); o.classList.remove('hidden'); o.textContent=text;
+    }
 
-    function generateTenDay(e){ e.preventDefault(); const o = document.getElementById('tenday-output'); o.classList.remove('hidden'); o.textContent = '10-day plan output.' }
-    function downloadTenDay(){}
+    // Platform Finder (quick heuristic)
+    function recommendPlatforms(){
+      const goal=document.getElementById('pf_goal').value;
+      const inputs=[...document.getElementById('pf_inputs').selectedOptions].map(o=>o.value).join(', ');
+      const outputs=[...document.getElementById('pf_outputs').selectedOptions].map(o=>o.value).join(', ');
+      const privacy=document.getElementById('pf_privacy').checked;
+      const lowSkill=document.getElementById('pf_low_skill').checked;
+      const noCost=document.getElementById('pf_no_cost').checked;
+      const risk=document.getElementById('pf_risk').value;
+      const recs=[];
+      if(goal==='create'){ recs.push('Canva / Gamma / Docs + add-on'); }
+      if(goal==='transform'){ recs.push('ChatGPT/Claude with RISEN prompt, Google Docs “Proofread”'); }
+      if(goal==='analyze'){ recs.push('Google Sheets, Excel Analyze, Tableau Public (no PII)'); }
+      if(goal==='communicate'){ recs.push('Gmail templates, mail merge, Flip for video notes'); }
+      if(goal==='automate'){ recs.push('Google Forms → Sheets → Apps Script (FERPA-safe)'); }
+      if(privacy){ recs.push('Avoid uploading PII; use anonymized IDs; prefer on-district tools.'); }
+      if(noCost){ recs.push('Prefer free tiers; export to PDF/CSV.'); }
+      if(lowSkill){ recs.push('Choose tools with templates and wizards.'); }
+      const text = `Goal: ${goal}
+Inputs: ${inputs}
+Outputs: ${outputs}
+Risk: ${risk}
 
-    function generateProcessPlug(){ const o = document.getElementById('process-plug-output'); o.classList.remove('hidden'); o.textContent = 'Process plug-in text.' }
+Recommendations:
+- ${recs.join('
+- ')}
+
+Search string:
+${goal} ${inputs} to ${outputs} education template ${privacy?'ferpa':''}`;
+      const o=document.getElementById('pf_output'); o.classList.remove('hidden'); o.textContent=text;
+    }
+
+    // RISEN
+    function constructPrompt(){
+      const R=readVal('r-relevance'), I=readVal('i-intent'), S=readVal('s-specificity'), E=readVal('e-execution'), N=readVal('n-navigation');
+      const prompt = `Act as a critical‑thinking partner.
+R (Relevance): ${R}
+I (Intent): ${I}
+S (Specificity): ${S}
+E (Execution): ${E}
+N (Navigation): ${N}
+
+Rules: Push for clarity. Flag any data gaps. Ask for one missing piece before finalizing. Return a bulleted output then a one‑line next step.`;
+      document.getElementById('risen-output').classList.remove('hidden');
+      document.getElementById('full-prompt-output').value = prompt;
+    }
+
+    // Story
+    function generateStory(e){ e.preventDefault();
+      const m=(document.getElementById('metrics').value||'').trim();
+      const c=(document.getElementById('context').value||'').trim();
+      const text = `We focused on ${c}.
+As a result, the latest snapshot shows: ${m}.
+Next, we’ll protect the gains by keeping the routine tight and checking evidence weekly.`;
+      const o=document.getElementById('story-output'); o.classList.remove('hidden'); o.textContent=text;
+    }
+
+    // Ten‑Day Plan
+    function generateTenDay(e){ e.preventDefault();
+      const goal=readVal('td_goal'), tool=readVal('td_tool');
+      const days=[
+        'Day 1: Baseline + set look‑fors', 'Day 2: Mini‑lesson + model', 'Day 3: Routine launch', 'Day 4: Quick check',
+        'Day 5: Share wins + adjust', 'Day 6: Re‑teach small group', 'Day 7: Independent try', 'Day 8: Peer feedback',
+        'Day 9: Check evidence vs goal', 'Day 10: Summarize gains + next step']
+        .map((d,i)=>`${d} — evidence: screenshot/log/sample`);
+      const text = `10‑Day Sprint
+Goal: ${goal}
+Tool/Habit: ${tool}
+
+${days.join('
+')}`;
+      const o=document.getElementById('tenday-output'); o.classList.remove('hidden'); o.textContent=text;
+    }
+
+    // Sell It
+    function generateSellIt(e){ e.preventDefault();
+      const aud=readVal('si_audience'), out=readVal('si_outcome'), ctx=(readVal('si_context'));
+      const text = `${aud} — Executive Summary
+1) The Need: ${ctx}
+2) The Plan: Tool → habit → outcome (${out}); weekly cadence; roles assigned.
+3) Evidence: what we’ll collect and when; risks & guardrails noted.`;
+      const o=document.getElementById('sell-it-output'); o.classList.remove('hidden'); o.textContent=text;
+    }
+
+    // Process Plug‑In
+    function generateProcessPlug(){
+      const p=readVal('pp_process'), t=readVal('pp_tool'), s=readVal('pp_step');
+      const text = `Process: ${p}
+AI Step: Use ${t} during “${s}”.
+Guardrails: no PII; export to PDF; human review.
+Evidence: keep samples in the folder you already use for this process.`;
+      const o=document.getElementById('process-plug-output'); o.classList.remove('hidden'); o.textContent=text;
+    }
     function copyProcessPlug(){ navigator.clipboard.writeText('Process plug text placeholder'); alert('Copied!') }
       
     // === Shared helpers for Copy / Download / Email ===
