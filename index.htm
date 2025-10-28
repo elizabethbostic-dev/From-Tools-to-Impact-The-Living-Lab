@@ -11,12 +11,17 @@
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
 
-  <!-- Open Graph -->
+  <!-- Open Graph / Social preview -->
   <meta property="og:title" content="From Tools to Impact – The Living Lab">
   <meta property="og:description" content="Turn EdTech from tools into habits, outcomes, and evidence.">
-  <meta property="og:type" content="website">
+  <!-- Replace with your GitHub Pages domain image if available -->
+  <meta property="og:image" content="https://YOUR-GITHUB-PAGES-DOMAIN/social.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="alternate" type="application/rss+xml" title="Impact Dispatch" href="/feed.xml">
 
+  <!-- Favicon -->
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%23002B49%22/><text x=%2250%22 y=%2260%22 font-size=%2248%22 text-anchor=%22middle%22 fill=%22%23D4AF37%22 font-family=%22Arial%22>IL</text></svg>"/>
+
   <style>
     :root{
       --navy:#002B49;
@@ -29,12 +34,45 @@
     .accent-color{ color: var(--gold); }
     .gold-button{ background: var(--gold); color: var(--navy); font-weight:700; }
     .gold-button:hover{ background: var(--gold-dark); }
-    .section-sep{ width:80px; height:4px; background:var(--gold); border-radius:9999px; margin-bottom:1.5rem;}
     .ladder-tab{ cursor:pointer; padding:.75rem 1.25rem; border-bottom:3px solid transparent; font-weight:700; }
     .ladder-tab.active{ border-color: var(--gold); color: var(--navy); background:#fff8e1; }
     @media (prefers-reduced-motion: reduce){
       * { animation: none !important; transition: none !important; }
     }
+
+    /* Sparkle gradient + soft glow */
+    .sparkle-bg {
+      background:
+        radial-gradient(1200px 500px at 10% -10%, rgba(212,175,55,.20), transparent 60%),
+        radial-gradient(800px 400px at 90% 10%, rgba(0,43,73,.22), transparent 55%),
+        linear-gradient(180deg, #031b2b 0%, #002B49 40%, #022b46 100%);
+    }
+    .glow-card {
+      box-shadow:
+        0 10px 25px rgba(0,0,0,.08),
+        0 0 0 1px rgba(0,43,73,.06),
+        inset 0 0 0 1px rgba(255,255,255,.04);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .glow-card:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 14px 30px rgba(0,0,0,.12),
+        0 0 0 1px rgba(0,43,73,.10),
+        inset 0 0 0 1px rgba(255,255,255,.06);
+    }
+    /* Animated accent underline */
+    .spark-underline {
+      background: linear-gradient(90deg, #D4AF37, #ffe9a3, #D4AF37);
+      background-size: 200% 100%;
+      height: 4px; width: 90px; border-radius: 9999px;
+      animation: shimmer 2.5s linear infinite;
+      margin-bottom: 1.5rem;
+    }
+    @keyframes shimmer { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
+    /* Buttons with gentle lift */
+    .btn-pop { transition: transform .15s ease, box-shadow .15s ease; }
+    .btn-pop:hover { transform: translateY(-1px); box-shadow: 0 10px 18px rgba(0,0,0,.1);}
   </style>
 </head>
 <body class="text-gray-800">
@@ -54,7 +92,7 @@
             <a href="#leaders" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">For Leaders</a>
             <a href="#risen" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">RISEN Studio</a>
             <a href="#resources" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">Resources</a>
-            <a href="#connect" class="gold-button px-3 py-2 rounded-md text-sm font-medium">Join the Movement</a>
+            <a href="#connect" class="gold-button px-3 py-2 rounded-md text-sm font-medium btn-pop">Join the Movement</a>
           </div>
         </div>
       </div>
@@ -62,7 +100,7 @@
   </nav>
 
   <!-- Hero -->
-  <section id="home" class="header-bg text-white shadow-2xl">
+  <section id="home" class="header-bg sparkle-bg text-white shadow-2xl">
     <div class="max-w-7xl mx-auto px-4 py-20 sm:py-28 text-center">
       <h1 class="text-4xl sm:text-6xl font-extrabold mb-4 accent-color">From Tools to Impact</h1>
       <p class="text-xl sm:text-3xl font-light mb-6 max-w-4xl mx-auto opacity-95">
@@ -73,7 +111,7 @@
       </p>
 
       <!-- Quiz -->
-      <div class="mt-10 bg-white p-8 rounded-xl max-w-xl mx-auto shadow-xl text-gray-900">
+      <div class="mt-10 bg-white p-8 rounded-xl max-w-xl mx-auto shadow-xl text-gray-900 glow-card">
         <h3 class="text-2xl font-extrabold mb-4 text-[#002B49]">60-Second Quick Triage</h3>
         <p class="mb-4">Answer honestly. We’ll route you to the right tool and create a tiny action.</p>
 
@@ -91,7 +129,7 @@
               <option value="story">We can’t tell the story</option>
             </select>
           </label>
-          <button class="gold-button w-full py-2 rounded mt-2" onclick="scoreQuiz()">Get your next step</button>
+          <button class="gold-button w-full py-2 rounded mt-2 btn-pop" onclick="scoreQuiz()">Get your next step</button>
           <div id="quiz-result" class="hidden mt-3 p-3 bg-gray-50 rounded border text-sm"></div>
         </div>
       </div>
@@ -103,7 +141,7 @@
     <!-- Framework -->
     <section id="framework" class="mb-20 pt-6">
       <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Core Framework: The Impact Ladder</h2>
-      <div class="section-sep"></div>
+      <div class="spark-underline"></div>
       <p class="text-lg text-gray-700 mb-8">
         Move intentionally from a <strong>Tool</strong> to <strong>Evidence</strong> by changing <strong>Behavior</strong>.
       </p>
@@ -120,7 +158,7 @@
       </div>
 
       <!-- Tabs -->
-      <div class="bg-white p-6 rounded-xl shadow">
+      <div class="bg-white p-6 rounded-xl shadow glow-card">
         <div class="flex justify-center border-b mb-6">
           <div id="tab-student" class="ladder-tab active" onclick="showLadderExample('student')">Student Version</div>
           <div id="tab-leader" class="ladder-tab" onclick="showLadderExample('leader')">Leader Version</div>
@@ -128,22 +166,22 @@
 
         <div id="content-student" class="space-y-3">
           <div class="grid md:grid-cols-5 gap-3 text-center font-medium">
-            <div class="p-3 bg-red-50 rounded">Canva / ChatGPT</div>
-            <div class="p-3 bg-orange-50 rounded">Storyboarding presentations</div>
-            <div class="p-3 bg-yellow-50 rounded">Narrative clarity & peer feedback</div>
-            <div class="p-3 bg-green-50 rounded">Presentation confidence</div>
-            <div class="p-3 bg-blue-50 rounded">Rubrics show communication growth</div>
+            <div class="p-3 bg-red-50 rounded glow-card">Canva / ChatGPT</div>
+            <div class="p-3 bg-orange-50 rounded glow-card">Storyboarding presentations</div>
+            <div class="p-3 bg-yellow-50 rounded glow-card">Narrative clarity & peer feedback</div>
+            <div class="p-3 bg-green-50 rounded glow-card">Presentation confidence</div>
+            <div class="p-3 bg-blue-50 rounded glow-card">Rubrics show communication growth</div>
           </div>
           <a href="#resources" class="block text-center mt-3 text-[#002B49] font-semibold underline">Reflection questions & microtools →</a>
         </div>
 
         <div id="content-leader" class="space-y-3 hidden">
           <div class="grid md:grid-cols-5 gap-3 text-center font-medium">
-            <div class="p-3 bg-red-50 rounded">Dashboards that shape weekly behavior</div>
-            <div class="p-3 bg-orange-50 rounded">Data huddles & strategic prompts</div>
-            <div class="p-3 bg-yellow-50 rounded">Collaborative problem-solving</div>
-            <div class="p-3 bg-green-50 rounded">Stronger Tier-1 & resource alignment</div>
-            <div class="p-3 bg-blue-50 rounded">STAAR up, audit risk down</div>
+            <div class="p-3 bg-red-50 rounded glow-card">Dashboards that shape weekly behavior</div>
+            <div class="p-3 bg-orange-50 rounded glow-card">Data huddles & strategic prompts</div>
+            <div class="p-3 bg-yellow-50 rounded glow-card">Collaborative problem-solving</div>
+            <div class="p-3 bg-green-50 rounded glow-card">Stronger Tier-1 & resource alignment</div>
+            <div class="p-3 bg-blue-50 rounded glow-card">STAAR up, audit risk down</div>
           </div>
           <a href="#leaders" class="block text-center mt-3 text-[#002B49] font-semibold underline">10-Day plans & evidence builders →</a>
         </div>
@@ -153,16 +191,16 @@
     <!-- Tool-to-Impact Canvas -->
     <section id="canvas" class="mb-20 pt-6">
       <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Tool-to-Impact Canvas Generator</h2>
-      <div class="section-sep"></div>
+      <div class="spark-underline"></div>
       <p class="text-lg text-gray-700 mb-6">Operationalize an EdTech use case into a campus-ready action plan.</p>
 
-      <div class="bg-white p-8 rounded-xl shadow border-t-4 border-indigo-500">
+      <div class="bg-white p-8 rounded-xl shadow glow-card border-t-4 border-indigo-500">
         <form id="impact-canvas-form" onsubmit="generateCanvasPlan(event)" class="space-y-3">
           <input id="toolName" placeholder="1. EdTech Tool (e.g., Flip, ChatGPT, PowerSchool)" required class="w-full p-3 border rounded"/>
           <input id="targetBehavior" placeholder="2. Desired Behavior (e.g., peer feedback, narrative clarity)" required class="w-full p-3 border rounded"/>
           <input id="measurableOutcome" placeholder="3. Measurable Outcome (e.g., +5% attendance, rubric gains)" required class="w-full p-3 border rounded"/>
           <input id="owner" placeholder="4. Owner + Cadence (e.g., 6th ELA team • weekly check-in)" required class="w-full p-3 border rounded"/>
-          <button type="submit" class="gold-button py-3 px-6 rounded">Generate Impact Plan</button>
+          <button type="submit" class="gold-button py-3 px-6 rounded btn-pop">Generate Impact Plan</button>
         </form>
 
         <div id="canvas-output" class="mt-6 p-6 bg-gray-50 border rounded hidden">
@@ -172,8 +210,8 @@
           <p class="font-semibold mb-1">Outcome: <span id="out-outcome" class="text-indigo-700 font-normal"></span></p>
           <p class="font-semibold mb-3">Owner/Cadence: <span id="out-owner" class="text-indigo-700 font-normal"></span></p>
 
-          <button class="bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-700" onclick="copyPlan()">Copy</button>
-          <button class="ml-2 bg-gray-800 text-white py-2 px-4 rounded hover:bg-black" onclick="downloadPlan()">Download CSV</button>
+          <button class="bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-700 btn-pop" onclick="copyPlan()">Copy</button>
+          <button class="ml-2 bg-gray-800 text-white py-2 px-4 rounded hover:bg-black btn-pop" onclick="downloadPlan()">Download CSV</button>
         </div>
       </div>
     </section>
@@ -181,14 +219,14 @@
     <!-- 3-Sentence Story Generator -->
     <section id="story-generator" class="mb-20 pt-6">
       <h2 class="text-4xl font-extrabold text-gray-900 mb-2">3-Sentence Story Generator</h2>
-      <div class="section-sep"></div>
+      <div class="spark-underline"></div>
       <p class="text-lg text-gray-700 mb-6">Turn metrics into board-ready narrative.</p>
 
-      <div class="bg-white p-8 rounded-xl shadow border-t-4 border-pink-500">
+      <div class="bg-white p-8 rounded-xl shadow glow-card border-t-4 border-pink-500">
         <form id="story-form" onsubmit="generateStory(event)" class="space-y-3">
           <textarea id="metrics" rows="3" placeholder="Key metrics (e.g., STAAR +8, attendance +3%, PEIMS errors −30%)" required class="w-full p-3 border rounded"></textarea>
           <input id="context" placeholder="Human behavior that drove change (e.g., 2-line nudges + advisory grid)" required class="w-full p-3 border rounded"/>
-          <button type="submit" class="gold-button py-3 px-6 rounded">Generate Story</button>
+          <button type="submit" class="gold-button py-3 px-6 rounded btn-pop">Generate Story</button>
         </form>
 
         <div id="story-output" class="mt-6 p-6 bg-gray-50 border rounded hidden">
@@ -198,8 +236,8 @@
           <p id="story-next" class="mb-3"></p>
 
           <div class="flex gap-2">
-            <button class="bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-700" onclick="copyStory()">Copy</button>
-            <button class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-black" onclick="downloadStory()">Download .txt</button>
+            <button class="bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-700 btn-pop" onclick="copyStory()">Copy</button>
+            <button class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-black btn-pop" onclick="downloadStory()">Download .txt</button>
           </div>
         </div>
       </div>
@@ -208,25 +246,25 @@
     <!-- RISEN -->
     <section id="risen" class="mb-20 pt-6">
       <h2 class="text-4xl font-extrabold text-gray-900 mb-2">RISEN Prompt Studio</h2>
-      <div class="section-sep"></div>
+      <div class="spark-underline"></div>
       <p class="text-lg text-gray-700 mb-6">Encode strategic intent into every prompt: <strong>Relevance</strong>, <strong>Intent</strong>, <strong>Specificity</strong>, <strong>Execution</strong>, <strong>Navigation</strong>.</p>
 
-      <div class="bg-white p-8 rounded-xl shadow border-t-4 border-yellow-500">
+      <div class="bg-white p-8 rounded-xl shadow glow-card border-t-4 border-yellow-500">
         <div class="space-y-3">
           <input id="r-relevance" placeholder="R: Link to goal/policy (e.g., PD Plan Goal 3)" class="w-full p-3 border rounded"/>
           <input id="i-intent" placeholder="I: Task (e.g., Draft three parent email options)" class="w-full p-3 border rounded"/>
           <input id="s-specificity" placeholder="S: Data/context (e.g., Student failed Quiz 2, passed Quiz 3)" class="w-full p-3 border rounded"/>
           <input id="e-execution" placeholder="E: Format & tone (e.g., kind and firm; sandwich structure)" class="w-full p-3 border rounded"/>
           <input id="n-navigation" placeholder="N: Next step / audit (e.g., flag jargon; bullets only)" class="w-full p-3 border rounded"/>
-          <button class="gold-button py-3 px-6 rounded" onclick="constructPrompt()">Construct RISEN Prompt</button>
+          <button class="gold-button py-3 px-6 rounded btn-pop" onclick="constructPrompt()">Construct RISEN Prompt</button>
         </div>
 
         <div id="risen-output" class="mt-6 p-6 bg-gray-50 border rounded hidden">
           <h4 class="text-xl font-extrabold mb-2">Full Prompt</h4>
           <textarea id="full-prompt-output" rows="6" readonly class="w-full p-3 border rounded bg-white"></textarea>
           <div class="mt-3 flex gap-2">
-            <button class="bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-700" onclick="copyRisen()">Copy</button>
-            <button class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-black" onclick="downloadRisen()">Download .txt</button>
+            <button class="bg-teal-600 text-white py-2 px-4 rounded hover:bg-teal-700 btn-pop" onclick="copyRisen()">Copy</button>
+            <button class="bg-gray-800 text-white py-2 px-4 rounded hover:bg-black btn-pop" onclick="downloadRisen()">Download .txt</button>
           </div>
         </div>
       </div>
@@ -235,11 +273,11 @@
     <!-- Role Portals -->
     <section id="role-portals" class="mb-20 pt-6">
       <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Role-Specific Portals</h2>
-      <div class="section-sep"></div>
+      <div class="spark-underline"></div>
 
       <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
         <!-- Teachers -->
-        <div id="teachers" class="p-6 rounded-xl bg-blue-50 shadow border-t-4 border-blue-600">
+        <div id="teachers" class="p-6 rounded-xl bg-blue-50 shadow border-t-4 border-blue-600 glow-card">
           <h3 class="text-2xl font-extrabold mb-2 text-blue-900">For Teachers</h3>
           <p class="text-gray-700 mb-3">Short activities and prompts that save time and improve learning.</p>
           <ul class="list-disc list-inside text-blue-900 space-y-2 text-sm">
@@ -251,7 +289,7 @@
         </div>
 
         <!-- Leaders -->
-        <div id="leaders" class="p-6 rounded-xl bg-teal-50 shadow border-t-4 border-teal-600">
+        <div id="leaders" class="p-6 rounded-xl bg-teal-50 shadow border-t-4 border-teal-600 glow-card">
           <h3 class="text-2xl font-extrabold mb-2 text-teal-900">For Leaders</h3>
           <p class="text-gray-700 mb-3">Turn dashboards into weekly behaviors and board-ready stories.</p>
           <ul class="list-disc list-inside text-teal-900 space-y-2 text-sm">
@@ -263,7 +301,7 @@
         </div>
 
         <!-- SPED/EB/Coaches -->
-        <div id="innovators" class="p-6 rounded-xl bg-indigo-50 shadow border-t-4 border-indigo-600">
+        <div id="innovators" class="p-6 rounded-xl bg-indigo-50 shadow border-t-4 border-indigo-600 glow-card">
           <h3 class="text-2xl font-extrabold mb-2 text-indigo-900">SPED, EB & EdTech Coaches</h3>
           <p class="text-gray-700 mb-3">High-accountability templates and mini-cases.</p>
           <ul class="list-disc list-inside text-indigo-900 space-y-2 text-sm">
@@ -279,27 +317,27 @@
     <!-- Data in Motion -->
     <section id="data-motion" class="mb-20 pt-6">
       <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Data in Motion: Story Dashboards</h2>
-      <div class="section-sep"></div>
+      <div class="spark-underline"></div>
       <p class="text-lg text-gray-700 mb-6">Each card ties a metric to the habit that moved it.</p>
 
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="p-6 bg-white rounded-xl shadow border-l-4 border-green-600">
+        <div class="p-6 bg-white rounded-xl shadow border-l-4 border-green-600 glow-card">
           <p class="text-xs font-bold text-gray-500 uppercase">Impact Story</p>
           <h4 class="text-3xl font-extrabold text-green-700 my-2">Attendance ↑ 3%</h4>
           <p class="text-gray-700 text-sm"><strong>Habit:</strong> 2-line parent nudges + advisory accountability grid.</p>
-          <button class="mt-4 gold-button text-xs py-1 px-3 rounded">View mockup</button>
+          <button class="mt-4 gold-button text-xs py-1 px-3 rounded btn-pop">View mockup</button>
         </div>
-        <div class="p-6 bg-white rounded-xl shadow border-l-4 border-red-600">
+        <div class="p-6 bg-white rounded-xl shadow border-l-4 border-red-600 glow-card">
           <p class="text-xs font-bold text-gray-500 uppercase">Impact Story</p>
           <h4 class="text-3xl font-extrabold text-red-700 my-2">PEIMS Errors ↓ 30%</h4>
           <p class="text-gray-700 text-sm"><strong>Habit:</strong> Weekly AI audit checks embedded in workflow.</p>
-          <button class="mt-4 gold-button text-xs py-1 px-3 rounded">View mockup</button>
+          <button class="mt-4 gold-button text-xs py-1 px-3 rounded btn-pop">View mockup</button>
         </div>
-        <div class="p-6 bg-white rounded-xl shadow border-l-4 border-yellow-600">
+        <div class="p-6 bg-white rounded-xl shadow border-l-4 border-yellow-600 glow-card">
           <p class="text-xs font-bold text-gray-500 uppercase">Impact Story</p>
           <h4 class="text-3xl font-extrabold text-yellow-700 my-2">Hiring Time ↓ 50%</h4>
           <p class="text-gray-700 text-sm"><strong>Habit:</strong> Automation frees leaders for talent cultivation.</p>
-          <button class="mt-4 gold-button text-xs py-1 px-3 rounded">View mockup</button>
+          <button class="mt-4 gold-button text-xs py-1 px-3 rounded btn-pop">View mockup</button>
         </div>
       </div>
     </section>
@@ -307,12 +345,12 @@
     <!-- 10-Day Impact Plan -->
     <section id="ten-day" class="mb-20 pt-6">
       <h2 class="text-4xl font-extrabold text-gray-900 mb-2">10-Day Impact Plan</h2>
-      <div class="section-sep"></div>
+      <div class="spark-underline"></div>
       <p class="text-lg text-gray-700 mb-6">
         Tiny sprints that change weekly behavior. Fill in the table or auto-seed 10 days, then export.
       </p>
 
-      <div class="bg-white p-6 rounded-xl shadow border-t-4 border-teal-600">
+      <div class="bg-white p-6 rounded-xl shadow glow-card border-t-4 border-teal-600">
         <div class="grid md:grid-cols-5 gap-3 mb-4">
           <input id="plan-who" class="p-3 border rounded" placeholder="Default Who (e.g., 6th ELA Team)">
           <input id="plan-what" class="p-3 border rounded" placeholder="Default What (e.g., 2-line parent nudge)">
@@ -322,11 +360,11 @@
         </div>
 
         <div class="flex flex-wrap gap-2 mb-4">
-          <button class="gold-button py-2 px-4 rounded" onclick="autofillTen()">Auto-seed Days 1–10</button>
-          <button class="bg-[#002B49] text-white py-2 px-4 rounded" onclick="addPlanRow()">Add Row</button>
-          <button class="bg-teal-600 text-white py-2 px-4 rounded" onclick="copyPlan10()">Copy CSV</button>
-          <button class="bg-gray-800 text-white py-2 px-4 rounded" onclick="downloadPlan10()">Download CSV</button>
-          <button class="bg-red-600 text-white py-2 px-4 rounded" onclick="clearPlan10()">Clear</button>
+          <button class="gold-button py-2 px-4 rounded btn-pop" onclick="autofillTen()">Auto-seed Days 1–10</button>
+          <button class="bg-[#002B49] text-white py-2 px-4 rounded btn-pop" onclick="addPlanRow()">Add Row</button>
+          <button class="bg-teal-600 text-white py-2 px-4 rounded btn-pop" onclick="copyPlan10()">Copy CSV</button>
+          <button class="bg-gray-800 text-white py-2 px-4 rounded btn-pop" onclick="downloadPlan10()">Download CSV</button>
+          <button class="bg-red-600 text-white py-2 px-4 rounded btn-pop" onclick="clearPlan10()">Clear</button>
         </div>
 
         <div class="overflow-x-auto">
@@ -351,41 +389,57 @@
     <!-- Resources (local, no external links) -->
     <section id="resources" class="mb-20 pt-6">
       <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Resources Hub</h2>
-      <div class="section-sep"></div>
-      <p class="text-lg text-gray-700 mb-6">Download ready-to-use blank templates as CSV files.</p>
+      <div class="spark-underline"></div>
+      <p class="text-lg text-gray-700 mb-6">Download ready-to-use blank templates as CSV/TXT.</p>
 
       <div class="grid md:grid-cols-2 gap-4 text-sm">
-        <div class="bg-white p-5 rounded shadow border">
+        <div class="bg-white p-5 rounded shadow border glow-card">
           <strong>Impact Planning Grid (CSV)</strong><br>
-          <span class="text-gray-600">Tool → Behavior → Outcome → Evidence</span><br>
-          <button class="mt-2 gold-button py-1 px-3 rounded" onclick="downloadImpactGrid()">Download</button>
+          <span class="text-gray-600">Tool → Use → Behavior → Outcome → Evidence</span><br>
+          <button class="mt-2 gold-button py-1 px-3 rounded btn-pop" onclick="downloadImpactGrid()">Download</button>
         </div>
-        <div class="bg-white p-5 rounded shadow border">
+        <div class="bg-white p-5 rounded shadow border glow-card">
           <strong>Teacher Reflection Tracker (CSV)</strong><br>
           <span class="text-gray-600">Week | Goal | Action | Evidence | Notes</span><br>
-          <button class="mt-2 gold-button py-1 px-3 rounded" onclick="downloadReflectionTracker()">Download</button>
+          <button class="mt-2 gold-button py-1 px-3 rounded btn-pop" onclick="downloadReflectionTracker()">Download</button>
         </div>
-        <div class="bg-white p-5 rounded shadow border">
+        <div class="bg-white p-5 rounded shadow border glow-card">
           <strong>Leader Evidence Narrative (TXT)</strong><br>
           <span class="text-gray-600">3-Sentence storyboard scaffold</span><br>
-          <button class="mt-2 gold-button py-1 px-3 rounded" onclick="downloadLeaderNarrative()">Download</button>
+          <button class="mt-2 gold-button py-1 px-3 rounded btn-pop" onclick="downloadLeaderNarrative()">Download</button>
         </div>
-        <div class="bg-white p-5 rounded shadow border">
+        <div class="bg-white p-5 rounded shadow border glow-card">
           <strong>RISEN Prompt Pack (TXT)</strong><br>
           <span class="text-gray-600">Role-based starter prompts</span><br>
-          <button class="mt-2 gold-button py-1 px-3 rounded" onclick="downloadRisenPack()">Download</button>
+          <button class="mt-2 gold-button py-1 px-3 rounded btn-pop" onclick="downloadRisenPack()">Download</button>
         </div>
       </div>
     </section>
 
     <!-- CTA -->
-    <section id="connect" class="mt-10 py-14 header-bg text-white rounded-2xl shadow-xl text-center">
+    <section id="connect" class="mt-10 py-14 header-bg sparkle-bg text-white rounded-2xl shadow-xl text-center">
       <h2 class="text-4xl font-extrabold mb-3 accent-color">Join the Movement</h2>
-      <p class="text-lg font-light mb-7 max-w-3xl mx-auto">Ready to turn tools into lasting impact?</p>
+      <p class="text-lg font-light mb-3 max-w-3xl mx-auto">Ready to turn tools into lasting impact?</p>
+      <p class="text-sm opacity-90 mb-7">Stay in the loop, bring PD to your team, or follow the work.</p>
+
       <div class="flex flex-col sm:flex-row justify-center gap-3">
-        <a href="#" class="gold-button py-3 px-8 rounded-full shadow">Impact Dispatch Newsletter</a>
-        <a href="#" class="border-2 border-white text-white hover:bg-white hover:text-[#002B49] font-bold py-3 px-8 rounded-full shadow">Request PD for your District</a>
+        <button class="gold-button btn-pop py-3 px-8 rounded-full shadow" onclick="subscribeEmail()">
+          Impact Dispatch Newsletter
+        </button>
+        <button class="border-2 border-white text-white hover:bg-white hover:text-[#002B49] font-bold py-3 px-8 rounded-full shadow btn-pop" onclick="requestPD()">
+          Request PD for your District
+        </button>
+        <a href="https://twitter.com/msedbostic" target="_blank" class="btn-pop border-2 border-white text-white hover:bg-white hover:text-[#002B49] font-bold py-3 px-8 rounded-full shadow text-center">
+          Follow @msedbostic
+        </a>
+        <a href="https://instagram.com/cultureaintjustcupcakes" target="_blank" class="btn-pop border-2 border-white text-white hover:bg-white hover:text-[#002B49] font-bold py-3 px-8 rounded-full shadow text-center">
+          @cultureaintjustcupcakes
+        </a>
       </div>
+
+      <button class="btn-pop mt-5 border-2 border-white text-white hover:bg-white hover:text-[#002B49] font-bold py-2 px-5 rounded-full shadow" onclick="downloadRSS()">
+        Download RSS Template (feed.xml)
+      </button>
     </section>
   </main>
 
@@ -658,6 +712,88 @@ S: Recent error pattern in PEIMS uploads.
 E: Numbered SOP; clear roles; 10-minute weekly cadence.
 N: Flag any ambiguous language and add a final checklist.`;
       downloadBlob(txt, 'RISEN-prompt-pack.txt', 'text/plain');
+    }
+
+    // PD + Subscribe email hooks
+    function collectContextForEmail(){
+      const plan = `"Tool-to-Impact Plan"
+Tool: ${gt('out-tool')||'-'}
+Behavior: ${gt('out-behavior')||'-'}
+Outcome: ${gt('out-outcome')||'-'}
+Owner/Cadence: ${gt('out-owner')||'-'}`;
+
+      const story = `Board Story
+${stripHTML(document.getElementById('story-what-changed')?.innerHTML||'What changed: -')}
+${document.getElementById('story-why-matters')?.textContent||'Why it matters: -'}
+${document.getElementById('story-next')?.textContent||'What happens next: -'}`;
+
+      const tenDay = planRows().length
+        ? '10-Day Plan\n' + planRows().map(r=>`${r[0]} — Who: ${r[1]} | What: ${r[2]} | When: ${r[3]} | Evidence: ${r[4]} | Celebrate: ${r[5]}`).join('\n')
+        : '10-Day Plan\n-';
+
+      return `${plan}\n\n${story}\n\n${tenDay}`;
+    }
+
+    function requestPD(){
+      const subject = encodeURIComponent('PD Request: From Tools to Impact');
+      const body = encodeURIComponent(
+`Hi Elizabeth,
+
+We'd like to schedule professional development using your From Tools to Impact framework.
+
+District/Org: __________
+Preferred dates: __________
+Audience (teachers/leaders/both): __________
+Focus area (behavior, evidence, story): __________
+
+Context from our draft work:
+${collectContextForEmail()}
+
+Thanks!`
+      );
+      window.location.href = `mailto:edbostic83@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    function subscribeEmail(){
+      const subject = encodeURIComponent('Subscribe: Impact Dispatch');
+      const body = encodeURIComponent(
+`Hi Elizabeth,
+
+Please add me to Impact Dispatch.
+
+Name: __________
+Role: (Teacher / Leader / EdTech / SPED / EB / Other)
+District/Org: __________
+Optional: What topic do you want first? __________
+
+Thank you!`
+      );
+      window.location.href = `mailto:edbostic83@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    // RSS starter download (for GitHub Pages)
+    function downloadRSS(){
+      const now = new Date().toISOString();
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+<channel>
+  <title>Impact Dispatch</title>
+  <link>https://YOUR-GITHUB-PAGES-DOMAIN/</link>
+  <description>From Tools to Impact – updates, templates, and wins.</description>
+  <lastBuildDate>${now}</lastBuildDate>
+
+  <item>
+    <title>Welcome to Impact Dispatch</title>
+    <link>https://YOUR-GITHUB-PAGES-DOMAIN/</link>
+    <guid>welcome-${now}</guid>
+    <pubDate>${now}</pubDate>
+    <description><![CDATA[
+      Quick start: Tool → Behavior → Outcome → Evidence. Grab templates onsite.
+    ]]></description>
+  </item>
+</channel>
+</rss>`;
+      downloadBlob(xml, 'feed.xml', 'application/rss+xml');
     }
 
     // Helpers
