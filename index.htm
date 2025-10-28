@@ -9,12 +9,11 @@
   <script src="https://cdn.tailwindcss.com"></script>
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet"/>
 
   <!-- Open Graph / Social preview -->
   <meta property="og:title" content="From Tools to Impact – The Living Lab">
-  <meta property="og:description" content="Turn EdTech from tools into habits, outcomes, and evidence.">
-  <!-- Replace with your GitHub Pages domain image if available -->
+  <meta property="og:description" content="Work with AI like a strategic partner: choose the right platform, change habits, show evidence.">
   <meta property="og:image" content="https://YOUR-GITHUB-PAGES-DOMAIN/social.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="alternate" type="application/rss+xml" title="Impact Dispatch" href="/feed.xml">
@@ -23,22 +22,15 @@
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2242%22 fill=%22%23002B49%22/><text x=%2250%22 y=%2260%22 font-size=%2248%22 text-anchor=%22middle%22 fill=%22%23D4AF37%22 font-family=%22Arial%22>IL</text></svg>"/>
 
   <style>
-    :root{
-      --navy:#002B49;
-      --gold:#D4AF37;
-      --gold-dark:#bfa02e;
-      --bg:#f7f9fc;
-    }
-    html, body { font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, sans-serif; scroll-behavior:smooth; background-color: var(--bg);}
+    :root{ --navy:#002B49; --gold:#D4AF37; --gold-dark:#bfa02e; --bg:#f7f9fc; }
+    html, body { font-family:'Inter',system-ui,-apple-system,Segoe UI,Roboto,sans-serif; scroll-behavior:smooth; background:var(--bg); }
     .header-bg{ background: var(--navy); }
     .accent-color{ color: var(--gold); }
-    .gold-button{ background: var(--gold); color: var(--navy); font-weight:700; }
+    .gold-button{ background: var(--gold); color: var(--navy); font-weight:800; }
     .gold-button:hover{ background: var(--gold-dark); }
-    .ladder-tab{ cursor:pointer; padding:.75rem 1.25rem; border-bottom:3px solid transparent; font-weight:700; }
+    .ladder-tab{ cursor:pointer; padding:.75rem 1.25rem; border-bottom:3px solid transparent; font-weight:800; }
     .ladder-tab.active{ border-color: var(--gold); color: var(--navy); background:#fff8e1; }
-    @media (prefers-reduced-motion: reduce){
-      * { animation: none !important; transition: none !important; }
-    }
+    @media (prefers-reduced-motion: reduce){ * { animation:none !important; transition:none !important; } }
 
     /* Sparkle gradient + soft glow */
     .sparkle-bg {
@@ -48,31 +40,32 @@
         linear-gradient(180deg, #031b2b 0%, #002B49 40%, #022b46 100%);
     }
     .glow-card {
-      box-shadow:
-        0 10px 25px rgba(0,0,0,.08),
-        0 0 0 1px rgba(0,43,73,.06),
-        inset 0 0 0 1px rgba(255,255,255,.04);
+      box-shadow: 0 10px 25px rgba(0,0,0,.08), 0 0 0 1px rgba(0,43,73,.06), inset 0 0 0 1px rgba(255,255,255,.04);
       transition: transform .2s ease, box-shadow .2s ease;
     }
     .glow-card:hover {
       transform: translateY(-2px);
-      box-shadow:
-        0 14px 30px rgba(0,0,0,.12),
-        0 0 0 1px rgba(0,43,73,.10),
-        inset 0 0 0 1px rgba(255,255,255,.06);
+      box-shadow: 0 14px 30px rgba(0,0,0,.12), 0 0 0 1px rgba(0,43,73,.10), inset 0 0 0 1px rgba(255,255,255,.06);
     }
     /* Animated accent underline */
     .spark-underline {
       background: linear-gradient(90deg, #D4AF37, #ffe9a3, #D4AF37);
       background-size: 200% 100%;
       height: 4px; width: 90px; border-radius: 9999px;
-      animation: shimmer 2.5s linear infinite;
-      margin-bottom: 1.5rem;
+      animation: shimmer 2.5s linear infinite; margin-bottom: 1.25rem;
     }
     @keyframes shimmer { 0%{background-position:0% 50%} 100%{background-position:200% 50%} }
     /* Buttons with gentle lift */
     .btn-pop { transition: transform .15s ease, box-shadow .15s ease; }
     .btn-pop:hover { transform: translateY(-1px); box-shadow: 0 10px 18px rgba(0,0,0,.1);}
+
+    /* Callouts + badges + modal */
+    .callout {background:#fffef7;border-left:4px solid var(--gold);}
+    .callout h4{font-weight:800;color:#5b4a00}
+    .badge{font-size:.75rem;border:1px solid rgba(0,0,0,.08);padding:.15rem .5rem;border-radius:999px}
+    .modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:60}
+    .modal.open{display:flex}
+    .modal-card{background:#fff;border-radius:.75rem;max-width:720px;width:92%;box-shadow:0 20px 50px rgba(0,0,0,.25)}
   </style>
 </head>
 <body class="text-gray-800">
@@ -87,12 +80,16 @@
         </div>
         <div class="hidden md:block">
           <div class="ml-10 flex items-baseline space-x-4">
-            <a href="#framework" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">Framework</a>
-            <a href="#teachers" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">For Teachers</a>
-            <a href="#leaders" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">For Leaders</a>
-            <a href="#risen" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">RISEN Studio</a>
-            <a href="#resources" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">Resources</a>
-            <a href="#connect" class="gold-button px-3 py-2 rounded-md text-sm font-medium btn-pop">Join the Movement</a>
+            <a href="#primer" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">Primer</a>
+            <a href="#guided" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">Guided Mode</a>
+            <a href="#planner" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">Planner</a>
+            <a href="#data-prep" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">Data Prep</a>
+            <a href="#platform-finder" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">Platform Finder</a>
+            <a href="#risen" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">RISEN</a>
+            <a href="#story-generator" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">Story</a>
+            <a href="#ten-day" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">10-Day Plan</a>
+            <a href="#process-plug" class="text-gray-700 hover:text-[#002B49] px-3 py-2 rounded-md text-sm font-medium">Process Plug-In</a>
+            <a href="#connect" class="gold-button px-3 py-2 rounded-md text-sm font-medium btn-pop">Join</a>
           </div>
         </div>
       </div>
@@ -104,22 +101,18 @@
     <div class="max-w-7xl mx-auto px-4 py-20 sm:py-28 text-center">
       <h1 class="text-4xl sm:text-6xl font-extrabold mb-4 accent-color">From Tools to Impact</h1>
       <p class="text-xl sm:text-3xl font-light mb-6 max-w-4xl mx-auto opacity-95">
-        <strong>Technology doesn’t change classrooms—people do.</strong> This site shows how.
-      </p>
-      <p class="text-lg font-light max-w-3xl mx-auto mb-10">
-        We treat EdTech and AI as <strong>cognitive architecture</strong>—to change habits, raise outcomes, and generate evidence leaders can use.
+        <strong>Technology doesn’t change classrooms—people do.</strong> This site teaches how to make AI a thinking partner, not a crutch.
       </p>
 
-      <!-- Quiz -->
+      <!-- Quick triage -->
       <div class="mt-10 bg-white p-8 rounded-xl max-w-xl mx-auto shadow-xl text-gray-900 glow-card">
-        <h3 class="text-2xl font-extrabold mb-4 text-[#002B49]">60-Second Quick Triage</h3>
-        <p class="mb-4">Answer honestly. We’ll route you to the right tool and create a tiny action.</p>
-
-        <div id="quiz" class="space-y-3 text-left">
+        <h3 class="text-2xl font-extrabold mb-4 text-[#002B49]">60-Second Triage</h3>
+        <p class="mb-4">Pick your blocker. We’ll route you and start an action.</p>
+        <div class="space-y-3 text-left">
           <label class="block text-sm font-semibold">Current state
             <select id="q1" class="w-full p-2 border rounded mt-1">
-              <option value="tools">We use tools, outcomes unclear</option>
-              <option value="habits">We track habits and outcomes</option>
+              <option value="tools">Using tools, outcomes unclear</option>
+              <option value="habits">Habits + outcomes tracked</option>
             </select>
           </label>
           <label class="block text-sm font-semibold">Biggest blocker
@@ -127,6 +120,8 @@
               <option value="behavior">No shared habits</option>
               <option value="evidence">No quick evidence</option>
               <option value="story">We can’t tell the story</option>
+              <option value="platform">Not sure which platform/tool</option>
+              <option value="data">Data prep confusion</option>
             </select>
           </label>
           <button class="gold-button w-full py-2 rounded mt-2 btn-pop" onclick="scoreQuiz()">Get your next step</button>
@@ -136,17 +131,78 @@
     </div>
   </section>
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
+  <!-- Surface vs Strategic AI -->
+  <section id="primer" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="bg-white rounded-xl shadow glow-card p-6">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="badge">Start Here</span>
+        <h2 class="text-2xl font-extrabold">Surface vs. Strategic AI</h2>
+      </div>
+      <p class="text-gray-700 mb-4">If AI feels like glitter glue, here’s why—and how to level up.</p>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="p-4 rounded-lg bg-red-50">
+          <h3 class="font-bold text-red-800 mb-2">Surface</h3>
+          <ul class="list-disc list-inside text-sm text-red-900 space-y-1">
+            <li>Prompts with no goal or constraints</li><li>No habit, no evidence</li><li>One-and-done asks</li><li>No owner or cadence</li>
+          </ul>
+        </div>
+        <div class="p-4 rounded-lg bg-green-50">
+          <h3 class="font-bold text-green-900 mb-2">Strategic</h3>
+          <ul class="list-disc list-inside text-sm text-green-900 space-y-1">
+            <li><strong>RISEN</strong> frames goal, data, tone, next step</li>
+            <li>Tool → <strong>habit</strong> → <strong>outcome</strong> → <strong>evidence</strong></li>
+            <li>Iterate with checks; keep an audit trail</li>
+            <li><strong>Owner + cadence</strong>; 10-day sprint</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Guided Mode -->
+  <section id="guided" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="bg-white rounded-xl shadow glow-card p-6">
+      <div class="flex items-center gap-3 mb-2">
+        <span class="badge">7 minutes</span>
+        <h2 class="text-2xl font-extrabold">Work Like Elizabeth — Guided Mode</h2>
+      </div>
+      <p class="text-gray-700 mb-4">Role-based steps from prompt → planner → data prep → platform → story → sprint.</p>
+      <div class="flex flex-wrap gap-2 mb-4">
+        <button class="gold-button btn-pop px-4 py-2 rounded" onclick="startGuided('teacher')">Teacher</button>
+        <button class="gold-button btn-pop px-4 py-2 rounded" onclick="startGuided('leader')">Leader</button>
+        <button class="gold-button btn-pop px-4 py-2 rounded" onclick="startGuided('central')">Central Office</button>
+        <button class="gold-button btn-pop px-4 py-2 rounded" onclick="startGuided('coach')">SPED / EB / Coach</button>
+      </div>
+      <div id="guided-panel" class="hidden">
+        <div class="callout p-4 rounded mb-3">
+          <h4 class="mb-1">What we’re doing</h4>
+          <p id="guided-why" class="text-sm text-gray-800"></p>
+        </div>
+        <div class="bg-gray-50 border rounded p-4">
+          <p class="text-sm text-gray-700 mb-3"><strong>Step <span id="guided-step-num">1</span>:</strong> <span id="guided-step-title"></span></p>
+          <div id="guided-step-body" class="text-sm text-gray-800 space-y-2"></div>
+          <div class="mt-4 flex gap-2">
+            <button class="bg-[#002B49] text-white px-4 py-2 rounded btn-pop" onclick="prevGuided()">Back</button>
+            <button class="gold-button px-4 py-2 rounded btn-pop" onclick="nextGuided()">Next</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
 
     <!-- Framework -->
-    <section id="framework" class="mb-20 pt-6">
+    <section id="framework" class="mb-20 pt-2">
       <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Core Framework: The Impact Ladder</h2>
       <div class="spark-underline"></div>
-      <p class="text-lg text-gray-700 mb-8">
-        Move intentionally from a <strong>Tool</strong> to <strong>Evidence</strong> by changing <strong>Behavior</strong>.
-      </p>
+      <div class="callout p-4 rounded mb-4">
+        <h4 class="mb-1">What this does</h4>
+        <p class="text-sm">Turns “we used a tool” into “we changed a habit, moved a metric, and captured evidence.”</p>
+        <p class="text-sm"><strong>When to use:</strong> Before adopting a tool or planning a unit/initiative.</p>
+        <p class="text-sm"><strong>Do this now:</strong> Pick Student/Leader → copy pattern → build your plan.</p>
+      </div>
 
-      <!-- Ladder header -->
       <div class="flex justify-center mb-6">
         <div class="grid grid-cols-5 text-center text-sm font-bold text-gray-600 max-w-5xl w-full">
           <div class="p-2 border-b-4 border-[#002B49]">1. Tool</div>
@@ -157,7 +213,6 @@
         </div>
       </div>
 
-      <!-- Tabs -->
       <div class="bg-white p-6 rounded-xl shadow glow-card">
         <div class="flex justify-center border-b mb-6">
           <div id="tab-student" class="ladder-tab active" onclick="showLadderExample('student')">Student Version</div>
@@ -172,7 +227,7 @@
             <div class="p-3 bg-green-50 rounded glow-card">Presentation confidence</div>
             <div class="p-3 bg-blue-50 rounded glow-card">Rubrics show communication growth</div>
           </div>
-          <a href="#resources" class="block text-center mt-3 text-[#002B49] font-semibold underline">Reflection questions & microtools →</a>
+          <a href="#planner" class="block text-center mt-3 text-[#002B49] font-semibold underline">Turn this into a plan →</a>
         </div>
 
         <div id="content-leader" class="space-y-3 hidden">
@@ -183,28 +238,33 @@
             <div class="p-3 bg-green-50 rounded glow-card">Stronger Tier-1 & resource alignment</div>
             <div class="p-3 bg-blue-50 rounded glow-card">STAAR up, audit risk down</div>
           </div>
-          <a href="#leaders" class="block text-center mt-3 text-[#002B49] font-semibold underline">10-Day plans & evidence builders →</a>
+          <a href="#planner" class="block text-center mt-3 text-[#002B49] font-semibold underline">10-Day plan & evidence builders →</a>
         </div>
       </div>
     </section>
 
-    <!-- Tool-to-Impact Canvas -->
-    <section id="canvas" class="mb-20 pt-6">
-      <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Tool-to-Impact Canvas Generator</h2>
+    <!-- Tool-to-Impact Planner -->
+    <section id="planner" class="mb-20 pt-6">
+      <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Tool-to-Impact Planner</h2>
       <div class="spark-underline"></div>
-      <p class="text-lg text-gray-700 mb-6">Operationalize an EdTech use case into a campus-ready action plan.</p>
+      <div class="callout p-4 rounded mb-4">
+        <h4 class="mb-1">What this does</h4>
+        <p class="text-sm">Turns a tool into a weekly habit with an owner, cadence, and measurable outcome.</p>
+        <p class="text-sm"><strong>When to use:</strong> Launching a tool, resetting drift, or aligning a PLC.</p>
+        <p class="text-sm"><strong>Do this now:</strong> Fill 4 fields → Generate → Copy/CSV.</p>
+      </div>
 
       <div class="bg-white p-8 rounded-xl shadow glow-card border-t-4 border-indigo-500">
-        <form id="impact-canvas-form" onsubmit="generateCanvasPlan(event)" class="space-y-3">
-          <input id="toolName" placeholder="1. EdTech Tool (e.g., Flip, ChatGPT, PowerSchool)" required class="w-full p-3 border rounded"/>
+        <form onsubmit="generatePlanner(event)" class="space-y-3">
+          <input id="toolName" placeholder="1. Tool (e.g., Flip, ChatGPT, PowerSchool)" required class="w-full p-3 border rounded"/>
           <input id="targetBehavior" placeholder="2. Desired Behavior (e.g., peer feedback, narrative clarity)" required class="w-full p-3 border rounded"/>
-          <input id="measurableOutcome" placeholder="3. Measurable Outcome (e.g., +5% attendance, rubric gains)" required class="w-full p-3 border rounded"/>
+          <input id="measurableOutcome" placeholder="3. Outcome (e.g., +5% attendance, rubric gains)" required class="w-full p-3 border rounded"/>
           <input id="owner" placeholder="4. Owner + Cadence (e.g., 6th ELA team • weekly check-in)" required class="w-full p-3 border rounded"/>
-          <button type="submit" class="gold-button py-3 px-6 rounded btn-pop">Generate Impact Plan</button>
+          <button type="submit" class="gold-button py-3 px-6 rounded btn-pop">Generate Plan</button>
         </form>
 
-        <div id="canvas-output" class="mt-6 p-6 bg-gray-50 border rounded hidden">
-          <h4 class="text-xl font-extrabold mb-3">Generated Action Plan</h4>
+        <div id="planner-output" class="mt-6 p-6 bg-gray-50 border rounded hidden">
+          <h4 class="text-xl font-extrabold mb-3">Action Plan</h4>
           <p class="font-semibold mb-1">Tool: <span id="out-tool" class="text-indigo-700 font-normal"></span></p>
           <p class="font-semibold mb-1">Behavior: <span id="out-behavior" class="text-indigo-700 font-normal"></span></p>
           <p class="font-semibold mb-1">Outcome: <span id="out-outcome" class="text-indigo-700 font-normal"></span></p>
@@ -216,16 +276,136 @@
       </div>
     </section>
 
+    <!-- Data Prep Coach -->
+    <section id="data-prep" class="mb-20 pt-6">
+      <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Data Prep Coach</h2>
+      <div class="spark-underline"></div>
+      <div class="callout p-4 rounded mb-4">
+        <h4 class="mb-1">What this does</h4>
+        <p class="text-sm">Turns a squishy idea into an AI-ready spec: purpose → fields → grain → checks → privacy.</p>
+        <p class="text-sm"><strong>When to use:</strong> Before asking AI to analyze or build with data.</p>
+        <p class="text-sm"><strong>Do this now:</strong> Fill the questions → Generate Spec → Download CSV + checklist.</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow glow-card border-t-4 border-purple-600">
+        <div class="grid md:grid-cols-2 gap-4">
+          <input id="dp_goal" class="p-3 border rounded" placeholder="Goal/Decision (e.g., reduce no-shows by 3%)">
+          <input id="dp_outcome" class="p-3 border rounded" placeholder="Primary metric (e.g., daily attendance)">
+          <input id="dp_unit" class="p-3 border rounded" placeholder="Grain (student/day, campus/week, teacher/period)">
+          <input id="dp_window" class="p-3 border rounded" placeholder="Time window (e.g., last 6 weeks)">
+          <input id="dp_sources" class="p-3 border rounded" placeholder="Source systems (SIS, LMS, HRIS, Surveys)">
+          <input id="dp_ids" class="p-3 border rounded" placeholder="Join keys/IDs (e.g., student_id, campus_id)">
+          <input id="dp_fields" class="p-3 border rounded" placeholder="Fields (comma-separated)">
+          <input id="dp_filters" class="p-3 border rounded" placeholder="Filters/exclusions (e.g., unenrolled, alt ed)">
+          <input id="dp_privacy" class="p-3 border rounded" placeholder="Privacy constraints (FERPA, PII, consent)">
+          <input id="dp_quality" class="p-3 border rounded" placeholder="Quality checks (missing rules, outlier caps)">
+        </div>
+
+        <div class="flex flex-wrap gap-2 mt-4">
+          <button class="gold-button py-2 px-4 rounded btn-pop" onclick="makeDataSpec()">Generate Spec</button>
+          <button class="bg-gray-800 text-white py-2 px-4 rounded btn-pop" onclick="downloadCSVTemplate()">Download CSV Template</button>
+          <button class="bg-teal-600 text-white py-2 px-4 rounded btn-pop" onclick="downloadPrepChecklist()">Download Checklist</button>
+          <button class="bg-[#002B49] text-white py-2 px-4 rounded btn-pop" onclick="copyDataPrompt()">Copy RISEN Data Prompt</button>
+        </div>
+
+        <div id="dp_output" class="mt-6 p-4 bg-gray-50 border rounded hidden"></div>
+      </div>
+    </section>
+
+    <!-- AI Platform Finder -->
+    <section id="platform-finder" class="mb-20 pt-6">
+      <h2 class="text-4xl font-extrabold text-gray-900 mb-2">AI Platform Finder</h2>
+      <div class="spark-underline"></div>
+      <div class="callout p-4 rounded mb-4">
+        <h4 class="mb-1">What this does</h4>
+        <p class="text-sm">Maps your goal, inputs, constraints, and outputs to the right platform category—then gives search strings + an evaluation rubric.</p>
+        <p class="text-sm"><strong>When to use:</strong> Anytime you’re asking “Which tool should I use?”</p>
+        <p class="text-sm"><strong>Do this now:</strong> Pick needs → Generate → Copy search + rubric.</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow glow-card border-t-4 border-orange-600">
+        <div class="grid md:grid-cols-3 gap-4">
+          <div>
+            <h4 class="font-bold mb-2">Goal</h4>
+            <select id="pf_goal" class="w-full p-3 border rounded">
+              <option value="create">Create (draft/lesson/handout)</option>
+              <option value="transform">Transform (rewrite/summarize/translate)</option>
+              <option value="analyze">Analyze (data/text/images)</option>
+              <option value="communicate">Communicate (family/board/staff)</option>
+              <option value="automate">Automate (workflows/forms/scheduling)</option>
+            </select>
+          </div>
+          <div>
+            <h4 class="font-bold mb-2">Inputs</h4>
+            <select id="pf_inputs" class="w-full p-3 border rounded" multiple>
+              <option>Text</option><option>Spreadsheet</option><option>PDF</option>
+              <option>Images</option><option>Audio/Video</option>
+            </select>
+            <p class="text-xs text-gray-600 mt-1">Hold Cmd/Ctrl to select multiple.</p>
+          </div>
+          <div>
+            <h4 class="font-bold mb-2">Outputs</h4>
+            <select id="pf_outputs" class="w-full p-3 border rounded" multiple>
+              <option>Document</option><option>Slides</option><option>Email/Message</option>
+              <option>Dashboard</option><option>Spreadsheet</option><option>Workflow</option>
+            </select>
+          </div>
+          <div>
+            <h4 class="font-bold mb-2">Constraints</h4>
+            <label class="block text-sm"><input type="checkbox" id="pf_privacy"> Student data/FERPA sensitive</label>
+            <label class="block text-sm"><input type="checkbox" id="pf_blocked"> District blocks installs</label>
+            <label class="block text-sm"><input type="checkbox" id="pf_no_cost"> No new cost / free only</label>
+            <label class="block text-sm"><input type="checkbox" id="pf_low_skill"> Low technical skill</label>
+            <label class="block text-sm"><input type="checkbox" id="pf_offline"> Needs offline/exportable</label>
+          </div>
+          <div>
+            <h4 class="font-bold mb-2">Collaboration</h4>
+            <select id="pf_collab" class="w-full p-3 border rounded">
+              <option value="solo">Solo</option>
+              <option value="team">Team editing</option>
+              <option value="stakeholders">Stakeholder review/approval</option>
+            </select>
+          </div>
+          <div>
+            <h4 class="font-bold mb-2">Time & Risk</h4>
+            <select id="pf_time" class="w-full p-3 border rounded">
+              <option value="minutes">Minutes</option>
+              <option value="hour">About an hour</option>
+              <option value="day">Day+</option>
+            </select>
+            <select id="pf_risk" class="w-full p-3 border rounded mt-2">
+              <option value="low">Low (drafts)</option>
+              <option value="medium">Medium (internal)</option>
+              <option value="high">High (public/audit)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-2 mt-4">
+          <button class="gold-button py-2 px-4 rounded btn-pop" onclick="recommendPlatforms()">Generate Recommendations</button>
+          <button class="bg-teal-600 text-white py-2 px-4 rounded btn-pop" onclick="copyPlatformSearch()">Copy Search Strings</button>
+          <button class="bg-gray-800 text-white py-2 px-4 rounded btn-pop" onclick="downloadPlatformRubric()">Download Evaluation Rubric</button>
+        </div>
+
+        <div id="pf_output" class="mt-6 p-4 bg-gray-50 border rounded hidden"></div>
+      </div>
+    </section>
+
     <!-- 3-Sentence Story Generator -->
     <section id="story-generator" class="mb-20 pt-6">
       <h2 class="text-4xl font-extrabold text-gray-900 mb-2">3-Sentence Story Generator</h2>
       <div class="spark-underline"></div>
-      <p class="text-lg text-gray-700 mb-6">Turn metrics into board-ready narrative.</p>
+      <div class="callout p-4 rounded mb-4">
+        <h4 class="mb-1">What this does</h4>
+        <p class="text-sm">Turns metrics into a board-ready narrative for fast alignment.</p>
+        <p class="text-sm"><strong>When to use:</strong> PLCs, board notes, parent comms.</p>
+        <p class="text-sm"><strong>Do this now:</strong> Paste metric + behavior → Generate → Copy/Download.</p>
+      </div>
 
       <div class="bg-white p-8 rounded-xl shadow glow-card border-t-4 border-pink-500">
-        <form id="story-form" onsubmit="generateStory(event)" class="space-y-3">
+        <form onsubmit="generateStory(event)" class="space-y-3">
           <textarea id="metrics" rows="3" placeholder="Key metrics (e.g., STAAR +8, attendance +3%, PEIMS errors −30%)" required class="w-full p-3 border rounded"></textarea>
-          <input id="context" placeholder="Human behavior that drove change (e.g., 2-line nudges + advisory grid)" required class="w-full p-3 border rounded"/>
+          <input id="context" placeholder="Behavior that drove change (e.g., 2-line nudges + advisory grid)" required class="w-full p-3 border rounded"/>
           <button type="submit" class="gold-button py-3 px-6 rounded btn-pop">Generate Story</button>
         </form>
 
@@ -247,7 +427,12 @@
     <section id="risen" class="mb-20 pt-6">
       <h2 class="text-4xl font-extrabold text-gray-900 mb-2">RISEN Prompt Studio</h2>
       <div class="spark-underline"></div>
-      <p class="text-lg text-gray-700 mb-6">Encode strategic intent into every prompt: <strong>Relevance</strong>, <strong>Intent</strong>, <strong>Specificity</strong>, <strong>Execution</strong>, <strong>Navigation</strong>.</p>
+      <div class="callout p-4 rounded mb-4">
+        <h4 class="mb-1">What this does</h4>
+        <p class="text-sm">Trains AI to be a thinking partner: <strong>Relevance</strong>, <strong>Intent</strong>, <strong>Specificity</strong>, <strong>Execution</strong>, <strong>Navigation</strong>.</p>
+        <p class="text-sm"><strong>When to use:</strong> Any task that needs clarity, tone, and next steps.</p>
+        <p class="text-sm"><strong>Do this now:</strong> Fill lines → Construct → Copy/Download.</p>
+      </div>
 
       <div class="bg-white p-8 rounded-xl shadow glow-card border-t-4 border-yellow-500">
         <div class="space-y-3">
@@ -270,85 +455,16 @@
       </div>
     </section>
 
-    <!-- Role Portals -->
-    <section id="role-portals" class="mb-20 pt-6">
-      <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Role-Specific Portals</h2>
-      <div class="spark-underline"></div>
-
-      <div class="grid lg:grid-cols-2 xl:grid-cols-3 gap-8">
-        <!-- Teachers -->
-        <div id="teachers" class="p-6 rounded-xl bg-blue-50 shadow border-t-4 border-blue-600 glow-card">
-          <h3 class="text-2xl font-extrabold mb-2 text-blue-900">For Teachers</h3>
-          <p class="text-gray-700 mb-3">Short activities and prompts that save time and improve learning.</p>
-          <ul class="list-disc list-inside text-blue-900 space-y-2 text-sm">
-            <li><strong>Ready by Tomorrow:</strong> 1) Pick one tool; 2) Define the habit; 3) Add one evidence check.</li>
-            <li>Editable Reflection Tracker & Impact Grid.</li>
-            <li>Parent comms templates with reconstructive kindness.</li>
-          </ul>
-          <a href="#resources" class="text-blue-800 underline mt-3 inline-block">Teacher resources →</a>
-        </div>
-
-        <!-- Leaders -->
-        <div id="leaders" class="p-6 rounded-xl bg-teal-50 shadow border-t-4 border-teal-600 glow-card">
-          <h3 class="text-2xl font-extrabold mb-2 text-teal-900">For Leaders</h3>
-          <p class="text-gray-700 mb-3">Turn dashboards into weekly behaviors and board-ready stories.</p>
-          <ul class="list-disc list-inside text-teal-900 space-y-2 text-sm">
-            <li><strong>10-Day Plan:</strong> Who | What | When | Evidence | Celebrate.</li>
-            <li>RACI maps for governance and rollout.</li>
-            <li>Evidence narrative generator for board decks.</li>
-          </ul>
-          <a href="#ten-day" class="text-teal-800 underline mt-3 inline-block">Build a 10-Day Plan →</a>
-        </div>
-
-        <!-- SPED/EB/Coaches -->
-        <div id="innovators" class="p-6 rounded-xl bg-indigo-50 shadow border-t-4 border-indigo-600 glow-card">
-          <h3 class="text-2xl font-extrabold mb-2 text-indigo-900">SPED, EB & EdTech Coaches</h3>
-          <p class="text-gray-700 mb-3">High-accountability templates and mini-cases.</p>
-          <ul class="list-disc list-inside text-indigo-900 space-y-2 text-sm">
-            <li>SPED: On-time IEPs via adaptive dashboards (prefilled Canvas).</li>
-            <li>EB: Bilingual recap workflow that grows family engagement.</li>
-            <li>PD: RISEN walkthroughs and handouts.</li>
-          </ul>
-          <a href="#resources" class="text-indigo-800 underline mt-3 inline-block">Coach templates →</a>
-        </div>
-      </div>
-    </section>
-
-    <!-- Data in Motion -->
-    <section id="data-motion" class="mb-20 pt-6">
-      <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Data in Motion: Story Dashboards</h2>
-      <div class="spark-underline"></div>
-      <p class="text-lg text-gray-700 mb-6">Each card ties a metric to the habit that moved it.</p>
-
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="p-6 bg-white rounded-xl shadow border-l-4 border-green-600 glow-card">
-          <p class="text-xs font-bold text-gray-500 uppercase">Impact Story</p>
-          <h4 class="text-3xl font-extrabold text-green-700 my-2">Attendance ↑ 3%</h4>
-          <p class="text-gray-700 text-sm"><strong>Habit:</strong> 2-line parent nudges + advisory accountability grid.</p>
-          <button class="mt-4 gold-button text-xs py-1 px-3 rounded btn-pop">View mockup</button>
-        </div>
-        <div class="p-6 bg-white rounded-xl shadow border-l-4 border-red-600 glow-card">
-          <p class="text-xs font-bold text-gray-500 uppercase">Impact Story</p>
-          <h4 class="text-3xl font-extrabold text-red-700 my-2">PEIMS Errors ↓ 30%</h4>
-          <p class="text-gray-700 text-sm"><strong>Habit:</strong> Weekly AI audit checks embedded in workflow.</p>
-          <button class="mt-4 gold-button text-xs py-1 px-3 rounded btn-pop">View mockup</button>
-        </div>
-        <div class="p-6 bg-white rounded-xl shadow border-l-4 border-yellow-600 glow-card">
-          <p class="text-xs font-bold text-gray-500 uppercase">Impact Story</p>
-          <h4 class="text-3xl font-extrabold text-yellow-700 my-2">Hiring Time ↓ 50%</h4>
-          <p class="text-gray-700 text-sm"><strong>Habit:</strong> Automation frees leaders for talent cultivation.</p>
-          <button class="mt-4 gold-button text-xs py-1 px-3 rounded btn-pop">View mockup</button>
-        </div>
-      </div>
-    </section>
-
     <!-- 10-Day Impact Plan -->
     <section id="ten-day" class="mb-20 pt-6">
       <h2 class="text-4xl font-extrabold text-gray-900 mb-2">10-Day Impact Plan</h2>
       <div class="spark-underline"></div>
-      <p class="text-lg text-gray-700 mb-6">
-        Tiny sprints that change weekly behavior. Fill in the table or auto-seed 10 days, then export.
-      </p>
+      <div class="callout p-4 rounded mb-4">
+        <h4 class="mb-1">What this does</h4>
+        <p class="text-sm">Creates short sprints that actually change behavior—and produce evidence.</p>
+        <p class="text-sm"><strong>When to use:</strong> Rollouts or resets.</p>
+        <p class="text-sm"><strong>Do this now:</strong> Auto-seed → assign owners → export CSV.</p>
+      </div>
 
       <div class="bg-white p-6 rounded-xl shadow glow-card border-t-4 border-teal-600">
         <div class="grid md:grid-cols-5 gap-3 mb-4">
@@ -371,13 +487,8 @@
           <table id="plan-table" class="min-w-full text-sm">
             <thead>
               <tr class="text-left bg-gray-100">
-                <th class="p-2">Day</th>
-                <th class="p-2">Who</th>
-                <th class="p-2">What</th>
-                <th class="p-2">When</th>
-                <th class="p-2">Evidence</th>
-                <th class="p-2">Celebrate</th>
-                <th class="p-2">Remove</th>
+                <th class="p-2">Day</th><th class="p-2">Who</th><th class="p-2">What</th>
+                <th class="p-2">When</th><th class="p-2">Evidence</th><th class="p-2">Celebrate</th><th class="p-2">Remove</th>
               </tr>
             </thead>
             <tbody></tbody>
@@ -386,33 +497,62 @@
       </div>
     </section>
 
-    <!-- Resources (local, no external links) -->
-    <section id="resources" class="mb-20 pt-6">
-      <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Resources Hub</h2>
+    <!-- Data in Motion (mockups with working modal) -->
+    <section id="data-motion" class="mb-20 pt-6">
+      <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Data in Motion: Story Dashboards</h2>
       <div class="spark-underline"></div>
-      <p class="text-lg text-gray-700 mb-6">Download ready-to-use blank templates as CSV/TXT.</p>
+      <p class="text-lg text-gray-700 mb-6">Each card ties a metric to the habit that moved it.</p>
 
-      <div class="grid md:grid-cols-2 gap-4 text-sm">
-        <div class="bg-white p-5 rounded shadow border glow-card">
-          <strong>Impact Planning Grid (CSV)</strong><br>
-          <span class="text-gray-600">Tool → Use → Behavior → Outcome → Evidence</span><br>
-          <button class="mt-2 gold-button py-1 px-3 rounded btn-pop" onclick="downloadImpactGrid()">Download</button>
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="p-6 bg-white rounded-xl shadow border-l-4 border-green-600 glow-card">
+          <p class="text-xs font-bold text-gray-500 uppercase">Impact Story</p>
+          <h4 class="text-3xl font-extrabold text-green-700 my-2">Attendance ↑ 3%</h4>
+          <p class="text-gray-700 text-sm"><strong>Habit:</strong> 2-line parent nudges + advisory accountability grid.</p>
+          <button class="mt-4 gold-button text-xs py-1 px-3 rounded btn-pop" onclick="openMockup('attendance')">View mockup</button>
         </div>
-        <div class="bg-white p-5 rounded shadow border glow-card">
-          <strong>Teacher Reflection Tracker (CSV)</strong><br>
-          <span class="text-gray-600">Week | Goal | Action | Evidence | Notes</span><br>
-          <button class="mt-2 gold-button py-1 px-3 rounded btn-pop" onclick="downloadReflectionTracker()">Download</button>
+        <div class="p-6 bg-white rounded-xl shadow border-l-4 border-red-600 glow-card">
+          <p class="text-xs font-bold text-gray-500 uppercase">Impact Story</p>
+          <h4 class="text-3xl font-extrabold text-red-700 my-2">PEIMS Errors ↓ 30%</h4>
+          <p class="text-gray-700 text-sm"><strong>Habit:</strong> Weekly AI audit checks embedded in workflow.</p>
+          <button class="mt-4 gold-button text-xs py-1 px-3 rounded btn-pop" onclick="openMockup('peims')">View mockup</button>
         </div>
-        <div class="bg-white p-5 rounded shadow border glow-card">
-          <strong>Leader Evidence Narrative (TXT)</strong><br>
-          <span class="text-gray-600">3-Sentence storyboard scaffold</span><br>
-          <button class="mt-2 gold-button py-1 px-3 rounded btn-pop" onclick="downloadLeaderNarrative()">Download</button>
+        <div class="p-6 bg-white rounded-xl shadow border-l-4 border-yellow-600 glow-card">
+          <p class="text-xs font-bold text-gray-500 uppercase">Impact Story</p>
+          <h4 class="text-3xl font-extrabold text-yellow-700 my-2">Hiring Time ↓ 50%</h4>
+          <p class="text-gray-700 text-sm"><strong>Habit:</strong> Automation frees leaders for talent cultivation.</p>
+          <button class="mt-4 gold-button text-xs py-1 px-3 rounded btn-pop" onclick="openMockup('hiring')">View mockup</button>
         </div>
-        <div class="bg-white p-5 rounded shadow border glow-card">
-          <strong>RISEN Prompt Pack (TXT)</strong><br>
-          <span class="text-gray-600">Role-based starter prompts</span><br>
-          <button class="mt-2 gold-button py-1 px-3 rounded btn-pop" onclick="downloadRisenPack()">Download</button>
+      </div>
+    </section>
+
+    <!-- Process Plug-In (PARFA/PAFRA/etc.) -->
+    <section id="process-plug" class="mb-20 pt-6">
+      <h2 class="text-4xl font-extrabold text-gray-900 mb-2">Process Plug-In (your framework)</h2>
+      <div class="spark-underline"></div>
+      <div class="callout p-4 rounded mb-4">
+        <h4 class="mb-1">What this does</h4>
+        <p class="text-sm">Snaps your internal process into this site’s flow so people stop winging it and start executing.</p>
+        <p class="text-sm"><strong>When to use:</strong> Team PD, onboarding, or accountability resets.</p>
+        <p class="text-sm"><strong>Do this now:</strong> Name your process → map each step to a section → export checklist.</p>
+      </div>
+
+      <div class="bg-white p-6 rounded-xl shadow glow-card border-t-4 border-gray-600">
+        <div class="grid md:grid-cols-3 gap-4">
+          <input id="proc_name" class="p-3 border rounded" placeholder="Process name (e.g., PARFA)">
+          <input id="proc_s1" class="p-3 border rounded" placeholder="Step 1 label">
+          <input id="proc_s2" class="p-3 border rounded" placeholder="Step 2 label">
+          <input id="proc_s3" class="p-3 border rounded" placeholder="Step 3 label">
+          <input id="proc_s4" class="p-3 border rounded" placeholder="Step 4 label">
+          <input id="proc_s5" class="p-3 border rounded" placeholder="Step 5 label">
         </div>
+        <div class="mt-3 text-sm text-gray-700">
+          <p class="mb-2"><strong>Suggested map:</strong> RISEN → Planner → Data Prep → Platform Finder → Story → 10-Day.</p>
+        </div>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <button class="gold-button py-2 px-4 rounded btn-pop" onclick="previewProcess()">Preview Mapping</button>
+          <button class="bg-gray-800 text-white py-2 px-4 rounded btn-pop" onclick="downloadProcess()">Download Checklist</button>
+        </div>
+        <div id="proc_out" class="mt-4 p-4 bg-gray-50 border rounded hidden"></div>
       </div>
     </section>
 
@@ -423,23 +563,13 @@
       <p class="text-sm opacity-90 mb-7">Stay in the loop, bring PD to your team, or follow the work.</p>
 
       <div class="flex flex-col sm:flex-row justify-center gap-3">
-        <button class="gold-button btn-pop py-3 px-8 rounded-full shadow" onclick="subscribeEmail()">
-          Impact Dispatch Newsletter
-        </button>
-        <button class="border-2 border-white text-white hover:bg-white hover:text-[#002B49] font-bold py-3 px-8 rounded-full shadow btn-pop" onclick="requestPD()">
-          Request PD for your District
-        </button>
-        <a href="https://twitter.com/msedbostic" target="_blank" class="btn-pop border-2 border-white text-white hover:bg-white hover:text-[#002B49] font-bold py-3 px-8 rounded-full shadow text-center">
-          Follow @msedbostic
-        </a>
-        <a href="https://instagram.com/cultureaintjustcupcakes" target="_blank" class="btn-pop border-2 border-white text-white hover:bg-white hover:text-[#002B49] font-bold py-3 px-8 rounded-full shadow text-center">
-          @cultureaintjustcupcakes
-        </a>
+        <button class="gold-button btn-pop py-3 px-8 rounded-full shadow" onclick="subscribeEmail()">Impact Dispatch Newsletter</button>
+        <button class="border-2 border-white text-white hover:bg-white hover:text-[#002B49] font-bold py-3 px-8 rounded-full shadow btn-pop" onclick="requestPD()">Request PD for your District</button>
+        <a href="https://twitter.com/msedbostic" target="_blank" class="btn-pop border-2 border-white text-white hover:bg-white hover:text-[#002B49] font-bold py-3 px-8 rounded-full shadow text-center">Follow @msedbostic</a>
+        <a href="https://instagram.com/cultureaintjustcupcakes" target="_blank" class="btn-pop border-2 border-white text-white hover:bg-white hover:text-[#002B49] font-bold py-3 px-8 rounded-full shadow text-center">@cultureaintjustcupcakes</a>
       </div>
 
-      <button class="btn-pop mt-5 border-2 border-white text-white hover:bg-white hover:text-[#002B49] font-bold py-2 px-5 rounded-full shadow" onclick="downloadRSS()">
-        Download RSS Template (feed.xml)
-      </button>
+      <button class="btn-pop mt-5 border-2 border-white text-white hover:bg-white hover:text-[#002B49] font-bold py-2 px-5 rounded-full shadow" onclick="downloadRSS()">Download RSS Template (feed.xml)</button>
     </section>
   </main>
 
@@ -447,15 +577,36 @@
     <div class="max-w-7xl mx-auto px-4 py-8 text-center">
       <p class="text-sm opacity-80">
         © 2025 The Bostic Framework for Strategic AI Partnership.
-        <a href="#resources" class="underline ml-4">Resources Hub</a>
-        <a href="#data-motion" class="underline ml-4">Impact Gallery</a>
+        <a href="#platform-finder" class="underline ml-4">Pick the right tool</a>
+        <a href="#story-generator" class="underline ml-4">Tell the story</a>
       </p>
     </div>
   </footer>
 
+  <!-- Mockup Modal -->
+  <div id="mockupModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="mockupTitle">
+    <div class="modal-card p-5">
+      <div class="flex items-start justify-between border-b pb-3">
+        <h3 id="mockupTitle" class="text-xl font-extrabold">Impact Story</h3>
+        <button class="text-gray-500 hover:text-black" onclick="closeMockup()">✕</button>
+      </div>
+      <div id="mockupBody" class="py-4 text-sm text-gray-800 leading-relaxed"></div>
+      <div class="pt-3 border-t flex justify-end">
+        <button class="gold-button px-4 py-2 rounded btn-pop" onclick="copyMockup()">Copy</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts -->
   <script>
-    // Tab logic
+    // Helpers
+    function v(id){ return (document.getElementById(id)?.value||'').trim(); }
+    function setText(id, txt){ const el=document.getElementById(id); if(el) el.textContent = txt; }
+    function gt(id){ return (document.getElementById(id)?.textContent||'').trim(); }
+    function downloadBlob(content, filename, type){ const blob=new Blob([content],{type}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download=filename; a.click(); URL.revokeObjectURL(url); }
+    function stripHTML(s){ const d=document.createElement('div'); d.innerHTML=s; return d.textContent||d.innerText||''; }
+
+    // Tabs
     function showLadderExample(which){
       ['student','leader'].forEach(t=>{
         document.getElementById('tab-'+t).classList.toggle('active', t===which);
@@ -464,38 +615,41 @@
     }
     window.addEventListener('DOMContentLoaded', ()=> showLadderExample('student'));
 
-    // LocalStorage persistence for Canvas inputs
-    const canvasIds = ['toolName','targetBehavior','measurableOutcome','owner'];
-    canvasIds.forEach(id=>{
-      const el = document.getElementById(id);
-      el.addEventListener('input', e=> localStorage.setItem(id, e.target.value));
-      const v = localStorage.getItem(id); if(v) el.value = v;
-    });
-
-    // Generate Canvas plan
-    function generateCanvasPlan(e){
-      e.preventDefault();
-      const tool = v('toolName'), behavior=v('targetBehavior'), outcome=v('measurableOutcome'), owner=v('owner');
-      if(!tool||!behavior||!outcome||!owner) return;
-
-      setText('out-tool',tool);
-      setText('out-behavior',behavior);
-      setText('out-outcome',outcome);
-      setText('out-owner',owner);
-      document.getElementById('canvas-output').classList.remove('hidden');
+    // Triage
+    function scoreQuiz(){
+      const phase = (document.getElementById('q1').value === 'habits') ? 'leader' : 'teacher';
+      const blocker = document.getElementById('q2').value;
+      const map = { behavior:'#planner', evidence:'#story-generator', story:'#story-generator', platform:'#platform-finder', data:'#data-prep' };
+      const nextHref = map[blocker] || '#framework';
+      const result = document.getElementById('quiz-result');
+      result.classList.remove('hidden');
+      result.innerHTML = `Start here → <a class="underline text-[#002B49] font-semibold" href="${nextHref}">${nextHref.replace('#','')}</a>. We also routed you to the ${phase === 'leader' ? 'Leaders' : 'Teachers'} use case.`;
+      location.hash = nextHref;
     }
 
-    // Copy / Download Canvas
+    // Planner
+    const plannerIds = ['toolName','targetBehavior','measurableOutcome','owner'];
+    plannerIds.forEach(id=>{
+      window.addEventListener('DOMContentLoaded',()=>{
+        const el=document.getElementById(id); if(!el) return;
+        el.addEventListener('input', e=> localStorage.setItem(id, e.target.value));
+        const v=localStorage.getItem(id); if(v) el.value=v;
+      });
+    });
+    function generatePlanner(e){
+      e.preventDefault();
+      setText('out-tool', v('toolName'));
+      setText('out-behavior', v('targetBehavior'));
+      setText('out-outcome', v('measurableOutcome'));
+      setText('out-owner', v('owner'));
+      document.getElementById('planner-output').classList.remove('hidden');
+    }
     function copyPlan(){
       const csv = `Tool,Behavior,Outcome,Owner/Cadence\n"${gt('out-tool')}","${gt('out-behavior')}","${gt('out-outcome')}","${gt('out-owner')}"`;
-      navigator.clipboard.writeText(csv);
-      alert('Plan copied to clipboard.');
+      navigator.clipboard.writeText(csv); alert('Plan copied.');
     }
     function downloadPlan(){
-      const rows = [
-        ['Tool','Behavior','Outcome','Owner/Cadence'],
-        [gt('out-tool'),gt('out-behavior'),gt('out-outcome'),gt('out-owner')]
-      ];
+      const rows = [['Tool','Behavior','Outcome','Owner/Cadence'], [gt('out-tool'),gt('out-behavior'),gt('out-outcome'),gt('out-owner')]];
       const csv = rows.map(r=>r.map(x=>`"${(x||'').replace(/"/g,'""')}"`).join(',')).join('\n');
       downloadBlob(csv, 'tool-to-impact-plan.csv', 'text/csv');
     }
@@ -503,11 +657,9 @@
     // Story generator
     function generateStory(e){
       e.preventDefault();
-      const m = v('metrics'), c = v('context');
-      const what = `<strong>What changed:</strong> ${m}.`;
-      const why  = `Why it matters: ${c}.`;
+      const what = `<strong>What changed:</strong> ${v('metrics')}.`;
+      const why  = `Why it matters: ${v('context')}.`;
       const next = `What happens next: We scale the habit and monitor evidence monthly.`;
-
       document.getElementById('story-output').classList.remove('hidden');
       document.getElementById('story-what-changed').innerHTML = what;
       document.getElementById('story-why-matters').textContent = why;
@@ -517,8 +669,7 @@
       const text = stripHTML(document.getElementById('story-what-changed').innerHTML)
         + '\n' + document.getElementById('story-why-matters').textContent
         + '\n' + document.getElementById('story-next').textContent;
-      navigator.clipboard.writeText(text);
-      alert('Story copied to clipboard.');
+      navigator.clipboard.writeText(text); alert('Story copied.');
     }
     function downloadStory(){
       const text = stripHTML(document.getElementById('story-what-changed').innerHTML)
@@ -535,184 +686,262 @@
         ['S (Specificity)', v('s-specificity')],
         ['E (Execution)', v('e-execution')],
         ['N (Navigation)', v('n-navigation')]
-      ].filter(([,x])=>x && x.trim().length>0)
-       .map(([k,x])=>`${k}: ${x}`);
+      ].filter(([,x])=>x && x.trim().length>0).map(([k,x])=>`${k}: ${x}`);
       const full = parts.join('\n\n');
       document.getElementById('full-prompt-output').value = full;
       document.getElementById('risen-output').classList.remove('hidden');
       localStorage.setItem('risen-full', full);
     }
-    function copyRisen(){
-      navigator.clipboard.writeText(document.getElementById('full-prompt-output').value);
-      alert('Prompt copied to clipboard.');
-    }
-    function downloadRisen(){
-      downloadBlob(document.getElementById('full-prompt-output').value, 'RISEN-prompt.txt', 'text/plain');
-    }
-    // Rehydrate RISEN on load
+    function copyRisen(){ navigator.clipboard.writeText(document.getElementById('full-prompt-output').value); alert('Prompt copied.'); }
+    function downloadRisen(){ downloadBlob(document.getElementById('full-prompt-output').value, 'RISEN-prompt.txt', 'text/plain'); }
     const storedR = localStorage.getItem('risen-full');
     if(storedR){ window.addEventListener('DOMContentLoaded',()=>{ document.getElementById('full-prompt-output').value = storedR; document.getElementById('risen-output').classList.remove('hidden'); }); }
 
-    // Quiz scoring
-    function scoreQuiz(){
-      const phase = (document.getElementById('q1').value === 'habits') ? 'leader' : 'teacher';
-      const blocker = document.getElementById('q2').value;
-      const map = { behavior:'#canvas', evidence:'#data-motion', story:'#story-generator' };
-      const nextHref = map[blocker] || '#framework';
-      const result = document.getElementById('quiz-result');
-      result.classList.remove('hidden');
-      result.innerHTML = `Start here → <a class="underline text-[#002B49] font-semibold" href="${nextHref}">${nextHref.replace('#','')}</a>. We’ve also routed you to the ${phase === 'leader' ? 'Leaders' : 'Teachers'} portal.`;
-      location.hash = phase === 'leader' ? '#leaders' : '#teachers';
-    }
-
-    // 10-Day plan helpers
+    // 10-Day Plan
     function addPlanRow(dayLabel){
       const t = document.querySelector('#plan-table tbody');
       const tr = document.createElement('tr');
       const d = dayLabel || (`Day ${t.children.length+1}`);
       const row = [
-        d,
-        document.getElementById('plan-who').value,
-        document.getElementById('plan-what').value,
-        document.getElementById('plan-when').value,
-        document.getElementById('plan-evidence').value,
-        document.getElementById('plan-celebrate').value
+        d, v('plan-who'), v('plan-what'), v('plan-when'), v('plan-evidence'), v('plan-celebrate')
       ];
       tr.innerHTML = row.map((val,i)=>
         `<td class="p-2 ${i===0?'font-semibold':''}">
            ${i===0 ? val : `<input class="w-full p-2 border rounded" value="${(val||'').replace(/"/g,'&quot;')}">`}
-         </td>`
-      ).join('') + `<td class="p-2"><button class="text-red-600 underline" onclick="this.closest('tr').remove(); savePlan10();">Remove</button></td>`;
-      t.appendChild(tr);
-      savePlan10();
+         </td>`).join('')
+         + `<td class="p-2"><button class="text-red-600 underline" onclick="this.closest('tr').remove(); savePlan10();">Remove</button></td>`;
+      t.appendChild(tr); savePlan10();
     }
-
     function autofillTen(){
       clearPlan10();
       for(let i=1;i<=10;i++){ addPlanRow(`Day ${i}`); }
       const tbody = document.querySelector('#plan-table tbody').children;
-      setCell(tbody,0,2,'2-line attendance nudge to families');
-      setCell(tbody,1,2,'Advisory check-ins (peer accountability)');
-      setCell(tbody,2,2,'Team data huddle (15 min, one focus)');
-      setCell(tbody,3,2,'Update dashboard + annotate anomalies');
-      setCell(tbody,4,2,'Targeted reteach plan (Tier 1)');
-      setCell(tbody,5,2,'Coaching cycle: script feedback');
-      setCell(tbody,6,2,'Student voice capture (1 prompt)');
-      setCell(tbody,7,2,'Parent recap in plain language');
-      setCell(tbody,8,2,'Progress check: compare to Day 3');
-      setCell(tbody,9,2,'Celebrate wins + set next sprint');
+      const setCell=(r,c,val)=>{ const input = tbody[r].children[c].querySelector('input'); if(input) input.value=val; };
+      setCell(0,2,'2-line attendance nudge to families');
+      setCell(1,2,'Advisory check-ins (peer accountability)');
+      setCell(2,2,'Team data huddle (15 min, one focus)');
+      setCell(3,2,'Update dashboard + annotate anomalies');
+      setCell(4,2,'Targeted reteach plan (Tier 1)');
+      setCell(5,2,'Coaching cycle: script feedback');
+      setCell(6,2,'Student voice capture (1 prompt)');
+      setCell(7,2,'Parent recap in plain language');
+      setCell(8,2,'Progress check: compare to Day 3');
+      setCell(9,2,'Celebrate wins + set next sprint');
       savePlan10();
     }
-
-    function setCell(rows, r, c, value){
-      const input = rows[r].children[c].querySelector('input');
-      if(input) input.value = value;
-    }
-
     function planRows(){
-      const rows = Array.from(document.querySelectorAll('#plan-table tbody tr'));
-      return rows.map(tr=>{
+      return Array.from(document.querySelectorAll('#plan-table tbody tr')).map(tr=>{
         const tds = tr.children;
-        return [
-          tds[0].textContent.trim(),
-          tds[1].querySelector('input')?.value || '',
-          tds[2].querySelector('input')?.value || '',
-          tds[3].querySelector('input')?.value || '',
-          tds[4].querySelector('input')?.value || '',
-          tds[5].querySelector('input')?.value || ''
-        ];
+        return [ tds[0].textContent.trim(),
+          tds[1].querySelector('input')?.value||'',
+          tds[2].querySelector('input')?.value||'',
+          tds[3].querySelector('input')?.value||'',
+          tds[4].querySelector('input')?.value||'',
+          tds[5].querySelector('input')?.value||'' ];
       });
     }
-
-    function planCSV(){
-      const header = ['Day','Who','What','When','Evidence','Celebrate'];
-      const rows = [header, ...planRows()];
-      return rows.map(r=>r.map(v=>`"${(v||'').replace(/"/g,'""')}"`).join(',')).join('\n');
-    }
-
-    function copyPlan10(){
-      navigator.clipboard.writeText(planCSV());
-      alert('10-Day Plan copied to clipboard.');
-    }
-
-    function downloadPlan10(){
-      const csv = planCSV();
-      downloadBlob(csv, 'ten-day-impact-plan.csv', 'text/csv');
-    }
-
-    function clearPlan10(){
-      document.querySelector('#plan-table tbody').innerHTML = '';
-      savePlan10();
-    }
-
-    // persist 10-Day plan
-    function savePlan10(){
-      const rows = planRows();
-      localStorage.setItem('ten-day-plan', JSON.stringify(rows));
-    }
+    function planCSV(){ const header=['Day','Who','What','When','Evidence','Celebrate']; const rows=[header,...planRows()]; return rows.map(r=>r.map(v=>`"${(v||'').replace(/"/g,'""')}"`).join(',')).join('\n'); }
+    function copyPlan10(){ navigator.clipboard.writeText(planCSV()); alert('10-Day Plan copied.'); }
+    function downloadPlan10(){ downloadBlob(planCSV(), 'ten-day-impact-plan.csv', 'text/csv'); }
+    function clearPlan10(){ document.querySelector('#plan-table tbody').innerHTML=''; savePlan10(); }
+    function savePlan10(){ localStorage.setItem('ten-day-plan', JSON.stringify(planRows())); }
     function loadPlan10(){
-      const data = JSON.parse(localStorage.getItem('ten-day-plan') || '[]');
-      if(!data.length) return;
-      clearPlan10();
-      data.forEach((r,i)=>{
-        addPlanRow(r[0] || `Day ${i+1}`);
-        const tr = document.querySelectorAll('#plan-table tbody tr')[i];
-        ['who','what','when','evidence','celebrate'].forEach((k,idx)=>{
-          const input = tr.children[idx+1].querySelector('input');
-          if(input) input.value = r[idx+1] || '';
-        });
+      const data = JSON.parse(localStorage.getItem('ten-day-plan')||'[]'); if(!data.length) return;
+      clearPlan10(); data.forEach((r,i)=>{ addPlanRow(r[0]||`Day ${i+1}`); const tr=document.querySelectorAll('#plan-table tbody tr')[i];
+        ['who','what','when','evidence','celebrate'].forEach((k,idx)=>{ const input=tr.children[idx+1].querySelector('input'); if(input) input.value=r[idx+1]||''; });
       });
     }
     window.addEventListener('DOMContentLoaded', loadPlan10);
-    document.addEventListener('input', (e)=>{
-      if(e.target && e.target.closest('#plan-table')) savePlan10();
-    });
+    document.addEventListener('input', (e)=>{ if(e.target && e.target.closest('#plan-table')) savePlan10(); });
 
-    // Local Resources Hub (generate on the fly)
-    function downloadImpactGrid(){
-      const header = ['Tool','Use','Behavior','Outcome','Evidence','Owner','Cadence','Notes'];
-      const csv = [header].map(r=>r.join(',')).join('\n');
-      downloadBlob(csv, 'impact-planning-grid.csv', 'text/csv');
+    // Data Prep Coach
+    function makeDataSpec(){
+      const lines = [
+        `PURPOSE: ${v('dp_goal')}`, `PRIMARY METRIC: ${v('dp_outcome')}`, `GRAIN: ${v('dp_unit')}`,
+        `TIME WINDOW: ${v('dp_window')}`, `SOURCES: ${v('dp_sources')}`, `JOIN KEYS: ${v('dp_ids')}`,
+        `FIELDS: ${v('dp_fields')}`, `FILTERS: ${v('dp_filters')}`, `PRIVACY: ${v('dp_privacy')}`, `QUALITY CHECKS: ${v('dp_quality')}`
+      ].join('\n');
+      const box=document.getElementById('dp_output'); box.classList.remove('hidden');
+      box.innerHTML = `<pre class="whitespace-pre-wrap text-sm">${lines}</pre>`; localStorage.setItem('dp_spec', lines);
     }
-    function downloadReflectionTracker(){
-      const header = ['Week','Goal','Action','Evidence','Notes'];
-      const csv = [header].map(r=>r.join(',')).join('\n');
-      downloadBlob(csv, 'teacher-reflection-tracker.csv', 'text/csv');
+    function downloadCSVTemplate(){
+      const cols = (v('dp_fields')||'student_id,date,metric').split(',').map(c=>c.trim()).filter(Boolean);
+      downloadBlob([cols.join(',')].join('\n'), 'data-template.csv', 'text/csv');
     }
-    function downloadLeaderNarrative(){
-      const txt = `Board-Ready Narrative (3 Sentences)
-
-What changed: _______________________________
-Why it matters: ______________________________
-What happens next: ___________________________
-`;
-      downloadBlob(txt, 'leader-evidence-narrative.txt', 'text/plain');
+    function downloadPrepChecklist(){
+      const txt = `Data Prep Checklist
+[ ] Purpose/decision is stated in one sentence.
+[ ] Outcome metric defined and calculable.
+[ ] Grain (row level) chosen (e.g., student/day).
+[ ] Time window set (e.g., last 6 weeks).
+[ ] Source systems listed and accessible.
+[ ] Join keys/IDs confirmed and unique.
+[ ] Fields enumerated; types known.
+[ ] Filters/exclusions documented.
+[ ] Privacy/FERPA/PII constraints noted.
+[ ] Quality checks: missing/outliers rules written.
+[ ] Sample rows reviewed for sanity.
+[ ] Version/date stamp for audit.`;
+      downloadBlob(txt, 'data-prep-checklist.txt', 'text/plain');
     }
-    function downloadRisenPack(){
-      const txt = `RISEN Prompt Pack (Starter)
-
-[Teacher Parent Email]
-R: Align to classroom norm for timely work + family partnership.
-I: Draft a 4-sentence parent email about missing assignment.
-S: Student missed Quiz 2, passed Quiz 3; needs one make-up by Friday.
-E: Kind and firm; bullets for steps; no jargon.
-N: Include a short subject line and ask for confirmation reply.
-
-[Leader Weekly Huddle]
-R: Goal 3 – Attendance +3% this quarter.
-I: Create a 15-min huddle agenda.
-S: Grade 6 attendance dipped 1.2% week-over-week.
-E: Bulleted agenda; timeboxed; one action owner.
-N: Add how we’ll capture evidence and when we’ll review it.
-
-[Grant/Compliance Note]
-R: Align to EDGAR and district policy CB; minimize audit risk.
-I: Outline steps to embed a weekly AI audit check.
-S: Recent error pattern in PEIMS uploads.
-E: Numbered SOP; clear roles; 10-minute weekly cadence.
-N: Flag any ambiguous language and add a final checklist.`;
-      downloadBlob(txt, 'RISEN-prompt-pack.txt', 'text/plain');
+    function copyDataPrompt(){
+      const spec = localStorage.getItem('dp_spec')||'';
+      const risen = `R (Relevance): Use this spec to prepare and analyze data for ${v('dp_goal')} aligned to ${v('dp_outcome')}.
+I (Intent): Create a clean column spec, a data dictionary, and a step-by-step transform plan.
+S (Specificity):\n${spec}
+E (Execution): Return as numbered steps + CSV header + sample rows; flag risks.
+N (Navigation): Highlight privacy concerns; list assumptions; propose 3 validation checks.`;
+      navigator.clipboard.writeText(risen); alert('RISEN data prompt copied.');
     }
+
+    // Platform Finder
+    function getMultiSel(id){ return Array.from(document.getElementById(id).selectedOptions).map(o=>o.value); }
+    function recommendPlatforms(){
+      const goal=document.getElementById('pf_goal').value, inputs=getMultiSel('pf_inputs'), outputs=getMultiSel('pf_outputs');
+      const cons={ privacy:pf_privacy.checked, blocked:pf_blocked.checked, cost:pf_no_cost.checked, low:pf_low_skill.checked, off:pf_offline.checked };
+      const collab=document.getElementById('pf_collab').value, time=document.getElementById('pf_time').value, risk=document.getElementById('pf_risk').value;
+
+      const cats=[]; if(goal==='create'||goal==='transform') cats.push('General LLM (text generation)');
+      if(goal==='create'&&outputs.includes('Slides')) cats.push('Slide generator / doc-to-slides');
+      if(goal==='analyze'&&inputs.includes('Spreadsheet')) cats.push('Data analysis assistant (CSV/Sheets)');
+      if(goal==='analyze'&&inputs.includes('PDF')) cats.push('Document Q&A / RAG reader');
+      if(goal==='communicate') cats.push('Comms assistant (email/messages)');
+      if(goal==='automate'||outputs.includes('Workflow')) cats.push('Workflow automation / forms / approvals');
+      if(inputs.includes('Images')||inputs.includes('Audio/Video')) cats.push('Multimodal (image/audio/video)');
+
+      const notes=[]; if(cons.privacy) notes.push('Prefer district-approved/on-device; anonymize IDs.'); if(cons.blocked) notes.push('Favor web-only tools; export CSV/PDF.');
+      if(cons.cost) notes.push('Start free tiers; check rate limits.'); if(cons.low) notes.push('Pick no-code templates/wizards.');
+      if(cons.off) notes.push('Require export to CSV/PDF/PNG and local backups.'); if(risk==='high') notes.push('Need audit trail/versioning; keep data dictionary.');
+      if(collab!=='solo') notes.push('Require comments/permissions.'); if(time==='minutes') notes.push('One-screen flows; minimal learning curve.');
+
+      const searchStrings = [
+        `${goal} ${inputs.join(' ')} to ${outputs.join(' ')} education`,
+        `${goal} ${outputs.join(' ')} FERPA ${risk} "no install"`,
+        `${goal} ${outputs.join(' ')} templates rubric checklist`
+      ].map(s=>s.replace(/\s+/g,' ').trim()).filter(Boolean);
+
+      const box=document.getElementById('pf_output'); box.classList.remove('hidden');
+      box.innerHTML = `<div class="text-sm">
+        <p class="mb-2"><strong>Recommended platform categories:</strong> ${cats.join(' • ')||'—'}</p>
+        <p class="mb-2"><strong>Selection notes:</strong> ${notes.join(' | ')||'—'}</p>
+        <p class="mb-1 font-semibold">Try these search strings:</p>
+        <ul class="list-disc list-inside">${searchStrings.map(s=>`<li><code>${s}</code></li>`).join('')}</ul></div>`;
+      localStorage.setItem('pf_search', JSON.stringify(searchStrings));
+    }
+    function copyPlatformSearch(){
+      const arr=JSON.parse(localStorage.getItem('pf_search')||'[]'); if(!arr.length){ alert('Generate recommendations first.'); return; }
+      navigator.clipboard.writeText(arr.join('\n')); alert('Search strings copied.');
+    }
+    function downloadPlatformRubric(){
+      const txt = `AI Platform Evaluation Rubric (score 1–5)
+Goal fit: ______
+Input compatibility (text/CSV/PDF/media): ______
+Output formats (doc/slides/email/dashboard/workflow): ______
+Privacy/FERPA posture (docs, DPA, anonymization): ______
+Audit trail/versioning/export (CSV/PDF/logs): ______
+Collaboration (comments/permissions): ______
+Ease of use (no-code/templates/wizard): ______
+Time-to-first-win (≤15 min): ______
+Cost/limits (free tier, rate caps): ______
+Support/docs/training: ______
+Total: ______ / 50
+Decision + next step: __________________________`;
+      downloadBlob(txt, 'platform-eval-rubric.txt', 'text/plain');
+    }
+
+    // Mockups (modal)
+    const mockups = {
+      attendance: {
+        title: 'Attendance ↑ 3% — Evidence Narrative',
+        body: `<strong>What changed:</strong> Daily attendance rose 3% in four weeks for Grades 6–8.<br>
+<strong>Why it matters:</strong> We implemented a <em>two-line parent nudge</em> and an <em>advisory accountability grid</em> using AI to draft messages and track follow-ups.<br>
+<strong>Evidence:</strong> SIS attendance report week-over-week; call log export; advisory grid screenshots; 10-Day plan completion rate 90%.<br>
+<strong>Next:</strong> Expand to Grade 9 and automate nudge scheduling; monitor chronic absenteeism monthly.`
+      },
+      peims: {
+        title: 'PEIMS Errors ↓ 30% — Evidence Narrative',
+        body: `<strong>What changed:</strong> Data submission errors dropped 30% across two cycles.<br>
+<strong>Why it matters:</strong> We embedded a <em>weekly AI audit check</em> in the workflow (RISEN prompt with EDGAR/CB policy context).<br>
+<strong>Evidence:</strong> Error log trendline; before/after screengrabs of flagged fields; checklist completion export.<br>
+<strong>Next:</strong> Add pre-submission guardrails; quarterly refresher micro-PD.`
+      },
+      hiring: {
+        title: 'Hiring Time ↓ 50% — Evidence Narrative',
+        body: `<strong>What changed:</strong> Median days-to-hire cut from 40 to 20.<br>
+<strong>Why it matters:</strong> AI templated JD drafts, screen questions, and offer emails; leaders focused on human fit and onboarding.<br>
+<strong>Evidence:</strong> HRIS timestamps; candidate pipeline snapshots; new-hire 30-day survey results.<br>
+<strong>Next:</strong> Add onboarding checklist nudges; connect to retention metrics at 90 days.`
+      }
+    };
+    function openMockup(key){ const m=document.getElementById('mockupModal'); document.getElementById('mockupTitle').textContent=mockups[key].title; document.getElementById('mockupBody').innerHTML=mockups[key].body; m.classList.add('open'); }
+    function closeMockup(){ document.getElementById('mockupModal').classList.remove('open'); }
+    function copyMockup(){ const text=document.getElementById('mockupTitle').textContent+'\n'+stripHTML(document.getElementById('mockupBody').innerHTML); navigator.clipboard.writeText(text); alert('Mockup narrative copied.'); }
+
+    // Guided Mode
+    let guided = { role:null, step:0, steps:[] };
+    const guidedRecipes = {
+      teacher: {
+        why: 'Turn a classroom tool into a 10-day habit that moves a metric and produces evidence.',
+        steps: [
+          { title:'Frame your RISEN prompt', body:'Goal, intent, data, tone, next step. Click to auto-fill, then tweak.',
+            do(){ document.getElementById('r-relevance').value='Improve speaking & listening rubric by 1 level in 6th ELA';
+                  document.getElementById('i-intent').value='Draft 3 peer-feedback stems and a 10-minute routine';
+                  document.getElementById('s-specificity').value='Students storyboard in Flip; last unit showed vague comments';
+                  document.getElementById('e-execution').value='Student-friendly; 3 numbered steps';
+                  document.getElementById('n-navigation').value='Flag jargon; printable checklist'; constructPrompt(); location.hash='#risen'; }},
+          { title:'Build the plan', body:'Define habit, outcome, owner, cadence.',
+            do(){ assignPlanner('Flip (or Canva + ChatGPT)','Peer feedback using stems','Rubric growth + self-ratings','6th ELA team • weekly'); location.hash='#planner'; }},
+          { title:'Choose platform intentionally', body:'Use Platform Finder to decide category + get search strings.',
+            do(){ recommendPlatforms(); location.hash='#platform-finder'; }},
+          { title:'Prep the data like a pro', body:'Create a spec (even light) for evidence.',
+            do(){ makeDataSpec(); location.hash='#data-prep'; }},
+          { title:'Draft the story', body:'Align stakeholders with a three-liner.',
+            do(){ setVal('metrics','Speaking/Listening rubric improved 1 level for 62%; 18% improved 2 levels'); setVal('context','Daily 10-minute peer feedback using AI stems + self-ratings'); generateStory(new Event('submit')); location.hash='#story-generator'; }},
+          { title:'Seed a 10-Day sprint', body:'Auto-seed → assign → export.',
+            do(){ autofillTen(); location.hash='#ten-day'; }}
+        ]
+      },
+      leader: {
+        why:'Turn a dashboard into weekly huddles + board-ready narrative.',
+        steps:[
+          { title:'RISEN (leader)', body:'Goal, subgroup, cadence, owners, audit capture.',
+            do(){ document.getElementById('r-relevance').value='Goal: Attendance +3% this quarter (CPM)'; document.getElementById('i-intent').value='Create a 15-min weekly data huddle agenda'; document.getElementById('s-specificity').value='Grade 6 dipped 1.2% WoW; chronic list 14'; document.getElementById('e-execution').value='Bulleted; one owner; time-boxed'; document.getElementById('n-navigation').value='Evidence: SIS export + call log; review date'; constructPrompt(); location.hash='#risen'; }},
+          { title:'Plan habit + owner', body:'Codify habit + outcome + owner + cadence.', do(){ assignPlanner('Attendance Huddle + AI nudge','15-min weekly huddle + parent nudges','+3% daily attendance by Week 6','AP + Advisory leads • weekly'); location.hash='#planner'; }},
+          { title:'Right platform', body:'Finder → categories + searches.', do(){ recommendPlatforms(); location.hash='#platform-finder'; }},
+          { title:'Data spec', body:'DP Coach → spec + checks.', do(){ makeDataSpec(); location.hash='#data-prep'; }},
+          { title:'Story', body:'Board-ready three-liner.', do(){ setVal('metrics','Daily attendance up 2.1% in 3 weeks (Grade 6)'); setVal('context','Advisory check-ins + AI parent nudges + counselor follow-ups'); generateStory(new Event('submit')); location.hash='#story-generator'; }},
+          { title:'10-Day', body:'Auto-seed; export CSV.', do(){ autofillTen(); location.hash='#ten-day'; }}
+        ]
+      },
+      central: {
+        why:'Embed AI as infrastructure for compliance/finance (audit-friendly).',
+        steps:[
+          { title:'RISEN (compliance)', body:'EDGAR/CB context, error patterns, cadence.', do(){ document.getElementById('r-relevance').value='EDGAR + CB policy alignment; reduce PEIMS errors 30%'; document.getElementById('i-intent').value='Outline a weekly 10-minute AI audit check'; document.getElementById('s-specificity').value='Recurring errors in campus uploads (codes X,Y)'; document.getElementById('e-execution').value='Numbered SOP with roles; checklist'; document.getElementById('n-navigation').value='Flag ambiguous language; final checklist'; constructPrompt(); location.hash='#risen'; }},
+          { title:'Planner', body:'Owner + cadence for the SOP.', do(){ assignPlanner('AI Audit Check','10-minute weekly check before submission','PEIMS error rate ↓ 30% over two cycles','Data team • weekly'); location.hash='#planner'; }},
+          { title:'Platform choice', body:'Finder → guardrails.', do(){ recommendPlatforms(); location.hash='#platform-finder'; }},
+          { title:'Data spec', body:'DP Coach → spec.', do(){ makeDataSpec(); location.hash='#data-prep'; }},
+          { title:'Story', body:'Executive narrative for board/auditors.', do(){ setVal('metrics','Submission errors down 18% in first 2 cycles'); setVal('context','Weekly AI audit + checklist with owner sign-off'); generateStory(new Event('submit')); location.hash='#story-generator'; }},
+          { title:'10-Day', body:'Seed rollout and training.', do(){ autofillTen(); location.hash='#ten-day'; }}
+        ]
+      },
+      coach: {
+        why:'Scaffold SPED/EB coaching flows that produce timely evidence.',
+        steps:[
+          { title:'RISEN (coaching)', body:'Caseload data, compliance dates, family access.', do(){ document.getElementById('r-relevance').value='On-time IEPs + parent understanding (SPED)'; document.getElementById('i-intent').value='Draft bilingual recap structure + meeting tracker'; document.getElementById('s-specificity').value='8 IEPs due; 2 reschedules; 3 bilingual families'; document.getElementById('e-execution').value='Plain-language summary + bullets'; document.getElementById('n-navigation').value='Checklist + timestamp log'; constructPrompt(); location.hash='#risen'; }},
+          { title:'Planner', body:'Recurring coaching habit + evidence.', do(){ assignPlanner('IEP Recap + Tracker','Post-meeting bilingual recap + log','100% on-time IEPs; parent confirmation','Case manager • 48h after meeting'); location.hash='#planner'; }},
+          { title:'Platform pick', body:'Finder → category + searches.', do(){ recommendPlatforms(); location.hash='#platform-finder'; }},
+          { title:'Data spec', body:'DP Coach → spec.', do(){ makeDataSpec(); location.hash='#data-prep'; }},
+          { title:'Story', body:'Caseload progress: human + metrics.', do(){ setVal('metrics','All 8 IEPs on time; 6/8 parent confirmations in 48h'); setVal('context','Bilingual recaps + tracker created by AI, edited by case manager'); generateStory(new Event('submit')); location.hash='#story-generator'; }},
+          { title:'10-Day', body:'Rollout across teachers.', do(){ autofillTen(); location.hash='#ten-day'; }}
+        ]
+      }
+    };
+    function setVal(id,val){ const el=document.getElementById(id); if(el) el.value=val; }
+    function assignPlanner(tool,beh,out,own){ setVal('toolName',tool); setVal('targetBehavior',beh); setVal('measurableOutcome',out); setVal('owner',own); generatePlanner(new Event('submit')); }
+    function startGuided(role){ guided.role=role; guided.steps=guidedRecipes[role].steps; guided.step=0; document.getElementById('guided-why').textContent=guidedRecipes[role].why; document.getElementById('guided-panel').classList.remove('hidden'); renderGuided(); }
+    function renderGuided(){ const s=guided.steps[guided.step]; document.getElementById('guided-step-num').textContent=guided.step+1; document.getElementById('guided-step-title').textContent=s.title; document.getElementById('guided-step-body').innerHTML = `<p>${s.body}</p><div class="mt-3"><button class="bg-teal-600 text-white px-3 py-2 rounded btn-pop" onclick="guided.steps[guided.step].do()">Do it for me</button><span class="text-xs text-gray-600 ml-2">Tweak results on the opened section.</span></div>`; }
+    function nextGuided(){ if(guided.step < guided.steps.length-1){ guided.step++; renderGuided(); } }
+    function prevGuided(){ if(guided.step > 0){ guided.step--; renderGuided(); } }
 
     // PD + Subscribe email hooks
     function collectContextForEmail(){
@@ -721,92 +950,71 @@ Tool: ${gt('out-tool')||'-'}
 Behavior: ${gt('out-behavior')||'-'}
 Outcome: ${gt('out-outcome')||'-'}
 Owner/Cadence: ${gt('out-owner')||'-'}`;
-
       const story = `Board Story
 ${stripHTML(document.getElementById('story-what-changed')?.innerHTML||'What changed: -')}
 ${document.getElementById('story-why-matters')?.textContent||'Why it matters: -'}
 ${document.getElementById('story-next')?.textContent||'What happens next: -'}`;
-
-      const tenDay = planRows().length
-        ? '10-Day Plan\n' + planRows().map(r=>`${r[0]} — Who: ${r[1]} | What: ${r[2]} | When: ${r[3]} | Evidence: ${r[4]} | Celebrate: ${r[5]}`).join('\n')
-        : '10-Day Plan\n-';
-
+      const tenDay = planRows().length ? '10-Day Plan\n' + planRows().map(r=>`${r[0]} — Who: ${r[1]} | What: ${r[2]} | When: ${r[3]} | Evidence: ${r[4]} | Celebrate: ${r[5]}`).join('\n') : '10-Day Plan\n-';
       return `${plan}\n\n${story}\n\n${tenDay}`;
     }
-
     function requestPD(){
-      const subject = encodeURIComponent('PD Request: From Tools to Impact');
-      const body = encodeURIComponent(
-`Hi Elizabeth,
+      const subject=encodeURIComponent('PD Request: From Tools to Impact');
+      const body=encodeURIComponent(`Hi Elizabeth,
 
 We'd like to schedule professional development using your From Tools to Impact framework.
 
 District/Org: __________
 Preferred dates: __________
 Audience (teachers/leaders/both): __________
-Focus area (behavior, evidence, story): __________
+Focus area (behavior, evidence, story, platform, data): __________
 
 Context from our draft work:
 ${collectContextForEmail()}
 
-Thanks!`
-      );
-      window.location.href = `mailto:edbostic83@gmail.com?subject=${subject}&body=${body}`;
+Thanks!`);
+      window.location.href=`mailto:edbostic83@gmail.com?subject=${subject}&body=${body}`;
     }
-
     function subscribeEmail(){
-      const subject = encodeURIComponent('Subscribe: Impact Dispatch');
-      const body = encodeURIComponent(
-`Hi Elizabeth,
+      const subject=encodeURIComponent('Subscribe: Impact Dispatch');
+      const body=encodeURIComponent(`Hi Elizabeth,
 
 Please add me to Impact Dispatch.
 
 Name: __________
 Role: (Teacher / Leader / EdTech / SPED / EB / Other)
 District/Org: __________
-Optional: What topic do you want first? __________
+Optional: First topic you want: __________
 
-Thank you!`
-      );
-      window.location.href = `mailto:edbostic83@gmail.com?subject=${subject}&body=${body}`;
+Thank you!`);
+      window.location.href=`mailto:edbostic83@gmail.com?subject=${subject}&body=${body}`;
     }
-
-    // RSS starter download (for GitHub Pages)
+    // RSS template
     function downloadRSS(){
-      const now = new Date().toISOString();
-      const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0">
-<channel>
-  <title>Impact Dispatch</title>
-  <link>https://YOUR-GITHUB-PAGES-DOMAIN/</link>
-  <description>From Tools to Impact – updates, templates, and wins.</description>
-  <lastBuildDate>${now}</lastBuildDate>
-
-  <item>
-    <title>Welcome to Impact Dispatch</title>
-    <link>https://YOUR-GITHUB-PAGES-DOMAIN/</link>
-    <guid>welcome-${now}</guid>
-    <pubDate>${now}</pubDate>
-    <description><![CDATA[
-      Quick start: Tool → Behavior → Outcome → Evidence. Grab templates onsite.
-    ]]></description>
-  </item>
-</channel>
-</rss>`;
+      const now=new Date().toISOString();
+      const xml=`<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0"><channel>
+<title>Impact Dispatch</title>
+<link>https://YOUR-GITHUB-PAGES-DOMAIN/</link>
+<description>From Tools to Impact – updates, templates, and wins.</description>
+<lastBuildDate>${now}</lastBuildDate>
+<item><title>Welcome to Impact Dispatch</title><link>https://YOUR-GITHUB-PAGES-DOMAIN/</link><guid>welcome-${now}</guid><pubDate>${now}</pubDate><description><![CDATA[Quick start: Tool → Behavior → Outcome → Evidence. Grab templates onsite.]]></description></item>
+</channel></rss>`;
       downloadBlob(xml, 'feed.xml', 'application/rss+xml');
     }
 
-    // Helpers
-    function v(id){ return (document.getElementById(id).value||'').trim(); }
-    function setText(id, txt){ document.getElementById(id).textContent = txt; }
-    function gt(id){ return (document.getElementById(id).textContent||'').trim(); }
-    function downloadBlob(content, filename, type){
-      const blob = new Blob([content], {type});
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
-      URL.revokeObjectURL(url);
+    // Process Plug-In
+    function previewProcess(){
+      const name=v('proc_name')||'Your Process';
+      const steps=[v('proc_s1'),v('proc_s2'),v('proc_s3'),v('proc_s4'),v('proc_s5')].filter(Boolean);
+      const map = ['RISEN','Planner','Data Prep','Platform Finder','Story','10-Day'];
+      const out = `<strong>${name}</strong>\n` + steps.map((s,i)=>`• ${s} → ${map[i]||'(map to any section)'}`).join('\n');
+      const box=document.getElementById('proc_out'); box.classList.remove('hidden'); box.innerHTML=`<pre class="whitespace-pre-wrap text-sm">${out}</pre>`;
+      localStorage.setItem('proc_map', out);
     }
-    function stripHTML(s){ const d = document.createElement('div'); d.innerHTML=s; return d.textContent||d.innerText||''; }
+    function downloadProcess(){
+      const text = localStorage.getItem('proc_map') || 'Process mapping not set yet.';
+      downloadBlob(text, 'process-mapping-checklist.txt', 'text/plain');
+    }
   </script>
 </body>
 </html>
