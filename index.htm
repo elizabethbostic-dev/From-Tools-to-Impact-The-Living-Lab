@@ -1,740 +1,1087 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>From Tools to Impact – The Living Lab</title>
-  <meta name="description" content="Work with AI like a strategic partner: choose the right platform, change habits, show evidence." />
-  <meta name="theme-color" content="#002B49" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>From Tools to Impact – The Living Lab</title>
+    <meta name="description" content="Work with AI like a strategic partner: choose the right platform, change habits, show evidence." />
+    <meta name="theme-color" content="#1A202C" />
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
-  <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet" />
+    
+    <script>
+    (function () {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.tailwindcss.com?plugins=forms,typography&v=20251028'; 
+        s.defer = true;
+        s.onload = () => console.log('Tailwind CDN loaded successfully');
+        
+        s.onerror = () => {
+            console.warn('Tailwind CDN blocked; loading fallback CSS');
+            const l = document.createElement('link');
+            l.rel = 'stylesheet';
+            l.href = 'https://unpkg.com/tailwindcss@3.4.5/dist/tailwind.min.css'; 
+            document.head.appendChild(l);
+        };
+        
+        document.head.appendChild(s);
+    })();
+    </script>
+    <meta property="og:title" content="From Tools to Impact – The Living Lab" />
+    <meta property="og:description" content="Work with AI like a strategic partner: choose the right platform, change habits, show evidence." />
 
-    <meta property="og:title" content="From Tools to Impact – The Living Lab" />
-  <meta property="og:description" content="Work with AI like a strategic partner: choose the right platform, change habits, show evidence." />
+    <style>
+        /* ----------------- JAZZY DARK MODE BASE ----------------- */
+        :root { 
+            --navy:#1A202C; /* Base Charcoal */
+            --gold:#FDD681; /* Accent Color */
+            --gold2:#EBC46B;
+            --bg:#2D3748; /* Secondary Dark Gray */
+            --card-bg: #1A202C; /* Deepest background for cards (Sidebar/Tools) */
+            --text-color: #F7FAFC; /* Soft White - High Contrast Text */
+        }
 
-  <style>
-    :root { --navy:#002B49; --gold:#D4AF37; --gold2:#bfa02e; --bg:#f7f9fc }
-    html, body { font-family: 'Inter', system-ui, Segoe UI, Roboto, sans-serif; background: var(--bg); scroll-behavior: smooth }
-    .header-bg { background: var(--navy) }
-    .accent { color: var(--gold) }
-    .sparkle {
-      background:
-        radial-gradient(1000px 400px at 10% -10%, rgba(212,175,55,.18), transparent 60%),
-        radial-gradient(800px 400px at 90% 10%, rgba(0,43,73,.20), transparent 55%),
-        linear-gradient(180deg, #031b2b 0%, #002B49 40%, #022b46 100%);
-    }
-    .gold-btn { background: var(--gold); color: var(--navy); font-weight: 800; transition: .15s }
-    .gold-btn:hover { background: var(--gold2) }
-    .glow { box-shadow: 0 10px 24px rgba(0,0,0,.08), 0 0 0 1px rgba(0,43,73,.06) }
-    .lift { transition: transform .15s, box-shadow .15s }
-    .lift:hover { transform: translateY(-1px); box-shadow: 0 12px 22px rgba(0,0,0,.12) }
-    .underline-anim { height: 4px; width: 90px; border-radius: 9999px; background: linear-gradient(90deg, #D4AF37, #ffe9a3, #D4AF37); background-size: 200% 100%; animation: shimmer 2.5s linear infinite }
-    @media (prefers-reduced-motion: reduce) { .underline-anim { animation: none } }
-    @keyframes shimmer { 0% { background-position: 0% 50% } 100% { background-position: 200% 50% } }
+        /* ===== Living Lab skin (THEME DECORATIONS) ===== */
+        :root{
+            --leaf:#8FD18C;
+            --mint:#B7F5C8;
+            --grid:rgba(255,255,255,.04);
+            --vine:rgba(143,209,140,.18);
+            --beaker:rgba(253,214,129,.18);
+        }
 
-    /* Layout helpers */
-    .sidebar { position: sticky; top: 0; max-height: 100dvh }
+        /* Lab grid + vignette behind everything */
+        body::before,
+        body::after{
+            content:"";
+            position:fixed; inset:0; z-index:-2; pointer-events:none;
+        }
+        body::before{
+            /* subtle grid pattern */
+            background:
+                linear-gradient(var(--grid) 1px, transparent 1px) 0 0/28px 28px,
+                linear-gradient(90deg, var(--grid) 1px, transparent 1px) 0 0/28px 28px,
+                radial-gradient(1200px 600px at 15% -10%, rgba(253,214,129,.10), transparent 60%),
+                radial-gradient(900px 500px at 85% 10%, rgba(26,32,44,.25), transparent 55%);
+            filter: saturate(105%);
+        }
+        body::after{
+            /* soft vignette */
+            background: radial-gradient(1200px 700px at 50% 120%, rgba(0,0,0,.45), transparent 55%);
+        }
 
-    /* Mobile drawer & modal */
-    .mobile-nav { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: none; z-index: 50 }
-    .mobile-panel { position: fixed; top: 0; left: 0; height: 100dvh; width: 86%; max-width: 320px; background: #fff; padding: 1rem; box-shadow: 0 20px 40px rgba(0,0,0,.25) }
+        /* Corner vines (decor only) */
+        .lab-vines{
+            position:fixed; inset:0; z-index:-1; pointer-events:none;
+        }
+        .lab-vines svg{ position:absolute; opacity:.45; filter:saturate(110%); }
+        .lab-vines .vine-tl{ top:-20px; left:-10px; width:min(36vw,520px); }
+        .lab-vines .vine-br{ bottom:-30px; right:-10px; width:min(40vw,640px); transform:scaleX(-1) rotate(-2deg); }
 
-    /* Help chip */
-    .chip { display: inline-flex; align-items: center; justify-content: center; height: 24px; width: 24px; border-radius: 999px; font-size: 12px; font-weight: 800; background: #fff; border: 1px solid #e5e7eb; color: #111; cursor: pointer }
-    .chip-tip { display: none; position: absolute; z-index: 30; left: -100px; top: 110%; min-width: 220px; background: #fff; border: 1px solid #e5e7eb; border-radius: .5rem; padding: .5rem .75rem; box-shadow: 0 10px 24px rgba(0,0,0,.12) }
-    .chip-wrap { position: relative; display: inline-block }
-    .chip-wrap.show .chip-tip { display: block }
+        /* Section dividers with lab glyphs */
+        .lab-divider{
+            position:relative; height:18px; margin:28px 0;
+        }
+        .lab-divider::before{
+            content:""; position:absolute; inset:auto 0; top:8px;
+            height:1px; background:linear-gradient(90deg, transparent, var(--beaker), transparent);
+        }
+        .lab-divider::after{
+            content:""; position:absolute; left:50%; top:50%; transform:translate(-50%, -50%);
+            width:44px; height:44px; border-radius:9999px;
+            background:
+                radial-gradient(circle at 50% 50%, var(--beaker), transparent 60%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="%23FDD681" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 3v4.5l-4.5 7.8A3 3 0 0 0 7 20h10a3 3 0 0 0 2.5-4.7L15 7.5V3"/><path d="M6 14h12"/></svg>') center/22px 22px no-repeat;
+            opacity:.35;
+        }
 
-    /* Custom style for the Starter Platform section - NEW */
-    #platform-finder details {
-      background: var(--navy); /* Navy background */
-      color: white; /* White text */
-      border: 1px solid var(--gold);
-    }
-    #platform-finder summary {
-      color: var(--gold); /* Gold text for the summary */
-      font-weight: 800; /* Extra bold summary */
-    }
-    #platform-finder ul {
-      color: #ccc; /* Lighter color for list items */
-    }
-    #platform-finder p.font-semibold {
-      color: var(--gold2); /* Gold-ish color for subheadings */
-    }
-  </style>
+        /* Highlight lines under h2s */
+        h2 + .underline-anim,
+        .underline-anim{
+            height:2px; border-radius:9999px;
+            background:linear-gradient(90deg, var(--gold), #fff, var(--gold));
+            background-size:200% 100%; animation:shimmer 4s linear infinite;
+            opacity:.65;
+        }
+        @keyframes shimmer{ to{ background-position:-200% 0; } }
+
+        /* Motion/visual safety */
+        @media (prefers-reduced-motion: reduce){
+            .underline-anim{ animation:none }
+        }
+        .hide-decor body::before,
+        .hide-decor body::after,
+        .hide-decor .lab-vines,
+        .hide-decor .lab-divider{ display:none !important; }
+        
+        /* ----------------- BASE STYLES & OVERRIDES ----------------- */
+        html, body { 
+            font-family: 'Inter', system-ui, Segoe UI, Roboto, sans-serif; 
+            background: var(--bg); 
+            color: var(--text-color); /* CRITICAL: Sets high contrast text color */
+            scroll-behavior: smooth 
+        }
+        
+        /* Sidebar Link Readability Fix */
+        aside a { color: var(--text-color); }
+        aside a:hover { background-color: rgba(255,255,255,0.1); } 
+        
+        /* Hero text (if inheriting from sparkle/header-bg) */
+        .header-bg, .sparkle { color: var(--text-color) !important; }
+
+        .glow { 
+            background: var(--card-bg); 
+            box-shadow: 0 10px 30px rgba(0,0,0,.5), 0 0 0 1px rgba(253,214,129,.1);
+            color: var(--text-color);
+        }
+        .lift:hover { transform: translateY(-2px); box-shadow: 0 12px 22px rgba(0,0,0,.4) }
+        
+        /* Input/Select Fields */
+        input, textarea, select {
+            background: #4A5568;
+            border: 1px solid #4A5568;
+            color: var(--text-color);
+        }
+        input::placeholder, textarea::placeholder { color: #A0AEC0; }
+        input:focus, textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(253,214,129,.3); }
+
+        /* Output Boxes */
+        #planner-output, #dp_output, #pf_output, #risen-output, #story-output, #ten-day-output, #process-plug-output, #sell-output {
+            background: #1A202C;
+            color: #B2F5EA;
+            border: 1px solid #4A5568;
+            white-space: pre-wrap;
+        }
+
+        /* Minimal safety net */
+        button, .btn { padding:.6rem 1rem; border:1px solid #4A5568; border-radius:.5rem; background:#2D3748; color:var(--text-color) }
+        button.gold-btn { background:var(--gold); color:var(--navy); font-weight:700; border:0; }
+        
+        /* Toast component CSS for the JS upgrade */
+        #toast-notification {
+            z-index: 1000;
+            min-width: 250px;
+        }
+    </style>
 </head>
 
 <body class="text-gray-800">
-  <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-white focus:text-[--navy] focus:px-3 focus:py-2 focus:rounded">Skip to main content</a>
-
-    <div class="md:hidden header-bg sparkle text-white">
-    <div class="flex items-center justify-between px-4 py-3">
-      <a href="#home" class="font-extrabold text-lg">The Living Lab</a>
-      <button id="mobileOpenBtn" class="border-2 border-white rounded px-3 py-1" type="button" aria-haspopup="dialog" aria-controls="mobileNav" aria-expanded="false">Menu</button>
-    </div>
-  </div>
-
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-[260px_minmax(0,1fr)] gap-6 py-6">
-        <aside class="hidden md:block sidebar" aria-label="Section navigation">
-      <div class="bg-white rounded-xl p-4 glow">
-        <div class="text-xl font-extrabold text-[--navy] mb-1">The Living Lab</div>
-        <p class="text-xs text-gray-600 mb-3">From Tools to Impact</p>
-        <nav class="space-y-1 text-sm">
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#about">What is this?</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#guided">Guided Mode</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#framework">Impact Ladder</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#planner">Planner</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#data-prep">Data Prep Coach</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#platform-finder">AI Platform Finder</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#risen">RISEN Studio</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#story">3-Sentence Story</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#ten-day">10-Day Plan</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#process-plug">Process Plug-In</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#sell">Sell It</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#connect">Join</a>
-        </nav>
-      </div>
-    </aside>
-
-        <div id="mobileNav" class="mobile-nav" role="dialog" aria-modal="true" aria-label="Navigation drawer">
-      <div class="mobile-panel" role="document">
-        <div class="flex items-center justify-between">
-          <div class="font-extrabold text-[--navy] text-lg">The Living Lab</div>
-          <button id="mobileCloseBtn" class="p-2" type="button" aria-label="Close menu">✕</button>
-          </div>
-        <nav class="mt-3 space-y-1 text-sm">
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#about">What is this?</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#guided">Guided Mode</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#framework">Impact Ladder</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#planner">Planner</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#data-prep">Data Prep Coach</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#platform-finder">Platform Finder</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#risen">RISEN</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#story">Story</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#ten-day">10-Day</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#process-plug">Process Plug-In</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#sell">Sell It</a>
-          <a class="block px-3 py-2 rounded hover:bg-gray-100" href="#connect">Join</a>
-        </nav>
-      </div>
-    </div>
-
-        <main id="main">
-            <section id="home" class="header-bg sparkle text-white rounded-xl p-6 glow">
-        <h1 class="text-4xl font-extrabold mb-2 accent">From Tools to Impact</h1>
-        <p class="text-lg/7 opacity-95">Turn AI into a thinking partner, not a crutch. Pick the right tool, change the habit, show the evidence.</p>
-      </section>
-
-            <section id="about" class="mt-6 bg-white rounded-xl p-6 glow">
-        <div class="underline-anim mb-3"></div>
-        <h2 class="text-2xl font-extrabold mb-2">What is this place? How do I use it?</h2>
-        <p class="text-gray-800 mb-3">A do-it-now site for teachers, leaders, and central office. Every section tells you why it matters, what to type, and gives you something to <strong>copy, download, or email</strong>.</p>
-        <ol class="list-decimal ml-5 text-sm space-y-1">
-          <li><strong>Guided Mode</strong> (choose your role). It walks you through: prompt → plan → data → platform → story → sprint.</li>
-          <li><strong>Planner</strong> locks the weekly habit (owner, cadence, outcome, standards/policy).</li>
-          <li><strong>Data Prep Coach</strong> turns a squishy idea into AI-ready spec + CSV + checklist.</li>
-          <li><strong>Platform Finder</strong> helps you pick the right category and search strings (with examples).</li>
-          <li><strong>Story</strong> makes the 3-liner; <strong>10-Day</strong> seeds realistic steps (templates included).</li>
-        </ol>
-        <p class="text-xs text-gray-500 mt-2">Badges: <span class="font-semibold">[Drop-in AI]</span> = paste directly into a model; <span class="font-semibold">[Human workflow]</span> = use with your team.</p>
-      </section>
-
-            <section id="guided" class="mt-6 bg-white rounded-xl p-6 glow">
-        <div class="flex items-center gap-2 mb-2">
-          <span class="text-xs px-2 py-1 rounded bg-yellow-100 border">7 minutes</span>
-          <h2 class="text-2xl font-extrabold">Guided Mode</h2>
-        </div>
-        <p class="text-gray-700 mb-3">Click your role. The site pre-fills good examples and walks you through the flow.</p>
-        <div class="flex flex-wrap gap-2 mb-4">
-          <button class="gold-btn lift px-4 py-2 rounded" type="button" onclick="startGuided('teacher')">Teacher</button>
-          <button class="gold-btn lift px-4 py-2 rounded" type="button" onclick="startGuided('leader')">Leader</button>
-          <button class="gold-btn lift px-4 py-2 rounded" type="button" onclick="startGuided('central')">Central Office</button>
-          <button class="gold-btn lift px-4 py-2 rounded" type="button" onclick="startGuided('coach')">SPED / EB / Coach</button>
-        </div>
-        <div id="guided-panel" class="hidden">
-          <div class="bg-amber-50 border-l-4 border-amber-400 p-3 rounded mb-3">
-            <p id="guided-why" class="text-sm"></p>
-          </div>
-          <div class="bg-gray-50 border rounded p-4">
-            <p class="text-sm mb-2"><strong>Step <span id="guided-step-num">1</span>:</strong> <span id="guided-step-title"></span></p>
-            <div id="guided-step-body" class="text-sm text-gray-800"></div>
-            <div class="mt-3 flex gap-2">
-              <button class="px-3 py-2 rounded border" type="button" onclick="prevGuided()">Back</button>
-              <button class="gold-btn px-3 py-2 rounded" type="button" onclick="nextGuided()">Next</button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-            <section id="framework" class="mt-6 bg-white rounded-xl p-6 glow">
-      <h2 class="text-2xl font-extrabold mb-1">Core Framework: The Impact Ladder</h2>
-      <div class="text-sm text-gray-700 mb-3">Move from <strong>tool</strong> → <strong>use</strong> → <strong>behavior</strong> → <strong>outcome</strong> → <strong>evidence</strong>.</div>
-      <div class="grid grid-cols-5 text-center text-xs font-bold text-gray-600 mb-4">
-        <div class="p-2 border-b-4 border-[--navy]">1. Tool</div>
-        <div class="p-2 border-b-4 border-[--navy]">2. Use</div>
-        <div class="p-2 border-b-4 border-[--navy]">3. Behavior</div>
-        <div class="p-2 border-b-4 border-[--navy]">4. Outcome</div>
-        <div class="p-2 border-b-4 border-[--navy]">5. Evidence</div>
-      </div>
-      <div class="flex gap-2 border-b pb-2">
-        <button id="tab-stu" class="px-3 py-2 border-b-2 border-[--gold] font-bold" onclick="switchTab('student')">Student</button>
-        <button id="tab-lea" class="px-3 py-2 text-gray-500" onclick="switchTab('leader')">Leader</button>
-      </div>
-      <div id="ladder-stu" class="mt-3">
-        <div class="grid md:grid-cols-5 gap-3 text-center text-sm">
-          <div class="p-3 bg-red-50 rounded">Flip / LLM</div>
-          <div class="p-3 bg-orange-50 rounded">Storyboard → present</div>
-          <div class="p-3 bg-yellow-50 rounded">Peer feedback stems</div>
-          <div class="p-3 bg-green-50 rounded">Confidence ↑</div>
-          <div class="p-3 bg-blue-50 rounded">Rubric growth</div>
-        </div>
-        <div class="mt-2 flex gap-2 text-sm">
-          <a href="#planner" class="underline text-[--navy]">Turn into a plan →</a>
-          <button class="px-2 py-1 border rounded" type="button" onclick="ladderPrefill('student')">Fill an example for me</button>
-        </div>
-      </div>
-      <div id="ladder-lea" class="hidden mt-3">
-        <div class="grid md:grid-cols-5 gap-3 text-center text-sm">
-          <div class="p-3 bg-red-50 rounded">Dashboard shapes routine</div>
-          <div class="p-3 bg-orange-50 rounded">Weekly data huddle</div>
-          <div class="p-3 bg-yellow-50 rounded">Collaborative solve</div>
-          <div class="p-3 bg-green-50 rounded">Tier-1 alignment</div>
-          <div class="p-3 bg-blue-50 rounded">STAAR ↑ Audit risk ↓</div>
-        </div>
-        <div class="mt-2 flex gap-2 text-sm">
-          <a href="#planner" class="underline text-[--navy]">Make the 10‑day sprint →</a>
-          <button class="px-2 py-1 border rounded" type="button" onclick="ladderPrefill('leader')">Fill an example for me</button>
-        </div>
-      </div>
-
-      <details class="mt-4 p-3 bg-gray-50 border rounded text-sm">
-        <summary class="font-semibold cursor-pointer">What is the Impact Ladder? (Beginner On‑Ramp)</summary>
-        <div class="mt-2 space-y-1">
-          <p><strong>Tool:</strong> the app (Flip, Sheets, an LLM).</p>
-          <p><strong>Use:</strong> how you’ll use it this week (not “play with it”—be specific).</p>
-          <p><strong>Behavior:</strong> the routine people will do (peer feedback every Wed; 15‑min data huddle Fri).</p>
-          <p><strong>Outcome:</strong> a measurable change in 2–6 weeks (+1 rubric level, −30% errors).</p>
-          <p><strong>Evidence:</strong> what you’ll collect to prove it (before/after samples, counts, screenshots).</p>
-          <p class="text-xs text-gray-600">Tip: write the behavior as a calendar habit. If it’s not on a cadence, it won’t stick.</p>
-        </div>
-      </details>
-    </section>
-
-            <section id="planner" class="mt-6 bg-white rounded-xl p-6 glow">
-        <div class="flex items-start justify-between">
-          <div>
-            <h2 class="text-2xl font-extrabold">Tool-to-Impact Planner <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-green-100 border">[Human workflow]</span></h2>
-            <p class="text-sm text-gray-700">Define the <strong>habit, owner, cadence, outcome</strong>, and the standard/policy you’re aligned to.</p>
-          </div>
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-3 mt-3">
-          <div class="flex items-center gap-2">
-            <input id="toolName" class="p-3 border rounded w-full" placeholder="Tool (e.g., Flip, LLM, PowerSchool)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: tool name" onclick="toggleChip(this)">?</button><span class="chip-tip">Name the main tool you’ll use weekly.</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="targetBehavior" class="p-3 border rounded w-full" placeholder="Desired behavior (e.g., peer feedback every Wed)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: desired behavior" onclick="toggleChip(this)">?</button><span class="chip-tip">Describe the repeatable habit, not just “use the tool.”</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="measurableOutcome" class="p-3 border rounded w-full" placeholder="Outcome (e.g., +5% attendance; rubric growth)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: outcome" onclick="toggleChip(this)">?</button><span class="chip-tip">Pick one measurable change you can track in 2–6 weeks.</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="owner" class="p-3 border rounded w-full" placeholder="Owner + cadence (e.g., 6th ELA team • weekly)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: owner and cadence" onclick="toggleChip(this)">?</button><span class="chip-tip">Who does it, and how often. Cadence beats inspiration.</span></span>
-          </div>
-          <div class="md:col-span-2 flex items-center gap-2">
-            <input id="standardsPolicy" class="p-3 border rounded w-full" placeholder="Standards / Policy / Constraint (e.g., TEKS 6.4B; EDGAR; Local policy)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: standards/policy" onclick="toggleChip(this)">?</button><span class="chip-tip">Paste the exact standard/policy wording you’re addressing.</span></span>
-          </div>
-        </div>
-
-        <div class="mt-3 flex flex-wrap gap-2">
-          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generatePlanner()">Generate</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="openEvidenceModal('planner')">Evidence Menu</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadPlan()">Download</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyPlan()">Copy</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('planner-output','Tool-to-Impact Planner')">Email</button>
-        </div>
-        <div id="planner-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
-      </section>
-
-            <section id="data-prep" class="mt-6 bg-white rounded-xl p-6 glow">
-        <h2 class="text-2xl font-extrabold">Data Prep Coach <span class="text-xs ml-2 px-2 py-1 rounded bg-indigo-100 border">[Drop-in AI]</span></h2>
-        <p class="text-sm text-gray-700 mb-2">Turn a messy idea into an <strong>AI-ready spec + CSV + checklist</strong>. Plain-English help chips explain terms.</p>
-
-        <div class="grid md:grid-cols-2 gap-3">
-          <div class="flex items-center gap-2">
-            <input id="dp_goal" class="p-3 border rounded w-full" placeholder="Goal/Decision (e.g., reduce no-shows by 3%)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: goal" onclick="toggleChip(this)">?</button><span class="chip-tip">One sentence: what decision or change will this data drive?</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="dp_outcome" class="p-3 border rounded w-full" placeholder="Primary metric (e.g., daily attendance)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: primary metric" onclick="toggleChip(this)">?</button><span class="chip-tip">Name the metric you’ll judge progress by.</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="dp_unit" class="p-3 border rounded w-full" placeholder="Grain (student/day, campus/week, teacher/period)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: grain" onclick="toggleChip(this)">?</button><span class="chip-tip"><strong>Grain</strong> = one row’s level (student/day is common).</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="dp_window" class="p-3 border rounded w-full" placeholder="Time window (e.g., last 6 weeks)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: time window" onclick="toggleChip(this)">?</button><span class="chip-tip">How far back you’ll analyze; keep it reasonable.</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="dp_sources" class="p-3 border rounded w-full" placeholder="Sources (SIS, LMS, HRIS, Surveys)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: sources" onclick="toggleChip(this)">?</button><span class="chip-tip">Where the data lives (tools/systems/files).</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="dp_ids" class="p-3 border rounded w-full" placeholder="Join keys/IDs (e.g., student_id, campus_id)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: join keys" onclick="toggleChip(this)">?</button><span class="chip-tip"><strong>Join key</strong> = unique ID used to connect tables.</span></span>
-          </div>
-          <div class="flex items-center gap-2 md:col-span-2">
-            <input id="dp_fields" class="p-3 border rounded w-full" placeholder="Fields (comma-separated: student_id,date,status)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: fields" onclick="toggleChip(this)">?</button><span class="chip-tip"><strong>Fields</strong> = column names you’ll need, in order.</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="dp_filters" class="p-3 border rounded w-full" placeholder="Filters (e.g., drop withdrawn; exclude alt ed)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: filters" onclick="toggleChip(this)">?</button><span class="chip-tip">Who/what to exclude to avoid noise or bias.</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="dp_privacy" class="p-3 border rounded w-full" placeholder="Privacy (FERPA/PII/consent; anonymize IDs)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: privacy" onclick="toggleChip(this)">?</button><span class="chip-tip">Don’t upload PII. Use anonymized IDs when possible.</span></span>
-          </div>
-          <div class="flex items-center gap-2 md:col-span-2">
-            <input id="dp_quality" class="p-3 border rounded w-full" placeholder="Quality checks (missing rules, outlier caps)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: quality" onclick="toggleChip(this)">?</button><span class="chip-tip">Define how you’ll spot and fix messy data.</span></span>
-          </div>
-        </div>
-
-        <div class="mt-3 flex flex-wrap gap-2">
-          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="makeDataSpec()">Make Spec</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadCSVTemplate()">CSV Template</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadPrepChecklist()">Checklist</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyDataPrompt()">Copy AI Prompt</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('dp_output','Data Prep Spec')">Email</button>
-        </div>
-
-        <div class="mt-4 text-xs text-gray-700">
-          <p><strong>Example (attendance):</strong> fields → <code>student_id,date,present,period,reason_code</code> | grain → <code>student/day</code> | join keys → <code>student_id</code></p>
-        </div>
-
-        <div id="dp_output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
-      </section>
-
-            <section id="platform-finder" class="mt-6 bg-white rounded-xl p-6 glow">
-        <h2 class="text-2xl font-extrabold">AI Platform Finder <span class="text-xs ml-2 px-2 py-1 rounded bg-indigo-100 border">[Drop-in AI + Human]</span></h2>
-        <p class="text-sm text-gray-700 mb-2">Choose by need, not hype. Pick categories, get example tools, copy search strings, use the rubric.</p>
-
-        <div class="grid md:grid-cols-3 gap-3">
-          <div>
-            <label class="text-xs font-semibold" for="pf_goal">Goal</label>
-            <select id="pf_goal" class="w-full p-3 border rounded">
-              <option value="create">Create (draft/lesson/handout)</option>
-              <option value="transform">Transform (rewrite/summarize/translate)</option>
-              <option value="analyze">Analyze (data/text/images)</option>
-              <option value="communicate">Communicate (family/board/staff)</option>
-              <option value="automate">Automate (workflows/forms/scheduling)</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-xs font-semibold" for="pf_inputs">Inputs (Cmd/Ctrl to multi-select)</label>
-            <select id="pf_inputs" class="w-full p-3 border rounded" multiple>
-              <option>Text</option><option>Spreadsheet</option><option>PDF</option><option>Images</option><option>Audio/Video</option>
-            </select>
-          </div>
-          <div>
-            <label class="text-xs font-semibold" for="pf_outputs">Outputs</label>
-            <select id="pf_outputs" class="w-full p-3 border rounded" multiple>
-              <option>Document</option><option>Slides</option><option>Email/Message</option><option>Dashboard</option><option>Spreadsheet</option><option>Workflow</option>
-            </select>
-          </div>
-          <div class="md:col-span-3 grid md:grid-cols-3 gap-3">
-            <div>
-              <span class="text-xs font-semibold">Constraints</span>
-              <div class="text-sm space-y-1 mt-1">
-                <label class="block"><input type="checkbox" id="pf_privacy" /> Student data/FERPA sensitive</label>
-                <label class="block"><input type="checkbox" id="pf_blocked" /> District blocks installs</label>
-                <label class="block"><input type="checkbox" id="pf_no_cost" /> No new cost / free only</label>
-                <label class="block"><input type="checkbox" id="pf_low_skill" /> Low technical skill</label>
-                <label class="block"><input type="checkbox" id="pf_offline" /> Needs offline/exportable</label>
-              </div>
-            </div>
-            <div>
-              <label class="text-xs font-semibold" for="pf_collab">Collaboration</label>
-              <select id="pf_collab" class="w-full p-3 border rounded mt-1">
-                <option value="solo">Solo</option>
-                <option value="team">Team editing</option>
-                <option value="stakeholders">Stakeholder review/approval</option>
-              </select>
-            </div>
-            <div>
-              <label class="text-xs font-semibold" for="pf_time">Time & Risk</label>
-              <select id="pf_time" class="w-full p-3 border rounded mt-1">
-                <option value="minutes">Minutes</option><option value="hour">About an hour</option><option value="day">Day+</option>
-              </select>
-              <select id="pf_risk" class="w-full p-3 border rounded mt-2">
-                <option value="low">Low (drafts)</option><option value="medium">Medium (internal)</option><option value="high">High (public/audit)</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="mt-3 flex flex-wrap gap-2">
-          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generatePlatformRec()">Generate Rec</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadPFChecklist()">Download Checklist</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="copySearchString()">Copy Search String</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('pf_output','Platform Finder Rec')">Email</button>
-        </div>
-
-        <details class="mt-5 p-4 rounded text-sm">
-          <summary class="cursor-pointer">Starter platforms (examples) – click to expand</summary>
-          <div class="mt-2 grid md:grid-cols-2 gap-3">
-            <div>
-              <p class="font-semibold">General LLMs</p>
-              <ul class="list-disc list-inside"><li>ChatGPT (Freemium)</li><li>Claude (Freemium)</li><li>Gemini (Freemium)</li></ul>
-            </div>
-            <div>
-              <p class="font-semibold">Slides / Docs from prompts</p>
-              <ul class="list-disc list-inside"><li>Gamma (Freemium)</li><li>Canva (Freemium)</li><li>Microsoft Copilot for PowerPoint (Paid)</li></ul>
-            </div>
-            <div>
-              <p class="font-semibold">Data analysis (CSV/Sheets)</p>
-              <ul class="list-disc list-inside"><li>Google Sheets (Free)</li><li>Excel + Analyze (Paid)</li><li>Tableau Public / Power BI (Free/Freemium)</li></ul>
-            </div>
-            <div>
-              <p class="font-semibold">Document Q&A / Readers</p>
-              <ul class="list-disc list-inside"><li>LLM “upload file” readers (Freemium)</li><li>Specialized PDF Q&A apps (Freemium)</li></ul>
-            </div>
-            <div>
-              <p class="font-semibold">Comms / Video</p>
-              <ul class="list-disc list-inside"><li>Loom / Screencastify (Freemium)</li><li>Edpuzzle (Freemium)</li><li>Flip (Free)</li></ul>
-            </div>
-            <div>
-              <p class="font-semibold">Automation / Forms</p>
-              <ul class="list-disc list-inside"><li>Google Forms (Free) / Typeform (Freemium)</li><li>Zapier / Make (Freemium/Paid)</li><li>Power Automate (Paid)</li></ul>
-            </div>
-          </div>
-          <p class="mt-3 text-xs text-gray-600">Search like: <code>“{goal} {inputs} to {outputs} education ferpa template”</code></p>
-        </details>
-        <div id="pf_output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
-      </section>
-
-            <section id="risen" class="mt-6 bg-white rounded-xl p-6 glow">
-        <h2 class="text-2xl font-extrabold">RISEN Prompt Studio <span class="text-xs ml-2 px-2 py-1 rounded bg-indigo-100 border">[Drop-in AI]</span></h2>
-        <p class="text-sm text-gray-700 mb-2">Train AI to act like a critical-thinking partner: <strong>Relevance, Intent, Specificity, Execution, Navigation</strong>.</p>
-        <div class="grid gap-3">
-          <div class="flex items-center gap-2">
-            <input id="r-relevance" class="p-3 border rounded w-full" placeholder="R: Link to goal/policy (e.g., TEKS 6.4B • PD Plan Goal 3 • EDGAR)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: relevance" onclick="toggleChip(this)">?</button><span class="chip-tip">Name the standard/policy and the goal you’re serving.</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="i-intent" class="p-3 border rounded w-full" placeholder="I: Task (e.g., Draft 3 parent email options)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: intent" onclick="toggleChip(this)">?</button><span class="chip-tip">What do you want back, exactly? Count it.</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="s-specificity" class="p-3 border rounded w-full" placeholder="S: Data/context (e.g., Quiz 2 failed, Quiz 3 passed)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: specificity" onclick="toggleChip(this)">?</button><span class="chip-tip">Give real context. Paste short data snippets.</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="e-execution" class="p-3 border rounded w-full" placeholder="E: Format & tone (e.g., kind + firm; bullets; 120 words)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: execution" onclick="toggleChip(this)">?</button><span class="chip-tip">How should it look and feel? Set the rules.</span></span>
-          </div>
-          <div class="flex items-center gap-2">
-            <input id="n-navigation" class="p-3 border rounded w-full" placeholder="N: Next step (e.g., Next, give me 3 subject lines)" />
-            <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: navigation" onclick="toggleChip(this)">?</button><span class="chip-tip">What’s the follow-up step for the AI?</span></span>
-          </div>
-        </div>
-
-        <div class="mt-3 flex flex-wrap gap-2">
-          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generateRisenPrompt()">Generate Prompt</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyRisenPrompt()">Copy Prompt</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="downloadRisenPrompt()">Download</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('risen-output','RISEN Prompt')">Email</button>
-        </div>
-        <div id="risen-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
-      </section>
-
-            <section id="story" class="mt-6 bg-white rounded-xl p-6 glow">
-        <h2 class="text-2xl font-extrabold">3-Sentence Story <span class="text-xs ml-2 px-2 py-1 rounded bg-green-100 border">[Human workflow]</span></h2>
-        <p class="text-sm text-gray-700 mb-2">Build a quick narrative to share your work—it’s only three sentences long.</p>
-        <div class="space-y-3">
-          <input id="story-context" class="p-3 border rounded w-full" placeholder="1. Context: What was the challenge/problem?" />
-          <input id="story-action" class="p-3 border rounded w-full" placeholder="2. Action: What tool/behavior did we introduce?" />
-          <input id="story-result" class="p-3 border rounded w-full" placeholder="3. Result: What evidence/outcome did we see? (@cultureaintjustcupcaskes)" />
-        </div>
-        <div class="mt-3 flex flex-wrap gap-2">
-          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generateStory()">Generate Story</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyStory()">Copy Story</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('story-output','3-Sentence Story')">Email</button>
-        </div>
-        <div id="story-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
-      </section>
-
-            <section id="ten-day" class="mt-6 bg-white rounded-xl p-6 glow">
-        <h2 class="text-2xl font-extrabold">10-Day Plan <span class="text-xs ml-2 px-2 py-1 rounded bg-green-100 border">[Human workflow]</span></h2>
-        <p class="text-sm text-gray-700 mb-2">Structure the work over two weeks to make the new habit stick. Use this template for team alignment.</p>
-        <div class="grid md:grid-cols-2 gap-3">
-          <input id="ten-day-goal" class="p-3 border rounded w-full" placeholder="Goal (e.g., 90% attendance by Fri)" />
-          <input id="ten-day-owner" class="p-3 border rounded w-full" placeholder="Owner (e.g., ELA Team)" />
-        </div>
-        <textarea id="ten-day-tasks" class="w-full p-3 border rounded mt-3 h-32" placeholder="List key tasks, one per line (e.g., Day 1: Download data, Day 5: Team debrief, Day 10: Parent comms)"></textarea>
-
-        <div class="mt-3 flex flex-wrap gap-2">
-          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generateTenDayPlan()">Generate Plan</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyTenDayPlan()">Copy Plan</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('ten-day-output','10-Day Plan')">Email</button>
-        </div>
-        <div id="ten-day-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
-      </section>
-
-            <section id="process-plug" class="mt-6 bg-white rounded-xl p-6 glow">
-        <h2 class="text-2xl font-extrabold">Process Plug-In <span class="text-xs ml-2 px-2 py-1 rounded bg-green-100 border">[Human workflow]</span></h2>
-        <p class="text-sm text-gray-700 mb-2">A quick audit to ensure your AI process is safe and compliant before you scale it.</p>
-        <div class="grid md:grid-cols-2 gap-3">
-          <input id="pp-process" class="p-3 border rounded w-full" placeholder="Process Name (e.g., LLM-Assisted Lesson Planning)" />
-          <input id="pp-owner" class="p-3 border rounded w-full" placeholder="Owner (e.g., Central Office Tech Team)" />
-        </div>
-        <textarea id="pp-steps" class="w-full p-3 border rounded mt-3 h-32" placeholder="List the 3-5 steps of your process, one per line (e.g., Step 1: Input text into AI, Step 2: Human reviews, Step 3: Final use)"></textarea>
-        <div class="mt-3 flex flex-wrap gap-2">
-          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generateProcessChecklist()">Generate Checklist</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="copyProcessChecklist()">Copy Checklist</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('pp-output','Process Plug-In Checklist')">Email</button>
-        </div>
-        <div id="pp-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
-      </section>
-
-            <section id="sell" class="mt-6 bg-white rounded-xl p-6 glow">
-        <h2 class="text-2xl font-extrabold">Sell It: Comms Prompter <span class="text-xs ml-2 px-2 py-1 rounded bg-indigo-100 border">[Drop-in AI]</span></h2>
-        <p class="text-sm text-gray-700 mb-2">Write a prompt to get a persuasive pitch (memo, email, slide deck) for stakeholders.</p>
-        <div class="space-y-3">
-          <input id="sell-target" class="p-3 border rounded w-full" placeholder="Target Audience (e.g., School Board, 5th Grade Team, Parents)" />
-          <input id="sell-medium" class="p-3 border rounded w-full" placeholder="Medium (e.g., 2-slide deck, 1-page memo, staff email)" />
-          <textarea id="sell-points" class="w-full p-3 border rounded h-32" placeholder="List 3-5 key points to include, one per line (e.g., Point 1: Attendance is up, Point 2: Cost is low, Point 3: Teachers love it)"></textarea>
-        </div>
-
-        <div class="mt-3 flex flex-wrap gap-2">
-          <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generateSellPrompt()">Generate Prompt</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="copySellPrompt()">Copy Prompt</button>
-          <button class="px-4 py-2 rounded border lift" type="button" onclick="emailElementText('sell-output','Sell It Prompt')">Email</button>
-        </div>
-        <div id="sell-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
-      </section>
-
-            <section id="connect" class="mt-6 bg-white rounded-xl p-6 glow">
-        <div class="underline-anim mb-3"></div>
-        <h2 class="text-2xl font-extrabold mb-2">Connect & Share</h2>
-        <p class="text-gray-800 mb-3">Share your impact stories and connect with the community.</p>
-        <div class="flex flex-wrap gap-3">
-          <a href="https://www.instagram.com/cultureaintjustcupcaskes" target="_blank" class="gold-btn lift px-4 py-2 rounded">
-            Instagram: @cultureaintjustcupcaskes
-          </a>
-        </div>
-      </section>
-    </main>
-  </div>
-  
-  <script>
-    // --- Utility Functions ---
-    // Function to toggle the help chips
-    function toggleChip(button) {
-      button.closest('.chip-wrap').classList.toggle('show');
-    }
-
-    // A placeholder for the modal function
-    function openEvidenceModal(source) {
-      alert(`Evidence Menu clicked for: ${source}. You will build the modal logic here!`);
-    }
-
-    // A generic function to display generated content in an output div
-    function displayOutput(outputId, content) {
-      const outputDiv = document.getElementById(outputId);
-      outputDiv.innerHTML = `<pre class="whitespace-pre-wrap">${content}</pre>`;
-      outputDiv.classList.remove('hidden');
-    }
-
-    // --- Guided Mode Functions (Placeholders) ---
-    function startGuided(role) {
-      alert(`Starting Guided Mode for: ${role}. Logic for filling steps will go here.`);
-      document.getElementById('guided-panel').classList.remove('hidden');
-      document.getElementById('guided-step-title').textContent = 'Initial Prompt';
-      document.getElementById('guided-step-body').innerHTML = '<p>What is your main goal for using an AI tool this week?</p>';
-      document.getElementById('guided-why').textContent = `Why it matters for a ${role}: To ensure alignment with your core responsibilities.`;
-    }
-    function prevGuided() { alert('Going back to the previous guided step.'); }
-    function nextGuided() { alert('Going to the next guided step.'); }
+    <div class="lab-vines" aria-hidden="true">
+        <svg class="vine-tl" viewBox="0 0 800 600" fill="none">
+            <path d="M20,120 C120,40 280,80 360,40 420,10 520,20 600,60" stroke="rgba(183,245,200,.35)" stroke-width="14" stroke-linecap="round"/>
+            <path d="M80,180 C180,120 300,140 400,90" stroke="rgba(143,209,140,.55)" stroke-width="8" stroke-linecap="round"/>
+            <g fill="rgba(143,209,140,.55)">
+                <circle cx="120" cy="160" r="6"/><circle cx="220" cy="110" r="5"/><circle cx="310" cy="120" r="5"/>
+            </g>
+        </svg>
+        <svg class="vine-br" viewBox="0 0 800 600" fill="none">
+            <path d="M740,520 C640,560 520,540 460,560 400,580 320,560 240,520" stroke="rgba(183,245,200,.35)" stroke-width="14" stroke-linecap="round"/>
+            <path d="M680,460 C580,520 460,500 360,550" stroke="rgba(143,209,140,.55)" stroke-width="8" stroke-linecap="round"/>
+            <g fill="rgba(143,209,140,.55)">
+                <circle cx="620" cy="490" r="6"/><circle cx="520" cy="540" r="5"/><circle cx="430" cy="530" r="5"/>
+            </g>
+        </svg>
+    </div>
     
-    // --- Impact Ladder Functions (Placeholders) ---
-    function switchTab(tab) {
-      document.getElementById('ladder-stu').classList.add('hidden');
-      document.getElementById('ladder-lea').classList.add('hidden');
-      document.getElementById('tab-stu').classList.remove('border-[--gold]', 'font-bold', 'text-gray-500');
-      document.getElementById('tab-lea').classList.remove('border-[--gold]', 'font-bold', 'text-gray-500');
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-white focus:text-[--navy] focus:px-3 focus:py-2 focus:rounded">Skip to main content</a>
 
-      if (tab === 'student') {
-        document.getElementById('ladder-stu').classList.remove('hidden');
-        document.getElementById('tab-stu').classList.add('border-[--gold]', 'font-bold');
-        document.getElementById('tab-lea').classList.add('text-gray-500');
-      } else {
-        document.getElementById('ladder-lea').classList.remove('hidden');
-        document.getElementById('tab-lea').classList.add('border-[--gold]', 'font-bold');
-        document.getElementById('tab-stu').classList.add('text-gray-500');
-      }
-    }
-    function ladderPrefill(role) {
-        alert(`Prefilling Planner with a ${role} example.`);
-        // You would add logic here to fill the Planner inputs
-    }
+    <div class="md:hidden header-bg sparkle text-white">
+        <div class="flex items-center justify-between px-4 py-3">
+            <a href="#home" class="font-extrabold text-lg">The Living Lab</a>
+            <button id="mobileOpenBtn" class="border-2 border-white rounded px-3 py-1" type="button" aria-haspopup="dialog" aria-controls="mobileNav" aria-expanded="false">Menu</button>
+        </div>
+    </div>
 
-    // --- Planner Functions (Core Fix) ---
-    function generatePlanner() {
-      const tool = document.getElementById('toolName').value || '[Tool Name]';
-      const behavior = document.getElementById('targetBehavior').value || '[Desired Behavior]';
-      const outcome = document.getElementById('measurableOutcome').value || '[Measurable Outcome]';
-      const owner = document.getElementById('owner').value || '[Owner]';
-      const standards = document.getElementById('standardsPolicy').value || '[Standards/Policy]';
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-[260px_minmax(0,1fr)] gap-6 py-6">
+        <aside class="hidden md:block sidebar" aria-label="Section navigation">
+            <div class="rounded-xl p-4 glow">
+                <div class="text-xl font-extrabold text-[--gold] mb-1">The Living Lab</div>
+                <p class="text-xs text-gray-400 mb-3">From Tools to Impact</p>
+                <nav class="space-y-1 text-sm">
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#about">What is this?</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#guided">Guided Mode</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#framework">Impact Ladder</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#planner">Planner</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#data-prep">Data Prep Coach</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#platform-finder">AI Platform Finder</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#risen">RISEN Studio</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#story">3-Sentence Story</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#ten-day">10-Day Plan</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#process-plug">Process Plug-In</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#sell">Sell It</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#connect">Join</a>
+                </nav>
+                <div class="mt-4 pt-4 border-t border-gray-700">
+                    <button id="toggle-decor" class="w-full px-3 py-1 rounded border border-gray-600 text-xs hover:bg-gray-700"
+                        onclick="document.documentElement.classList.toggle('hide-decor')">
+                        Toggle Decorations
+                    </button>
+                </div>
+            </div>
+        </aside>
 
-      const output = `Tool: ${tool}\nBehavior: ${behavior}\nOutcome: ${outcome}\nOwner/Cadence: ${owner}\nStandards/Policy: ${standards}`;
-      displayOutput('planner-output', output);
-      alert('Planner generated!');
-    }
-    function copyPlan() {
-      const output = document.getElementById('planner-output').textContent;
-      navigator.clipboard.writeText(output).then(() => { alert('Planner Output copied to clipboard!'); });
-    }
-    function downloadPlan() { alert('Download function is ready to be implemented!'); }
+        <div id="mobileNav" class="mobile-nav" role="dialog" aria-modal="true" aria-label="Navigation drawer">
+            <div class="mobile-panel" role="document">
+                <div class="flex items-center justify-between">
+                    <div class="font-extrabold text-[--gold] text-lg">The Living Lab</div>
+                    <button id="mobileCloseBtn" class="p-2" type="button" aria-label="Close menu">✕</button>
+                    </div>
+                <nav class="mt-3 space-y-1 text-sm">
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#about">What is this?</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#guided">Guided Mode</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#framework">Impact Ladder</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#planner">Planner</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#data-prep">Data Prep Coach</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#platform-finder">Platform Finder</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#risen">RISEN</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#story">Story</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#ten-day">10-Day</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#process-plug">Process Plug-In</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#sell">Sell It</a>
+                    <a class="block px-3 py-2 rounded hover:bg-gray-700" href="#connect">Join</a>
+                </nav>
+            </div>
+        </div>
 
-    // --- Data Prep Coach Functions (Core Fix) ---
-    function makeDataSpec() {
-      const goal = document.getElementById('dp_goal').value || '[Goal]';
-      const outcome = document.getElementById('dp_outcome').value || '[Metric]';
-      const fields = document.getElementById('dp_fields').value || '[Fields]';
-      
-      const output = `DATA SPECIFICATION (AI Ready)\n\nGoal: ${goal}\nPrimary Metric: ${outcome}\nRequired Fields: ${fields}\n\n[... rest of the spec]`;
-      displayOutput('dp_output', output);
-      alert('Data Spec generated!');
-    }
-    function downloadCSVTemplate() { alert('CSV Template download function ready.'); }
-    function downloadPrepChecklist() { alert('Data Prep Checklist download function ready.'); }
-    function copyDataPrompt() {
-      const goal = document.getElementById('dp_goal').value || '[Goal]';
-      const prompt = `Act as an expert data scientist. My goal is to ${goal}. Based on the following fields: ${document.getElementById('dp_fields').value}. Provide a cleaning checklist and a Python code snippet to analyze the data.`;
-      navigator.clipboard.writeText(prompt).then(() => { alert('AI Prompt copied to clipboard!'); });
-    }
+        <main id="main">
+            <div class="lab-divider" aria-hidden="true"></div> <section id="home" class="header-bg sparkle text-white rounded-xl p-6 glow">
+                <h1 class="text-4xl font-extrabold mb-2 accent">From Tools to Impact</h1>
+                <p class="text-lg/7 opacity-95">Turn AI into a thinking partner, not a crutch. Pick the right tool, change the habit, show the evidence.</p>
+            </section>
 
-    // --- Platform Finder Functions (Core Fix) ---
-    function generatePlatformRec() { alert('Platform Recommendation generation is ready.'); }
-    function downloadPFChecklist() { alert('Platform Finder Checklist download ready.'); }
-    function copySearchString() { 
-      const goal = document.getElementById('pf_goal').value || 'create';
-      const inputs = Array.from(document.getElementById('pf_inputs').selectedOptions).map(o => o.value).join(', ');
-      const outputs = Array.from(document.getElementById('pf_outputs').selectedOptions).map(o => o.value).join(', ');
-      const searchString = `"${goal}" "${inputs}" to "${outputs}" education ferpa template`;
-      navigator.clipboard.writeText(searchString).then(() => { alert('Search String copied to clipboard!'); });
-    }
+            <div class="lab-divider" aria-hidden="true"></div> <section id="about" class="mt-6 bg-white rounded-xl p-6 glow">
+                <div class="underline-anim mb-3"></div>
+                <h2 class="text-2xl font-extrabold mb-2">What is this place? How do I use it?</h2>
+                <p class="text-gray-400 mb-3">A do-it-now site for teachers, leaders, and central office. Every section tells you why it matters, what to type, and gives you something to <strong>copy, download, or email</strong>.</p>
+                <ol class="list-decimal ml-5 text-sm space-y-1">
+                    <li><strong>Guided Mode</strong> (choose your role). It walks you through: prompt → plan → data → platform → story → sprint.</li>
+                    <li><strong>Planner</strong> locks the weekly habit (owner, cadence, outcome, standards/policy).</li>
+                    <li><strong>Data Prep Coach</strong> turns a squishy idea into AI-ready spec + CSV + checklist.</li>
+                    <li><strong>Platform Finder</strong> helps you pick the right category and search strings (with examples).</li>
+                    <li><strong>Story</strong> makes the 3-liner; <strong>10-Day</strong> seeds realistic steps (templates included).</li>
+                </ol>
+                <p class="text-xs text-gray-500 mt-2">Badges: <span class="font-semibold">[Drop-in AI]</span> = paste directly into a model; <span class="font-semibold">[Human workflow]</span> = use with your team.</p>
+            </section>
 
-    // --- RISEN Prompt Studio Functions (Core Fix) ---
-    function generateRisenPrompt() {
-      const r = document.getElementById('r-relevance').value || '[R: Relevance]';
-      const i = document.getElementById('i-intent').value || '[I: Intent]';
-      const s = document.getElementById('s-specificity').value || '[S: Specificity]';
-      const e = document.getElementById('e-execution').value || '[E: Execution]';
-      const n = document.getElementById('n-navigation').value || '[N: Navigation]';
+            <div class="lab-divider" aria-hidden="true"></div> <section id="guided" class="mt-6 bg-white rounded-xl p-6 glow">
+                <div class="flex items-center gap-2 mb-2">
+                    <span class="text-xs px-2 py-1 rounded bg-yellow-100 border text-black">7 minutes</span>
+                    <h2 class="text-2xl font-extrabold">Guided Mode</h2>
+                </div>
+                <p class="text-gray-400 mb-3">Click your role. The site pre-fills good examples and walks you through the flow.</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <button class="gold-btn lift px-4 py-2 rounded" type="button" onclick="startGuided('teacher')">Teacher</button>
+                    <button class="gold-btn lift px-4 py-2 rounded" type="button" onclick="startGuided('leader')">Leader</button>
+                    <button class="gold-btn lift px-4 py-2 rounded" type="button" onclick="startGuided('central')">Central Office</button>
+                    <button class="gold-btn lift px-4 py-2 rounded" type="button" onclick="startGuided('coach')">SPED / EB / Coach</button>
+                </div>
+                <div id="guided-panel" class="hidden">
+                    <div class="bg-amber-800 border-l-4 border-amber-400 p-3 rounded mb-3 text-white">
+                        <p id="guided-why" class="text-sm"></p>
+                    </div>
+                    <div class="bg-gray-700 border rounded p-4">
+                        <p class="text-sm mb-2"><strong>Step <span id="guided-step-num">1</span>:</strong> <span id="guided-step-title"></span></p>
+                        <div id="guided-step-body" class="text-sm text-gray-200"></div>
+                        <div class="mt-3 flex gap-2">
+                            <button id="prev-guided-btn" class="px-3 py-2 rounded border" type="button" onclick="prevGuided()">Back</button>
+                            <button id="next-guided-btn" class="gold-btn px-3 py-2 rounded" type="button" onclick="nextGuided()">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
 
-      const output = `**RISEN Prompt**\nR: ${r}\nI: ${i}\nS: ${s}\nE: ${e}\nN: ${n}`;
-      displayOutput('risen-output', output);
-      alert('RISEN Prompt generated!');
-    }
-    function copyRisenPrompt() {
-      const output = document.getElementById('risen-output').textContent;
-      navigator.clipboard.writeText(output).then(() => { alert('RISEN Prompt copied to clipboard!'); });
-    }
-    function downloadRisenPrompt() { alert('RISEN Prompt download ready.'); }
+            <div class="lab-divider" aria-hidden="true"></div> <section id="framework" class="mt-6 bg-white rounded-xl p-6 glow">
+                <h2 class="text-2xl font-extrabold mb-1">Core Framework: The Impact Ladder</h2>
+                <div class="text-sm text-gray-400 mb-3">Move from <strong>tool</strong> → <strong>use</strong> → <strong>behavior</strong> → <strong>outcome</strong> → <strong>evidence</strong>.</div>
+                <div class="grid grid-cols-5 text-center text-xs font-bold text-gray-400 mb-4">
+                    <div class="p-2 border-b-4 border-[--navy]">1. Tool</div>
+                    <div class="p-2 border-b-4 border-[--navy]">2. Use</div>
+                    <div class="p-2 border-b-4 border-[--navy]">3. Behavior</div>
+                    <div class="p-2 border-b-4 border-[--navy]">4. Outcome</div>
+                    <div class="p-2 border-b-4 border-[--navy]">5. Evidence</div>
+                </div>
+                <div class="flex gap-2 border-b pb-2">
+                    <button id="tab-stu" class="px-3 py-2 border-b-2 border-[--gold] font-bold text-[--gold]" onclick="switchTab('student')">Student</button>
+                    <button id="tab-lea" class="px-3 py-2 text-gray-400" onclick="switchTab('leader')">Leader</button>
+                </div>
+                <div id="ladder-stu" class="mt-3">
+                    <div class="grid md:grid-cols-5 gap-3 text-center text-sm">
+                        <div class="p-3 rounded">Flip / LLM</div>
+                        <div class="p-3 rounded">Storyboard → present</div>
+                        <div class="p-3 rounded">Peer feedback stems</div>
+                        <div class="p-3 rounded">Confidence ↑</div>
+                        <div class="p-3 rounded">Rubric growth</div>
+                    </div>
+                    <div class="mt-2 flex gap-2 text-sm">
+                        <a href="#planner" class="underline text-[--gold]">Turn into a plan →</a>
+                        <button class="px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600" type="button" onclick="ladderPrefill('student')">Fill an example for me</button>
+                        </div>
+                </div>
+                <div id="ladder-lea" class="hidden mt-3">
+                    <div class="grid md:grid-cols-5 gap-3 text-center text-sm">
+                        <div class="p-3 rounded">Dashboard shapes routine</div>
+                        <div class="p-3 rounded">Weekly data huddle</div>
+                        <div class="p-3 rounded">Collaborative solve</div>
+                        <div class="p-3 rounded">Tier-1 alignment</div>
+                        <div class="p-3 rounded">STAAR ↑ Audit risk ↓</div>
+                    </div>
+                    <div class="mt-2 flex gap-2 text-sm">
+                        <a href="#planner" class="underline text-[--gold]">Make the 10‑day sprint →</a>
+                        <button class="px-2 py-1 border rounded bg-gray-700 hover:bg-gray-600" type="button" onclick="ladderPrefill('leader')">Fill an example for me</button>
+                    </div>
+                </div>
 
-    // --- 3-Sentence Story Functions (Core Fix) ---
-    function generateStory() {
-      const c = document.getElementById('story-context').value || 'There was a challenge.';
-      const a = document.getElementById('story-action').value || 'We introduced a new behavior.';
-      const r = document.getElementById('story-result').value || 'The result was a positive outcome.';
-      const social = document.getElementById('story-result').value.includes('@cultureaintjustcupcaskes') ? '' : ' - (@cultureaintjustcupcaskes)';
+                <details class="mt-4 p-3 rounded text-sm">
+                    <summary class="font-semibold cursor-pointer">What is the Impact Ladder? (Beginner On‑Ramp)</summary>
+                    <div class="mt-2 space-y-1 text-gray-400">
+                        <p><strong>Tool:</strong> the app (Flip, Sheets, an LLM).</p>
+                        <p><strong>Use:</strong> how you’ll use it this week (not “play with it”—be specific).</p>
+                        <p><strong>Behavior:</strong> the routine people will do (peer feedback every Wed; 15‑min data huddle Fri).</p>
+                        <p><strong>Outcome:</strong> a measurable change in 2–6 weeks (+1 rubric level, −30% errors).</p>
+                        <p><strong>Evidence:</strong> what you’ll collect to prove it (before/after samples, counts, screenshots).</p>
+                        <p class="text-xs text-gray-500">Tip: write the behavior as a calendar habit. If it’s not on a cadence, it won’t stick.</p>
+                    </div>
+                </details>
+            </section>
 
-      const output = `**Impact Story**\n\n1. ${c}\n2. ${a}\n3. ${r}${social}`;
-      displayOutput('story-output', output);
-      alert('3-Sentence Story generated!');
-    }
-    function copyStory() {
-      const output = document.getElementById('story-output').textContent;
-      navigator.clipboard.writeText(output).then(() => { alert('Story copied to clipboard!'); });
-    }
+            <div class="lab-divider" aria-hidden="true"></div> <section id="planner" class="mt-6 bg-white rounded-xl p-6 glow">
+                <div class="flex items-start justify-between">
+                    <div>
+                        <h2 class="text-2xl font-extrabold">Tool-to-Impact Planner <span class="text-xs align-middle ml-2 px-2 py-1 rounded bg-green-100 border text-white">[Human workflow]</span></h2>
+                        <p class="text-sm text-gray-400">Define the <strong>habit, owner, cadence, outcome</strong>, and the standard/policy you’re aligned to.</p>
+                    </div>
+                </div>
 
-    // --- 10-Day Plan Functions (Core Fix) ---
-    function generateTenDayPlan() {
-      const goal = document.getElementById('ten-day-goal').value || 'Goal';
-      const owner = document.getElementById('ten-day-owner').value || 'Team';
-      const tasks = document.getElementById('ten-day-tasks').value || 'Day 1: Task 1\nDay 2: Task 2\nDay 3: Task 3';
-      
-      const output = `**10-Day Plan**\nGoal: ${goal}\nOwner: ${owner}\n\nTasks:\n${tasks}`;
-      displayOutput('ten-day-output', output);
-      alert('10-Day Plan generated!');
-    }
-    function copyTenDayPlan() {
-      const output = document.getElementById('ten-day-output').textContent;
-      navigator.clipboard.writeText(output).then(() => { alert('10-Day Plan copied to clipboard!'); });
-    }
+                <div class="grid md:grid-cols-2 gap-3 mt-3">
+                    <div class="flex items-center gap-2">
+                        <input id="toolName" class="p-3 border rounded w-full" placeholder="Tool (e.g., Flip, LLM, PowerSchool)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: tool name" onclick="toggleChip(this)">?</button><span class="chip-tip">Name the main tool you’ll use weekly.</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="targetBehavior" class="p-3 border rounded w-full" placeholder="Desired behavior (e.g., peer feedback every Wed)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: desired behavior" onclick="toggleChip(this)">?</button><span class="chip-tip">Describe the **weekly routine** people will do.</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="measurableOutcome" class="p-3 border rounded w-full" placeholder="Outcome (e.g., +5% attendance; rubric growth)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: outcome" onclick="toggleChip(this)">?</button><span class="chip-tip">Pick **one number** you can move in 2–6 weeks.</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="owner" class="p-3 border rounded w-full" placeholder="Owner + cadence (e.g., 6th ELA team • weekly)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: owner and cadence" onclick="toggleChip(this)">?</button><span class="chip-tip">**Who does it and how often** (cadence beats inspiration).</span></span>
+                    </div>
+                    <div class="md:col-span-2 flex items-center gap-2">
+                        <input id="standardsPolicy" class="p-3 border rounded w-full" placeholder="Standards / Policy / Constraint (e.g., TEKS 6.4B; EDGAR; Local policy)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: standards/policy" onclick="toggleChip(this)">?</button><span class="chip-tip">Paste the **exact rule/standard** text you’re addressing.</span></span>
+                    </div>
+                </div>
+
+                <div class="mt-3 flex flex-wrap gap-2">
+                    <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="plannerExplain()">Generate Plan</button> <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="openEvidenceModal('planner')">Evidence Menu</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="downloadPlan()">Download</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="copyPlan()">Copy Raw Text</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="copyPlannerEmailPrompt()">Copy AI Polish Prompt</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="emailElementText('planner-output','Tool-to-Impact Planner')">Email</button>
+                </div>
+                <div id="planner-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+            </section>
+
+            <div class="lab-divider" aria-hidden="true"></div> <section id="data-prep" class="mt-6 bg-white rounded-xl p-6 glow">
+                <h2 class="text-2xl font-extrabold">Data Prep Coach <span class="text-xs ml-2 px-2 py-1 rounded bg-indigo-100 border text-white">[Drop-in AI]</span></h2>
+                <p class="text-sm text-gray-400 mb-2">Turn a messy idea into an <strong>AI-ready spec + CSV + checklist</strong>. Plain-English help chips explain terms.</p>
+
+                <div class="grid md:grid-cols-2 gap-3">
+                    <div class="flex items-center gap-2">
+                        <input id="dp_goal" class="p-3 border rounded w-full" placeholder="Goal/Decision (e.g., reduce no-shows by 3%)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: goal" onclick="toggleChip(this)">?</button><span class="chip-tip">One sentence: what decision or change will this data drive?</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="dp_outcome" class="p-3 border rounded w-full" placeholder="Primary metric (e.g., daily attendance)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: primary metric" onclick="toggleChip(this)">?</button><span class="chip-tip">Name the main number you'll track (the **primary metric**).</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="dp_unit" class="p-3 border rounded w-full" placeholder="Grain (student/day, campus/week, teacher/period)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: grain" onclick="toggleChip(this)">?</button><span class="chip-tip">**Grain** = what one row equals (e.g., student/day).</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="dp_window" class="p-3 border rounded w-full" placeholder="Time window (e.g., last 6 weeks)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: time window" onclick="toggleChip(this)">?</button><span class="chip-tip">How far back you’ll analyze; keep it reasonable.</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="dp_sources" class="p-3 border rounded w-full" placeholder="Sources (SIS, LMS, HRIS, Surveys)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: sources" onclick="toggleChip(this)">?</button><span class="chip-tip">Where the data lives (tools/systems/files).</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="dp_ids" class="p-3 border rounded w-full" placeholder="Join keys/IDs (e.g., student_id, campus_id)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: join keys" onclick="toggleChip(this)">?</button><span class="chip-tip">**Join key** = IDs that match across all files (e.g., student_id).</span></span>
+                    </div>
+                    <div class="flex items-center gap-2 md:col-span-2">
+                        <input id="dp_fields" class="p-3 border rounded w-full" placeholder="Fields (comma-separated: student_id,date,status)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: fields" onclick="toggleChip(this)">?</button><span class="chip-tip">**Fields** = column names you’ll need, in order.</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="dp_filters" class="p-3 border rounded w-full" placeholder="Filters (e.g., drop withdrawn; exclude alt ed)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: filters" onclick="toggleChip(this)">?</button><span class="chip-tip">Who/what to exclude to avoid noise or bias.</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="dp_privacy" class="p-3 border rounded w-full" placeholder="Privacy (FERPA/PII/consent; anonymize IDs)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: privacy" onclick="toggleChip(this)">?</button><span class="chip-tip">Don’t upload PII. Use anonymized IDs when possible.</span></span>
+                    </div>
+                    <div class="flex items-center gap-2 md:col-span-2">
+                        <input id="dp_quality" class="p-3 border rounded w-full" placeholder="Quality checks (missing rules, outlier caps)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: quality" onclick="toggleChip(this)">?</button><span class="chip-tip">Define how you’ll spot and fix messy data.</span></span>
+                    </div>
+                </div>
+
+                <div class="mt-3 flex flex-wrap gap-2">
+                    <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="dpExplain()">Make Spec</button> <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="downloadCSVTemplate()">CSV Template</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="downloadPrepChecklist()">Checklist</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="copyDataPrompt()">Copy AI Prompt (Raw Spec)</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="copyDPExplainPrompt()">Copy AI Explain Prompt</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="emailElementText('dp_output','Data Prep Spec')">Email</button>
+                </div>
+
+                <div class="mt-4 text-xs text-gray-400">
+                    <p><strong>Example (attendance):</strong> fields → <code>student_id,date,present,period,reason_code</code> | grain → <code>student/day</code> | join keys → <code>student_id</code></p>
+                </div>
+
+                <div id="dp_output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+            </section>
+
+            <div class="lab-divider" aria-hidden="true"></div> <section id="platform-finder" class="mt-6 bg-white rounded-xl p-6 glow">
+                <h2 class="text-2xl font-extrabold">AI Platform Finder <span class="text-xs ml-2 px-2 py-1 rounded bg-indigo-100 border text-white">[Drop-in AI + Human]</span></h2>
+                <p class="text-sm text-gray-400 mb-2">Choose by need, not hype. Pick categories, get example tools, copy search strings, use the rubric.</p>
+
+                <div class="grid md:grid-cols-3 gap-3">
+                    <div>
+                        <label class="text-xs font-semibold" for="pf_goal">Goal</label>
+                        <select id="pf_goal" class="w-full p-3 border rounded">
+                            <option value="create">Create (draft/lesson/handout)</option>
+                            <option value="transform">Transform (rewrite/summarize/translate)</option>
+                            <option value="analyze">Analyze (data/text/images)</option>
+                            <option value="communicate">Communicate (family/board/staff)</option>
+                            <option value="automate">Automate (workflows/forms/scheduling)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold" for="pf_inputs">Inputs (Cmd/Ctrl to multi-select)</label>
+                        <select id="pf_inputs" class="w-full p-3 border rounded" multiple>
+                            <option>Text</option><option>Spreadsheet</option><option>PDF</option><option>Images</option><option>Audio/Video</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="text-xs font-semibold" for="pf_outputs">Outputs</label>
+                        <select id="pf_outputs" class="w-full p-3 border rounded" multiple>
+                            <option>Document</option><option>Slides</option><option>Email/Message</option><option>Dashboard</option><option>Spreadsheet</option><option>Workflow</option>
+                        </select>
+                    </div>
+                    <div class="md:col-span-3 grid md:grid-cols-3 gap-3">
+                        <div>
+                            <span class="text-xs font-semibold">Constraints</span>
+                            <div class="text-sm space-y-1 mt-1">
+                                <label class="block"><input type="checkbox" id="pf_privacy" /> Student data/FERPA sensitive</label>
+                                <label class="block"><input type="checkbox" id="pf_blocked" /> District blocks installs</label>
+                                <label class="block"><input type="checkbox" id="pf_no_cost" /> No new cost / free only</label>
+                                <label class="block"><input type="checkbox" id="pf_low_skill" /> Low technical skill</label>
+                                <label class="block"><input type="checkbox" id="pf_offline" /> Needs offline/exportable</label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold" for="pf_collab">Collaboration</label>
+                            <select id="pf_collab" class="w-full p-3 border rounded mt-1">
+                                <option value="solo">Solo</option>
+                                <option value="team">Team editing</option>
+                                <option value="stakeholders">Stakeholder review/approval</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold" for="pf_time">Time & Risk</label>
+                            <select id="pf_time" class="w-full p-3 border rounded mt-1">
+                                <option value="minutes">Minutes</option><option value="hour">About an hour</option><option value="day">Day+</option>
+                            </select>
+                            <select id="pf_risk" class="w-full p-3 border rounded mt-2">
+                                <option value="low">Low (drafts)</option><option value="medium">Medium (internal)</option><option value="high">High (public/audit)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-3 flex flex-wrap gap-2">
+                    <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="pfExplain()">Generate Rec</button> <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="downloadPFChecklist()">Download Checklist</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="copySearchString()">Copy Search String</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="copyPFTradeoffsPrompt()">Copy AI Memo Prompt</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="emailElementText('pf_output','Platform Finder Rec')">Email</button>
+                </div>
+
+                <details class="mt-5 p-4 rounded text-sm">
+                    <summary class="cursor-pointer">Starter platforms (examples) – click to expand</summary>
+                    <div class="mt-2 grid md:grid-cols-2 gap-3">
+                        <div>
+                            <p class="font-semibold">General LLMs</p>
+                            <ul class="list-disc list-inside"><li>ChatGPT (Freemium)</li><li>Claude (Freemium)</li><li>Gemini (Freemium)</li></ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Slides / Docs from prompts</p>
+                            <ul class="list-disc list-inside"><li>Gamma (Freemium)</li><li>Canva (Freemium)</li><li>Microsoft Copilot for PowerPoint (Paid)</li></ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Data analysis (CSV/Sheets)</p>
+                            <ul class="list-disc list-inside"><li>Google Sheets (Free)</li><li>Excel + Analyze (Paid)</li><li>Tableau Public / Power BI (Free/Freemium)</li></ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Document Q&A / Readers</p>
+                            <ul class="list-disc list-inside"><li>LLM “upload file” readers (Freemium)</li><li>Specialized PDF Q&A apps (Freemium)</li></ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Comms / Video</p>
+                            <ul class="list-disc list-inside"><li>Loom / Screencastify (Freemium)</li><li>Edpuzzle (Freemium)</li><li>Flip (Free)</li></ul>
+                        </div>
+                        <div>
+                            <p class="font-semibold">Automation / Forms</p>
+                            <ul class="list-disc list-inside"><li>Google Forms (Free) / Typeform (Freemium)</li><li>Zapier / Make (Freemium/Paid)</li><li>Power Automate (Paid)</li></ul>
+                        </div>
+                    </div>
+                    <p class="mt-3 text-xs text-gray-500">Search like: <code>“{goal} {inputs} to {outputs} education ferpa template”</code></p>
+                </details>
+                <div id="pf_output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+            </section>
+
+            <div class="lab-divider" aria-hidden="true"></div> <section id="risen" class="mt-6 bg-white rounded-xl p-6 glow">
+                <h2 class="text-2xl font-extrabold">RISEN Prompt Studio <span class="text-xs ml-2 px-2 py-1 rounded bg-indigo-100 border text-white">[Drop-in AI]</span></h2>
+                <p class="text-sm text-gray-400 mb-2">Train AI to act like a critical-thinking partner: <strong>Relevance, Intent, Specificity, Execution, Navigation</strong>.</p>
+                <div class="grid gap-3">
+                    <div class="flex items-center gap-2">
+                        <input id="r-relevance" class="p-3 border rounded w-full" placeholder="R: Link to goal/policy (e.g., TEKS 6.4B • PD Plan Goal 3 • EDGAR)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: relevance" onclick="toggleChip(this)">?</button><span class="chip-tip">Name the standard/policy and the goal you’re serving.</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="i-intent" class="p-3 border rounded w-full" placeholder="I: Task (e.g., Draft 3 parent email options)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: intent" onclick="toggleChip(this)">?</button><span class="chip-tip">What do you want back, exactly? Count it.</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="s-specificity" class="p-3 border rounded w-full" placeholder="S: Data/context (e.g., Quiz 2 failed, Quiz 3 passed)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: specifici" onclick="toggleChip(this)">?</button><span class="chip-tip">Tell the model what data/context it needs to reference.</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="e-execution" class="p-3 border rounded w-full" placeholder="E: Execution (Role/Format: e.g., Act as a coach, list as 3 bullets)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: execution" onclick="toggleChip(this)">?</button><span class="chip-tip">Define the AI’s role and the required output format.</span></span>
+                    </div>
+                    <div class="flex items-center gap-2">
+                        <input id="n-navigation" class="p-3 border rounded w-full" placeholder="N: Navigation (Constraints/Next Steps: e.g., Use Spanish, ask 3 Qs before executing)" />
+                        <span class="chip-wrap"><button class="chip" type="button" aria-label="Help: navigation" onclick="toggleChip(this)">?</button><span class="chip-tip">Set guardrails (language, policy) and define its next action.</span></span>
+                    </div>
+                </div>
+                <div class="mt-3 flex flex-wrap gap-2">
+                    <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generateRISEN()">Generate Prompt</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="copyRISEN()">Copy to AI</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="emailElementText('risen-output','RISEN Prompt')">Email</button>
+                </div>
+                <div id="risen-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+            </section>
+
+            <div class="lab-divider" aria-hidden="true"></div> <section id="story" class="mt-6 bg-white rounded-xl p-6 glow">
+                <h2 class="text-2xl font-extrabold">3-Sentence Story <span class="text-xs ml-2 px-2 py-1 rounded bg-green-100 border text-white">[Human workflow]</span></h2>
+                <p class="text-sm text-gray-400 mb-2">Build a concise narrative: **Setup → Action → Win**.</p>
+                <div class="grid gap-3">
+                    <input id="s_audience" class="p-3 border rounded w-full" placeholder="Target Audience (e.g., Board, 6th Grade Team, Parents)" />
+                    <input id="s_current" class="p-3 border rounded w-full" placeholder="Current State (The Setup: What are people doing now? The pain/problem.)" />
+                    <input id="s_action" class="p-3 border rounded w-full" placeholder="Action (The Pivot: What new, specific habit are we doing?)" />
+                    <input id="s_future" class="p-3 border rounded w-full" placeholder="Future State (The Win: What’s the measurable outcome/impact in 6 weeks?)" />
+                </div>
+                <div class="mt-3 flex flex-wrap gap-2">
+                    <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generateStory()">Generate Story</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="copyStory()">Copy</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="emailElementText('story-output','3-Sentence Story')">Email</button>
+                </div>
+                <div id="story-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+            </section>
+
+            <div class="lab-divider" aria-hidden="true"></div> <section id="ten-day" class="mt-6 bg-white rounded-xl p-6 glow">
+                <h2 class="text-2xl font-extrabold">10-Day Plan (Sprint) <span class="text-xs ml-2 px-2 py-1 rounded bg-green-100 border text-white">[Human workflow]</span></h2>
+                <p class="text-sm text-gray-400 mb-2">A high-cadence, short-cycle plan to drive early evidence.</p>
+                <div class="grid md:grid-cols-2 gap-3">
+                    <input id="t_role" class="p-3 border rounded w-full" placeholder="Target Role/Audience" />
+                    <input id="t_goal" class="p-3 border rounded w-full" placeholder="Goal/Outcome (from Planner)" />
+                    <input id="t_tool" class="p-3 border rounded w-full" placeholder="Tool/Data Source" />
+                    <input id="t_policy" class="p-3 border rounded w-full" placeholder="Policy Check/Constraint" />
+                </div>
+                <div class="grid md:grid-cols-5 gap-3 mt-3">
+                    <input id="t_d1" class="p-3 border rounded w-full md:col-span-2" placeholder="Day 1 Action (e.g., Set up tool/data)" />
+                    <input id="t_d3" class="p-3 border rounded w-full md:col-span-3" placeholder="Day 3 Action (e.g., Generate first artifact/feedback)" />
+                    <input id="t_d5" class="p-3 border rounded w-full md:col-span-5" placeholder="Day 5 Action (Huddle: Review artifacts, agree on adjustment)" />
+                    <input id="t_d7" class="p-3 border rounded w-full md:col-span-3" placeholder="Day 7 Action (Apply adjustment, generate second artifact)" />
+                    <input id="t_d10" class="p-3 border rounded w-full md:col-span-2" placeholder="Day 10 Action (Report forecast/Final adjustment)" />
+                </div>
+                <div class="mt-3 flex flex-wrap gap-2">
+                    <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generate10Day()">Generate Plan</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="dl10Day()">Download</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="copy10Day()">Copy</button>
+                </div>
+                <div id="ten-day-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+            </section>
+
+            <div class="lab-divider" aria-hidden="true"></div> <section id="process-plug" class="mt-6 bg-white rounded-xl p-6 glow">
+                <h2 class="text-2xl font-extrabold">Process Plug-In <span class="text-xs ml-2 px-2 py-1 rounded bg-green-100 border text-white">[Human workflow]</span></h2>
+                <p class="text-sm text-gray-400 mb-2">Identify a pain point in an existing meeting and plug in a tool-driven action.</p>
+                <div class="grid gap-3">
+                    <input id="p_current" class="p-3 border rounded w-full" placeholder="Current Meeting/Process (e.g., Campus PLC, Weekly Leadership Huddle)" />
+                    <input id="p_problem" class="p-3 border rounded w-full" placeholder="Problem/Pain Point (e.g., Data is discussed, but no action is taken.)" />
+                    <input id="p_tool" class="p-3 border rounded w-full" placeholder="Tool/Data to Plug In (e.g., Shared data dashboard, AI summary tool)" />
+                    <input id="p_plug" class="p-3 border rounded w-full" placeholder="The Plug-In (New Action/Time: e.g., Add a 10-minute 'Action Audit')" />
+                    <input id="p_owner" class="p-3 border rounded w-full" placeholder="Owner of the Plug-In (e.g., Instructional Coach, PLC Lead)" />
+                </div>
+                <div class="mt-3 flex flex-wrap gap-2">
+                    <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generateProcessPlug()">Generate Plug-In</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="copyProcessPlug()">Copy</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="emailElementText('process-plug-output','Process Plug-In')">Email</button>
+                </div>
+                <div id="process-plug-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+            </section>
+
+            <div class="lab-divider" aria-hidden="true"></div> <section id="sell" class="mt-6 bg-white rounded-xl p-6 glow">
+                <h2 class="text-2xl font-extrabold">Sell It (Value Prop) <span class="text-xs ml-2 px-2 py-1 rounded bg-green-100 border text-white">[Human workflow]</span></h2>
+                <p class="text-sm text-gray-400 mb-2">Define your pitch by focusing on solving stakeholder pain points.</p>
+                <div class="grid gap-3">
+                    <input id="v_tool" class="p-3 border rounded w-full" placeholder="Product/Tool to Pitch" />
+                    <input id="v_stakeholder" class="p-3 border rounded w-full" placeholder="Target Stakeholder (e.g., Principal, Department Head)" />
+                    <input id="v_pain" class="p-3 border rounded w-full" placeholder="Their Pain Point (e.g., No visibility into weekly teacher action.)" />
+                    <input id="v_habit" class="p-3 border rounded w-full" placeholder="Solution (The Habit: e.g., Weekly 15-min data submission.)" />
+                    <input id="v_value" class="p-3 border rounded w-full" placeholder="Value Proposition (e.g., We do [HABIT] to solve [PAIN] which achieves [OUTCOME].)" />
+                </div>
+                <div class="mt-3 flex flex-wrap gap-2">
+                    <button class="gold-btn px-4 py-2 rounded lift" type="button" onclick="generateSellIt()">Generate Pitch</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="copySellIt()">Copy</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="emailElementText('sell-output','Value Proposition')">Email</button>
+                </div>
+                <div id="sell-output" class="hidden mt-4 p-4 bg-gray-50 border rounded text-sm"></div>
+            </section>
+            
+            <div class="lab-divider" aria-hidden="true"></div> <section id="connect" class="mt-6 bg-white rounded-xl p-6 glow">
+                <h2 class="text-2xl font-extrabold">Join the Conversation & Connect</h2>
+                <p class="text-sm text-gray-400 mb-3">Connect with Elizabeth Bostic for PD, consulting, or general discussion.</p>
+                <div class="flex flex-wrap gap-2">
+                    <button class="gold-btn lift px-4 py-2 rounded" type="button" onclick="openInsta()">Instagram</button>
+                    <button class="gold-btn lift px-4 py-2 rounded" type="button" onclick="openTwitter()">Twitter</button>
+                    <button class="px-4 py-2 rounded border lift bg-gray-700 hover:bg-gray-600" type="button" onclick="openHireMe()">Inquire about PD/Consulting</button>
+                </div>
+            </section>
+
+        </main>
+    </div>
     
-    // --- Process Plug-In Functions (Core Fix) ---
-    function generateProcessChecklist() {
-      const processName = document.getElementById('pp-process').value || 'New Process';
-      const owner = document.getElementById('pp-owner').value || 'Owner';
-      const steps = document.getElementById('pp-steps').value.split('\n').filter(s => s.trim() !== '');
-      
-      let output = `**Process Checklist: ${processName}**\nOwner: ${owner}\n\n`;
-      output += 'Compliance Questions:\n';
-      steps.forEach((step, index) => {
-        output += `* [ ] Does **Step ${index + 1} (${step})** involve PII/FERPA data?\n`;
-        output += `* [ ] Is there a human review step after **Step ${index + 1}**?\n`;
-      });
-      output += '\nGeneral:\n* [ ] Is the process documented and shared?\n* [ ] Is there a rollback plan?';
+    <div id="toast-notification"></div>
 
-      displayOutput('pp-output', output);
-      alert('Process Checklist generated!');
-    }
-    function copyProcessChecklist() {
-      const output = document.getElementById('pp-output').textContent;
-      navigator.clipboard.writeText(output).then(() => { alert('Process Checklist copied to clipboard!'); });
-    }
+    <script>
+        /* ---------- tiny helpers ---------- */
+        const $ = (id) => document.getElementById(id);
+        const show = (id) => { const el = $(id); if (el) el.classList.remove('hidden'); };
+        const text = (id) => ($(id)?.value || '').trim();
+        const setOut = (id, s) => { const el = $(id); if (el) { el.textContent = s; show(id); } };
+        const dl = (filename, text) => {
+            const blob = new Blob([text], {type: 'text/plain'});
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+            a.download = filename; a.click(); URL.revokeObjectURL(a.href);
+        };
 
-    // --- Sell It Functions (Core Fix) ---
-    function generateSellPrompt() {
-      const target = document.getElementById('sell-target').value || 'Target Audience';
-      const medium = document.getElementById('sell-medium').value || 'Email';
-      const points = document.getElementById('sell-points').value.split('\n').filter(s => s.trim() !== '').map(s => `- ${s}`).join('\n');
-      
-      const prompt = `Act as a persuasive communications expert. Draft a compelling **${medium}** aimed at the **${target}**. The purpose is to promote our new initiative. Focus on the benefits, not just the features. Include the following key points:\n${points}\n\nEnsure the tone is professional, positive, and focused on student/staff success.`;
+        // JAZZY UPGRADE: Replaces disruptive alert() with a smooth, non-blocking toast.
+        const showToast = (message, type) => {
+            const toastEl = $('toast-notification');
+            if (!toastEl) { console.warn('Toast element missing.'); alert(message); return; }
 
-      displayOutput('sell-output', prompt);
-      alert('Sell It Prompt generated!');
-    }
-    function copySellPrompt() {
-      const output = document.getElementById('sell-output').textContent;
-      navigator.clipboard.writeText(output).then(() => { alert('Sell It Prompt copied to clipboard!'); });
-    }
+            toastEl.textContent = message;
+            toastEl.className = `fixed bottom-4 right-4 p-3 rounded-lg shadow-xl text-white transition-all duration-300 opacity-0 translate-y-full`;
+            toastEl.classList.add('show', (type === 'success' ? 'bg-green-600' : type === 'error' ? 'bg-red-600' : 'bg-blue-600'));
+            
+            // Animate in
+            requestAnimationFrame(() => {
+                toastEl.classList.add('opacity-100', 'translate-y-0');
+            });
 
-    // --- Generic Email Function ---
-    function emailElementText(elementId, subject) {
-        const text = document.getElementById(elementId).textContent;
-        const body = encodeURIComponent(`Hello,\n\nHere is the output from the ${subject} tool:\n\n---\n${text}`);
-        window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${body}`;
-    }
+            // Animate out
+            setTimeout(() => {
+                toastEl.classList.remove('opacity-100', 'translate-y-0');
+                toastEl.classList.add('opacity-0', 'translate-y-full');
+            }, 3000);
+        };
 
-    // Initialize the Impact Ladder tab
-    window.onload = () => {
-      switchTab('student');
-    };
-  </script>
-</body>
+        const copyTxt = async (s) => {
+            try {
+                await navigator.clipboard.writeText(s);
+                showToast('Copied to clipboard!', 'success');
+            } catch {
+                showToast('Copy failed.', 'error');
+            }
+        };
+        const mail = (subject, body) => { location.href = `mailto:edbostic83@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`; };
+
+        /* ---------- help chips ---------- */
+        window.toggleChip = (btn) => {
+            const wrap = btn.closest('.chip-wrap'); if (!wrap) return;
+            wrap.classList.toggle('show');
+            setTimeout(() => wrap.classList.remove('show'), 3500);
+        };
+
+        /* ---------- Impact Ladder tabs ---------- */
+        window.switchTab = (who) => {
+            (who==='student' ? $('ladder-lea') : $('ladder-stu'))?.classList.add('hidden');
+            (who==='student' ? $('ladder-stu') : $('ladder-lea'))?.classList.remove('hidden');
+            
+            const goldClasses = ['border-b-2','border-[--gold]'];
+            if (who==='student') { 
+                $('tab-stu')?.classList.add(...goldClasses); $('tab-lea')?.classList.remove(...goldClasses); 
+                $('tab-stu')?.classList.remove('text-gray-500'); $('tab-lea')?.classList.add('text-gray-500'); 
+            }
+            else { 
+                $('tab-lea')?.classList.add(...goldClasses); $('tab-stu')?.classList.remove(...goldClasses); 
+                $('tab-lea')?.classList.remove('text-gray-500'); $('tab-stu')?.classList.add('text-gray-500'); 
+            }
+        };
+        window.ladderPrefill = (who) => {
+            $('toolName') && ($('toolName').value = who==='student' ? 'Flip / LLM' : 'Data dashboard');
+            $('targetBehavior') && ($('targetBehavior').value = who==='student' ? 'Peer feedback every Wednesday' : '15-min weekly data huddle');
+            $('measurableOutcome') && ($('measurableOutcome').value = who==='student' ? '+1 rubric level in 4 weeks' : '+5% STAAR item mastery in 6 weeks');
+            $('owner') && ($('owner').value = who==='student' ? '6th ELA team • weekly' : 'Campus ILT • Fridays');
+        };
+
+        /* ===== BEGINNER HELPERS & PLANNER FUNCTIONS ===== */
+
+        /* Planner → plain-English + 'sendable' email */
+        window.plannerExplain = () => {
+            const tool   = ($('toolName')?.value || '').trim() || 'a specific app/tool';
+            const habit  = ($('targetBehavior')?.value || '').trim() || 'a simple weekly routine';
+            const outcome= ($('measurableOutcome')?.value || '').trim() || 'one measurable change in 2–6 weeks';
+            const owner  = ($('owner')?.value || '').trim() || 'who does it + how often';
+            const std    = ($('standardsPolicy')?.value || '').trim() || 'the rule/standard/policy you’re aligning to';
+
+            const simple = [
+                `Goal: Use ${tool} to build a repeatable habit that improves learning.`,
+                `Action: We will do "${habit}". ${owner}.`,
+                `Proof: We expect "${outcome}" and will align to: ${std}.`
+            ].join('\n');
+
+            const email = [
+                `Subject: Pilot Plan – ${habit}`,
+                ``,
+                `Hi team,`,
+                ``,
+                `Goal`,
+                `• Use ${tool} to drive a repeatable habit that moves a real outcome.`,
+                ``,
+                `Action`,
+                `• Weekly routine: ${habit}`,
+                `• Owner/cadence: ${owner}`,
+                ``,
+                `Required Support`,
+                `• Alignment to: ${std}`,
+                `• Evidence target (2–6 weeks): ${outcome}`,
+                ``,
+                `Thanks,`,
+                `Elizabeth`
+            ].join('\n');
+
+            const out = `BEGINNER SUMMARY\n${simple}\n\n— — —\n\nSENDABLE EMAIL DRAFT\n${email}`;
+            setOut('planner-output', out);
+        };
+
+        window.copyPlannerEmailPrompt = () => {
+            const body = ($('planner-output')?.textContent || '').trim();
+            const prompt = `You are an education consultant. Polish the email below for clarity and brevity, preserving the 3 sections (Goal, Action, Required Support). Keep it under 150 words.\n\n---\n${body}`;
+            copyTxt(prompt);
+            showToast('AI prompt copied.', 'info');
+        };
+
+        window.openEvidenceModal = () => {
+            showToast('Evidence ideas: Before/after artifacts, submission counts, short surveys/rubric snapshots, screenshots/links.', 'info');
+        };
+        window.downloadPlan    = () => dl('tool-to-impact-plan.txt', $('planner-output')?.textContent || '');
+        window.copyPlan        = () => copyTxt($('planner-output')?.textContent || '');
+        window.emailElementText = (id, subject) => mail(subject, $(id)?.textContent || '');
+
+        /* ===== DATA PREP COACH FUNCTIONS ===== */
+
+        /* Data Prep → 3-sentence summary + pre-upload checklist */
+        window.dpExplain = () => {
+            const goal   = ($('dp_goal')?.value || '').trim() || 'make a decision or improvement';
+            const metric = ($('dp_outcome')?.value || '').trim() || 'a primary metric';
+            const grain  = ($('dp_unit')?.value || '').trim() || 'row level (e.g., student/day)';
+            const srcs   = ($('dp_sources')?.value || '').trim() || 'our systems/files';
+            const fields = ($('dp_fields')?.value || '').trim() || 'the needed columns';
+            const filters= ($('dp_filters')?.value || '').trim() || 'simple exclusions';
+            const privacy= ($('dp_privacy')?.value || '').trim() || 'privacy rules';
+            const quality= ($('dp_quality')?.value || '').trim() || 'basic quality checks';
+
+            const summary = [
+                `We will analyze "${metric}" to ${goal}.`,
+                `Each row is "${grain}" using data from ${srcs} with columns: ${fields}.`,
+                `We’ll exclude ${filters}; we’ll follow ${privacy} and apply checks: ${quality}.`
+            ].join(' ');
+
+            const checklist = [
+                `Quick Pre-Upload Checklist`,
+                `□ File has the columns in the right order`,
+                `□ Row level matches plan: ${grain}`,
+                `□ IDs are consistent (no duplicates)`,
+                `□ Filters applied: ${filters}`,
+                `□ No PII included unless approved (${privacy})`,
+                `□ Spot check for missing/outliers`
+            ].join('\n');
+
+            const out = `BEGINNER SUMMARY\n${summary}\n\n— — —\n\nQC CHECKLIST\n${checklist}`;
+            setOut('dp_output', out);
+        };
+
+        window.copyDPExplainPrompt = () => {
+            const spec = ($('dp_output')?.textContent || '').trim();
+            const prompt = `You are a friendly, non-technical instructional coach. Rewrite the content below into: (1) a 3-sentence explanation a teacher can read aloud, and (2) a numbered, 7-step checklist. Keep language plain.\n\n---\n${spec}`;
+            copyTxt(prompt);
+            showToast('AI prompt copied.', 'info');
+        };
+
+        window.makeDataSpec = () => { 
+            const spec = [
+                `Goal/Decision: ${text('dp_goal')}`,
+                `Primary metric: ${text('dp_outcome')}`,
+                `Grain: ${text('dp_unit')}`,
+                `Window: ${text('dp_window')}`,
+                `Sources: ${text('dp_sources')}`,
+                `Join keys: ${text('dp_ids')}`,
+                `Fields: ${text('dp_fields')}`,
+                `Filters: ${text('dp_filters')}`,
+                `Privacy: ${text('dp_privacy')}`,
+                `Quality: ${text('dp_quality')}`
+            ].join('\n');
+            setOut('dp_output', spec);
+        };
+
+        window.downloadCSVTemplate = () => {
+            const cols = (text('dp_fields') || 'student_id,date,present,period,reason_code').split(/\s*,\s*/).join(',');
+            dl('template.csv', cols + '\n');
+        };
+        window.downloadPrepChecklist = () => {
+            const ck = `Checklist
+    [ ] Fields named and ordered
+    [ ] Grain matches question
+    [ ] IDs consistent across tables
+    [ ] Filters declared
+    [ ] Privacy (no PII in uploads)
+    [ ] Quality checks (missing/outliers)`;
+            dl('data-prep-checklist.txt', ck);
+        };
+        window.copyDataPrompt = () => {
+            const p = `You are a data prep coach. Using the spec below, generate:
+    1) a schema with column names/types,
+    2) sample rows,
+    3) a quality-check list.
+    
+    Spec:
+    ${$('dp_output')?.textContent || '(fill the form first)'}`;
+            copyTxt(p);
+        };
+
+        /* ===== PLATFORM FINDER FUNCTIONS ===== */
+
+        /* Platform Finder → one-paragraph tradeoffs memo */
+        window.pfExplain = () => {
+            const goal    = $('pf_goal')?.value || 'create';
+            const inputs  = Array.from($('pf_inputs')?.selectedOptions || []).map(o=>o.value);
+            const outputs = Array.from($('pf_outputs')?.selectedOptions || []).map(o=>o.value);
+            const risk    = $('pf_risk')?.value || 'low';
+            const time    = $('pf_time')?.value || 'minutes';
+            const flags   = [
+                $('pf_privacy')?.checked ? 'student privacy/FERPA' : null,
+                $('pf_blocked')?.checked ? 'no installs allowed' : null,
+                $('pf_no_cost')?.checked ? 'no new cost' : null,
+                $('pf_low_skill')?.checked ? 'low technical skill' : null,
+                $('pf_offline')?.checked ? 'offline/export needed' : null
+            ].filter(Boolean);
+            const collab  = $('pf_collab')?.value || 'solo';
+
+            const memo = [
+                `Goal: ${goal}. Inputs: ${inputs.join(', ') || 'text'} → Outputs: ${outputs.join(', ') || 'document'}.`,
+                `Tradeoffs: risk = ${risk}; time-to-value = ${time}; collaboration = ${collab}; constraints = ${flags.join(', ') || 'none'}.`,
+                `Biggest watch-outs: ${risk === 'high' ? 'public/audit risk' : 'limited impact scope'}, ${flags.includes('student privacy/FERPA') ? 'privacy approvals' : 'standard usage'}, and ${collab !== 'team' ? 'limited co-editing' : 'team coordination required'}.`
+            ].join(' ');
+            setOut('pf_output', memo);
+        };
+
+        window.copyPFTradeoffsPrompt = () => {
+            const rec = ($('pf_output')?.textContent || '').trim();
+            const prompt = `You are an IT director. Using the text below, write a short memo (≤120 words) that explains: (1) biggest risk, (2) biggest limitation for the team, (3) whether this fits our time window. Use plain language and bullet points.\n\n---\n${rec}`;
+            copyTxt(prompt);
+            showToast('AI prompt copied.', 'info');
+        };
+
+        window.generatePlatformRec = () => { 
+            const goal = $('pf_goal')?.value || 'create';
+            const inputs = Array.from($('pf_inputs')?.selectedOptions || []).map(o => o.value);
+            const outputs = Array.from($('pf_outputs')?.selectedOptions || []).map(o => o.value);
+            const flags = [
+                $('pf_privacy')?.checked ? 'FERPA/PII' : null,
+                $('pf_blocked')?.checked ? 'no installs' : null,
+                $('pf_no_cost')?.checked ? 'free only' : null,
+                $('pf_low_skill')?.checked ? 'low skill' : null,
+                $('pf_offline')?.checked ? 'offline/export' : null,
+            ].filter(Boolean);
+            const collab = $('pf_collab')?.value;
+            const time = $('pf_time')?.value, risk = $('pf_risk')?.value;
+
+            const rec = `Goal: ${goal}
+Inputs: ${inputs.join(', ') || 'text'}
+Outputs: ${outputs.join(', ') || 'document'}
+Constraints: ${flags.join(' | ') || '—'}
+Collaboration: ${collab} | Time: ${time} | Risk: ${risk}
+
+Try:
+• General LLM (ChatGPT/Claude) for drafting.
+• Canva or Gamma for slides/docs from prompts.
+• Sheets/Excel for CSV analysis if data is sensitive.
+Search string:
+"${goal} ${inputs.join(' ')} to ${outputs.join(' ')} education ferpa template"`;
+
+            setOut('pf_output', rec);
+        };
+
+        window.downloadPFChecklist = () => dl('platform-checklist.txt',
+`Platform checklist
+[ ] Student-data compliant
+[ ] Export/download works
+[ ] Login friction acceptable
+[ ] Team/stakeholder workflow supported
+[ ] Cost: free/pilot/budgeted
+[ ] Time-to-value <= chosen window`);
+
+        window.copySearchString = () => {
+            const goal = $('pf_goal')?.value || 'create';
+            const inputs = Array.from($('pf_inputs')?.selectedOptions || []).map(o => o.value);
+            const outputs = Array.from($('pf_outputs')?.selectedOptions || []).map(o => o.value);
+            copyTxt(`"${goal} ${inputs.join(' ')} to ${outputs.join(' ')} education ferpa template"`);
+        };
+
+        /* ---------- RISEN Prompt Studio ---------- */
+        window.generateRISEN = () => {
+            const prompt = [
+                `R: Relevance: ${text('r-relevance')}`,
+                `I: Intent: ${text('i-intent')}`,
+                `S: Specificity (Context/Data): ${text('s-specificity')}`,
+                `E: Execution (Role/Format): ${text('e-execution') || '(e.g., Act as a curriculum coordinator, format as a 3-bullet summary)'}`,
+                `N: Navigation (Next Steps/Constraints): ${text('n-navigation') || '(e.g., Ask me three questions before executing; use Spanish)'}`
+            ].join('\n');
+            setOut('risen-output', prompt);
+        };
+        window.copyRISEN = () => copyTxt($('risen-output')?.textContent || '');
+
+        /* ---------- 3-Sentence Story ---------- */
+        window.generateStory = () => {
+            const story = [
+                `Audience: ${text('s_audience') || '(e.g., Parents, Board, 6th grade team)'}`,
+                `Current State (The Setup): ${text('s_current') || '(What are people doing now? The old way.)'}`,
+                `Action (The Pivot): ${text('s_action') || '(What new, specific habit are we doing?)'}`,
+                `Future State (The Win): ${text('s_future') || '(What’s the measurable outcome/impact in 6 weeks?)'}`,
+            ].join('\n');
+            setOut('story-output', story);
+        };
+        window.copyStory = () => copyTxt($('story-output')?.textContent || '');
+
+        /* ---------- 10-Day Plan (Sprint) ---------- */
+        window.generate10Day = () => {
+            const sprint = [
+                `Role/Audience: ${text('t_role') || '(e.g., Campus Instructional Team)'}`,
+                `Goal/Outcome: ${text('t_goal') || '(The measurable outcome from the Planner)'}`,
+                `Tool/Data: ${text('t_tool') || '(The specific tool/dashboard being used)'}`,
+                `Policy Check: ${text('t_policy') || '(The FERPA/local policy constraint)'}`,
+                `Day 1: ${text('t_d1') || 'Set up the tool/data and invite owners.'}`,
+                `Day 3: ${text('t_d3') || 'Owners use the tool and generate a first artifact (e.g., initial feedback, data view).'}`,
+                `Day 5: ${text('t_d5') || 'Huddle/PLC: Review artifacts and agree on the first small adjustment.'}`,
+                `Day 7: ${text('t_d7') || 'Owners apply the adjustment and generate a second artifact.'}`,
+                `Day 10: ${text('t_d10') || 'Report 6-week outcome forecast based on artifacts and adjust cadence.'}`,
+            ].join('\n');
+            setOut('ten-day-output', sprint);
+        };
+        window.copy10Day = () => copyTxt($('ten-day-output')?.textContent || '');
+        window.dl10Day = () => dl('10-day-sprint.txt', $('ten-day-output')?.textContent || '');
+
+        /* ---------- Process Plug-In ---------- */
+        window.generateProcessPlug = () => {
+            const plug = [
+                `Current Meeting/Process: ${text('p_current') || '(e.g., Campus PLC, Weekly Leadership Huddle)'}`,
+                `Problem/Pain Point: ${text('p_problem') || '(e.g., Data is discussed, but no action is taken.)'}`,
+                `Tool/Data to Plug In: ${text('p_tool') || '(e.g., Shared data dashboard, AI summary tool)'}`,
+                `The Plug-In (New Action/Time): ${text('p_plug') || '(e.g., Add a 10-minute "Action Audit" where a shared tool is used to generate the next step.)'}`,
+                `Owner of the Plug-In: ${text('p_owner') || '(e.g., Instructional Coach, PLC Lead)'}`,
+            ].join('\n');
+            setOut('process-plug-output', plug);
+        };
+        window.copyProcessPlug = () => copyTxt($('process-plug-output')?.textContent || '');
+
+        /* ---------- Sell It (Value Prop) ---------- */
+        window.generateSellIt = () => {
+            const value = [
+                `Product/Tool: ${text('v_tool')}`,
+                `Target Stakeholder: ${text('v_stakeholder')}`,
+                `Their Pain Point: ${text('v_pain')}`,
+                `Solution (The Habit): ${text('v_habit')}`,
+                `Value Proposition: ${text('v_value') || 'We do [HABIT] to solve [PAIN] which achieves [OUTCOME].'}`,
+            ].join('\n');
+            setOut('sell-output', value);
+        };
+        window.copySellIt = () => copyTxt($('sell-output')?.textContent || '');
+
+        /* ---------- Guided Mode (minimal) ---------- */
+        const guided = {
+            teacher: ['Pick tool', 'Write habit', 'Set outcome', 'Choose evidence'],
+            leader:  ['Pick dashboard', 'Schedule huddles', 'Name metric movement', 'Decide artifacts'],
+            central: ['Pick workflow', 'Cadence + owners', 'Risk/Policy', 'Evidence'],
+            coach:   ['Observe, Pick Tool', 'Target 1-2 Behavior', 'Set Growth Goal', 'Collect Artifacts'],
+        };
+        let gWho = 'teacher', gStep = 0;
+
+        window.startGuided = (who) => {
+            gWho = who; gStep = 1; 
+            $('guided-panel')?.classList.remove('hidden');
+            $('guided-why').textContent = 
+                who==='central' ? 'Lock a weekly habit that survives leadership churn.' :
+                who==='leader'  ? 'Tiny routines > giant plans. Ship a cadence.' :
+                who==='coach'   ? 'Focus on observable behavior change in small cycles.' :
+                                  'Aim for behavior change, not “played with a tool.”';
+            window.updateGuidedUI();
+        };
+
+        const updateGuidedUI = () => {
+            const steps = guided[gWho]; if (!steps) return;
+            const isFinished = gStep > steps.length;
+            
+            $('guided-step-num').textContent = isFinished ? 'Done' : gStep;
+            $('guided-step-title').textContent = isFinished ? 'All Steps Complete' : steps[gStep - 1];
+            $('guided-step-body').textContent = isFinished ? 
+                'Great work! You have covered all key planning steps. Review and share your plan.' :
+                'Use the fields below to fill this step; advance when you’ve written a concrete, observable behavior.';
+            
+            $('next-guided-btn').classList.toggle('hidden', isFinished);
+            $('prev-guided-btn').disabled = (gStep <= 1);
+        };
+
+        window.nextGuided = () => { 
+            gStep = Math.min(gStep + 1, guided[gWho].length + 1);
+            updateGuidedUI();
+        };
+        window.prevGuided = () => { 
+            gStep = Math.max(1, gStep - 1); 
+            updateGuidedUI();
+        };
+
+        /* ---------- Connect buttons (Instagram/Twitter/Email) ---------- */
+        window.openInsta = () => window.open('https://instagram.com/cultureaintjustcupcaskes','_blank');
+        window.openTwitter = () => window.open('https://twitter.com/Msedbostic','_blank');
+        window.openHireMe = () => {
+            const body = `Hello Elizabeth,%0D%0A%0D%0AI'm interested in PD/consulting.%0D%0A
+        Role/Audience:%0D%0A
+        Goal/Outcome:%0D%0A
+        Dates/Timeline:%0D%0A
+        Constraints (FERPA, cost, etc.):%0D%0A
+        Thanks!`;
+            location.href = `mailto:edbostic83@gmail.com?subject=PD/Consulting%20Inquiry&body=${body}`;
+        };
+    </script>
+    </body>
 </html>
